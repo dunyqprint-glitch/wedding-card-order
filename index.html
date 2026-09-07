@@ -1,30 +1,241 @@
-<section style="max-width: 800px; margin: auto; padding: 20px; font-family: sans-serif; text-align: center;">
-  <h2 style="color: #333; margin-bottom: 8px;">10 ดีไซน์การ์ดแต่งงานยอดนิยม</h2>
-  <p style="color: #666; margin-bottom: 24px;">ขนาด 4x6 นิ้ว หน้าเดียว ใบละ 3 บาท (จดรหัสเพื่อกรอกสั่งซื้อ)</p>
-
-  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DUNYA Print - การ์ดแต่งงานมินิมอล ใบละ 3 บาท</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; }
+    body { background-color: #fcfbf9; color: #2d3748; line-height: 1.6; }
+    .container { max-width: 680px; margin: 0 auto; padding: 24px 16px; }
     
-    <!-- การ์ดแบบที่ 1 -->
-    <div style="background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-      <img src="images/dn-01.jpg" alt="แบบ DN-01" style="width: 100%; border-radius: 6px;">
-      <h3 style="margin: 10px 0 4px; font-size: 16px; color: #222;">DN-01</h3>
-      <span style="font-size: 13px; color: #777;">Minimal Greenery</span>
+    /* Hero */
+    .hero { text-align: center; padding: 32px 16px 24px; background: #fff; border-radius: 16px; border: 1px solid #ede8e1; margin-bottom: 24px; }
+    .badge-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
+    .badge { background: #f4eee5; color: #7c5835; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+    h1 { font-size: 26px; color: #1a202c; margin-bottom: 12px; line-height: 1.3; }
+    .subhead { font-size: 15px; color: #718096; margin-bottom: 24px; }
+    .btn-primary { display: block; width: 100%; max-width: 380px; margin: 0 auto; background: #1a202c; color: #fff; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 12px; font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .btn-line { display: block; width: 100%; max-width: 380px; margin: 10px auto 0; background: #06c755; color: #fff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 12px; font-weight: 600; font-size: 15px; }
+
+    /* Sections */
+    .card-section { background: #fff; border-radius: 16px; border: 1px solid #ede8e1; padding: 24px 20px; margin-bottom: 24px; }
+    h2 { font-size: 20px; margin-bottom: 16px; text-align: center; color: #1a202c; }
+    .spec-list { list-style: none; margin-bottom: 20px; font-size: 14px; }
+    .spec-list li { padding: 6px 0; border-bottom: 1px dashed #edf2f7; }
+
+    /* Table */
+    .table-box { overflow-x: auto; margin-top: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+    th, td { padding: 10px 8px; border-bottom: 1px solid #edf2f7; }
+    th { background: #f7fafc; color: #4a5568; }
+    .highlight-price { color: #c53030; font-weight: 700; }
+
+    /* Catalog Grid */
+    .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+    .catalog-item { border: 1px solid #edf2f7; border-radius: 10px; overflow: hidden; background: #fafafa; text-align: center; padding-bottom: 8px; }
+    .catalog-item img { width: 100%; height: auto; display: block; }
+    .catalog-item .code { font-weight: 700; font-size: 14px; margin-top: 6px; color: #1a202c; }
+    .catalog-item .desc { font-size: 12px; color: #718096; }
+
+    /* Steps */
+    .step-item { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
+    .step-num { width: 28px; height: 28px; background: #f4eee5; color: #7c5835; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-text h3 { font-size: 15px; margin-bottom: 2px; }
+    .step-text p { font-size: 13px; color: #718096; }
+
+    /* FAQ */
+    .faq-item { margin-bottom: 14px; }
+    .faq-q { font-weight: 600; font-size: 14px; color: #2d3748; }
+    .faq-a { font-size: 13px; color: #718096; margin-top: 2px; }
+
+    /* Footer */
+    .footer-cta { text-align: center; padding: 20px 0; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 1. Hero Section -->
+  <section class="hero">
+    <div class="badge-group">
+      <span class="badge">⚡ ตรวจแบบฟรี</span>
+      <span class="badge">📦 ผลิตไว 2–3 วัน</span>
+      <span class="badge">🎨 10 ดีไซน์ยอดนิยม</span>
     </div>
+    <h1>การ์ดแต่งงานมินิมอล ดีไซน์พรีเมียม<br><span style="color: #c53030;">เพียงใบละ 3 บาท!</span></h1>
+    <p class="subhead">คมชัด กระดาษหนา ไม่ต้องเสียเวลาออกแบบเอง มีแคตตาล็อกให้เลือก จบงานไวพร้อมส่งถึงหน้าบ้าน</p>
+    <!-- ใส่ลิงก์ฟอร์ม Notion หรือ Tally ของคุณใน href -->
+    <a href="#order-form" class="btn-primary">💍 กดเลือกแบบและสั่งทำการ์ดที่นี่</a>
+    <!-- ใส่ลิงก์ LINE OA ของคุณใน href -->
+    <a href="https://line.me/ti/p/~YOUR_LINE_ID" class="btn-line">💬 ปรึกษา / สอบถามผ่าน LINE</a>
+  </section>
 
-    <!-- การ์ดแบบที่ 2 -->
-    <div style="background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-      <img src="images/dn-02.jpg" alt="แบบ DN-02" style="width: 100%; border-radius: 6px;">
-      <h3 style="margin: 10px 0 4px; font-size: 16px; color: #222;">DN-02</h3>
-      <span style="font-size: 13px; color: #777;">Modern Monogram</span>
+  <!-- 2. Pricing & Specs -->
+  <section class="card-section">
+    <h2>รายละเอียดและตารางราคา</h2>
+    <ul class="spec-list">
+      <li><strong>ขนาดการ์ด:</strong> 4 x 6 นิ้ว (โปสการ์ดยอดนิยม จับถนัดมือ)</li>
+      <li><strong>เนื้อกระดาษ:</strong> อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม</li>
+      <li><strong>ระบบพิมพ์:</strong> ความละเอียดสูง สีสด คมชัด ตัวหนังสืออ่านง่าย</li>
+      <li><strong>รูปแบบ:</strong> การ์ดหน้าเดียว (Single-Sided) คลีนตามินิมอล</li>
+    </ul>
+
+    <div class="table-box">
+      <table>
+        <thead>
+          <tr>
+            <th>จำนวน</th>
+            <th>ราคา/ใบ</th>
+            <th>ราคารวม</th>
+            <th>เหมาะสำหรับ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>100 ใบ</td>
+            <td>3.50 บ.</td>
+            <td>350 บ.</td>
+            <td>งานเล็ก / เลี้ยงคนสนิท</td>
+          </tr>
+          <tr>
+            <td>200 ใบ</td>
+            <td class="highlight-price">3.00 บ.</td>
+            <td>600 บ.</td>
+            <td>ขนาดมาตรฐาน คุ้มค่าที่สุด</td>
+          </tr>
+          <tr>
+            <td>300 ใบ</td>
+            <td class="highlight-price">3.00 บ.</td>
+            <td>900 บ.</td>
+            <td>งานเลี้ยงขนาดกลาง</td>
+          </tr>
+          <tr>
+            <td>500 ใบ</td>
+            <td class="highlight-price">2.80 บ.</td>
+            <td>1,400 บ.</td>
+            <td>งานเลี้ยงใหญ่ ประหยัดงบ</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <p style="font-size: 12px; color: #a0aec0; margin-top: 10px; text-align: center;">* ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง</p>
+  </section>
 
-    <!-- สามารถคัดลอกบล็อกด้านบน เพิ่มไปจนครบ DN-10 -->
+  <!-- 3. Ready-to-Print Catalog -->
+  <section class="card-section">
+    <h2>10 ดีไซน์การ์ดสำเร็จรูป</h2>
+    <p style="text-align: center; font-size: 13px; color: #718096; margin-bottom: 12px;">เลือกรหัสแบบที่ถูกใจ เพื่อนำไปกรอกในแบบฟอร์มสั่งทำ</p>
+    
+    <div class="catalog-grid">
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-01" alt="DN-01">
+        <div class="code">DN-01</div>
+        <div class="desc">Minimal Greenery</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-02" alt="DN-02">
+        <div class="code">DN-02</div>
+        <div class="desc">Modern Monogram</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-03" alt="DN-03">
+        <div class="code">DN-03</div>
+        <div class="desc">Sweet Pastel Rose</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-04" alt="DN-04">
+        <div class="code">DN-04</div>
+        <div class="desc">Gold Geometric</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-05" alt="DN-05">
+        <div class="code">DN-05</div>
+        <div class="desc">Thai Contemporary</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-06" alt="DN-06">
+        <div class="code">DN-06</div>
+        <div class="desc">Boho Earth Tone</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-07" alt="DN-07">
+        <div class="code">DN-07</div>
+        <div class="desc">Navy & White Floral</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-08" alt="DN-08">
+        <div class="code">DN-08</div>
+        <div class="desc">Soft Ombre Watercolor</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-09" alt="DN-09">
+        <div class="code">DN-09</div>
+        <div class="desc">Minimal Typography</div>
+      </div>
+      <div class="catalog-item">
+        <img src="https://placehold.co/400x600/f5f5f5/333333?text=DN-10" alt="DN-10">
+        <div class="code">DN-10</div>
+        <div class="desc">Garden Foliage</div>
+      </div>
+    </div>
+  </section>
 
-  </div>
+  <!-- 4. How to Order -->
+  <section class="card-section">
+    <h2>ขั้นตอนการสั่งทำง่ายๆ 3 สเต็ป</h2>
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <h3>เลือกแบบและส่งข้อมูล</h3>
+        <p>เลือกรหัสแบบที่ชอบ กรอกชื่อ วันที่ กำหนดการ และสถานที่ผ่านแบบฟอร์ม</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <h3>ตรวจแบบผ่าน LINE</h3>
+        <p>ทีมงานจัดวางข้อความ ส่งภาพตัวอย่างให้ตรวจทานภายใน 24 ชม. (ตรวจฟรี 1 รอบ)</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <h3>ผลิตและรอรับของ</h3>
+        <p>ยืนยันแบบและยอดมัดจำ ทีมงานพิมพ์ ตัด แพ็ก และแจ้งเลขพัสดุทันทีที่จัดส่ง</p>
+      </div>
+    </div>
+  </section>
 
-  <div style="margin-top: 30px;">
-    <a href="#order-form" style="background: #111; color: #fff; padding: 12px 28px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
-      สั่งทำการ์ดแต่งงาน (คลิกกรอกแบบฟอร์ม)
-    </a>
-  </div>
-</section>
+  <!-- 5. FAQ -->
+  <section class="card-section">
+    <h2>คำถามที่พบบ่อย (FAQ)</h2>
+    <div class="faq-item">
+      <div class="faq-q">❓ มีขั้นต่ำในการสั่งซื้อไหม?</div>
+      <div class="faq-a">สั่งซื้อขั้นต่ำเริ่มต้นเพียง 100 ใบขึ้นไปครับ</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">❓ แก้ไขแบบได้กี่ครั้ง?</div>
+      <div class="faq-a">เพื่อคุมเวลาผลิตและราคา 3 บาท สามารถตรวจทานและแก้คำสะกดได้ฟรี 1 รอบบนแบบที่เลือกครับ</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">❓ ควรเผื่อเวลาสั่งล่วงหน้ากี่วัน?</div>
+      <div class="faq-a">ใช้เวลาพิมพ์และจัดส่ง 2–4 วันทำการ (แนะนำสั่งล่วงหน้า 2–3 สัปดาห์ก่อนวันแจกการ์ดครับ)</div>
+    </div>
+  </section>
+
+  <!-- 6. Closing CTA & Form Area -->
+  <section class="card-section footer-cta" id="order-form">
+    <p style="font-size: 16px; font-weight: 600; margin-bottom: 6px;">"เตรียมงานแต่งอย่างสบายใจ ไม่ต้องจ่ายหลักหมื่น"</p>
+    <p style="font-size: 13px; color: #718096; margin-bottom: 20px;">ได้การ์ดสวย ตรงปก สเปกพิมพ์คมชัดแน่นอน</p>
+    
+    <!-- ใส่ URL ลิงก์ฟอร์ม Notion Form ของคุณตรงนี้ -->
+    <a href="วางลิงก์_NOTION_FORM_ตรงนี้" target="_blank" class="btn-primary" style="margin-bottom: 12px;">📲 สั่งทำการ์ดแต่งงาน (คลิกกรอกแบบฟอร์ม)</a>
+    <a href="https://line.me/ti/p/~YOUR_LINE_ID" target="_blank" class="btn-line">💬 สอบถามเพิ่มเติมผ่าน LINE</a>
+  </section>
+
+</div>
+
+</body>
+</html>
