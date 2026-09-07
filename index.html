@@ -4,10 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DUNYA Print - การ์ดแต่งงานมินิมอล ใบละ 3 บาท</title>
+  <!-- สคริปต์แปลงภาพสำหรับดาวน์โหลด -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; }
     body { background-color: #fbf9f5; color: #2d3748; line-height: 1.6; }
     .container { max-width: 640px; margin: 0 auto; padding: 20px 16px; }
+
+    /* แถบควบคุมแอดมินสำหรับสลับโหมดแก้ / ล็อก */
+    .admin-bar { background: #edf2f7; border: 1px dashed #cbd5e0; border-radius: 12px; padding: 10px 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+    .btn-toggle { background: #2b6cb0; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px; }
+    .btn-toggle.locked { background: #4a5568; }
 
     /* ส่วนหัว Hero */
     .hero { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 32px 20px; text-align: center; margin-bottom: 20px; }
@@ -17,15 +24,17 @@
     .price-tag { color: #c53030; font-weight: 800; font-size: 26px; }
     .subhead { font-size: 14px; color: #718096; margin-bottom: 22px; }
 
-    /* ปุ่มกดหลัก */
     .btn-main { display: block; width: 100%; max-width: 360px; margin: 0 auto 10px; background: #1a202c; color: #ffffff; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; border: none; }
+    .btn-secondary { display: block; width: 100%; max-width: 360px; margin: 0 auto 10px; background: #4a5568; color: #ffffff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; }
     .btn-line { display: block; width: 100%; max-width: 360px; margin: 0 auto; background: #06c755; color: #ffffff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
 
-    /* กล่องการ์ดเนื้อหา */
-    .box { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 24px 18px; margin-bottom: 20px; }
+    /* กล่องข้อมูล ยืด-หด ความสูงอัตโนมัติตามเนื้อหา */
+    .box { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 24px 18px; margin-bottom: 20px; height: auto; min-height: fit-content; }
     h2 { font-size: 18px; color: #1a202c; text-align: center; margin-bottom: 16px; }
 
-    /* ตารางราคา */
+    /* สไตล์เวลาอยู่ในโหมดแก้ไข */
+    .editable-active { outline: 2px dashed #3182ce !important; background: #ebf8ff; border-radius: 4px; padding: 2px 4px; }
+
     table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
     th, td { padding: 10px 8px; border-bottom: 1px solid #edf2f7; text-align: left; }
     th { background: #f7fafc; color: #4a5568; }
@@ -38,23 +47,20 @@
     .card-code { font-weight: bold; font-size: 14px; margin-top: 8px; color: #2d3748; }
     .card-name { font-size: 11px; color: #718096; padding: 0 4px; word-break: break-word; }
 
-    /* ฟอร์มปรับแต่งสด */
+    /* การปรับแต่งสด & Mockup */
     .form-group { margin-bottom: 12px; text-align: left; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; color: #4a5568; }
     .form-control { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 14px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    /* กรอบจำลองการ์ด 4x6 นิ้ว */
-    .card-mockup-wrapper { width: 100%; max-width: 320px; aspect-ratio: 4/6; margin: 16px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.12); position: relative; background-size: cover; background-position: center; border: 1px solid #e2e8f0; }
+    .card-mockup-wrapper { width: 100%; max-width: 320px; aspect-ratio: 4/6; margin: 16px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.12); position: relative; background-size: cover; background-position: center; border: 1px solid #e2e8f0; background-color: #fff; }
     .card-overlay { position: absolute; inset: 0; padding: 24px 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: rgba(255,255,255,0.25); }
 
-    /* ลำดับขั้นตอน */
     .step { display: flex; gap: 12px; margin-bottom: 14px; }
     .step-badge { width: 26px; height: 26px; background: #f3ede2; color: #825e38; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 13px; flex-shrink: 0; }
     .step-detail h3 { font-size: 14px; margin-bottom: 2px; }
     .step-detail p { font-size: 12px; color: #718096; }
 
-    /* FAQ */
     .faq { margin-bottom: 12px; font-size: 13px; }
     .faq-q { font-weight: 600; color: #2d3748; }
     .faq-a { color: #718096; margin-top: 2px; }
@@ -63,6 +69,12 @@
 <body>
 
 <div class="container">
+
+  <!-- แถบเครื่องมือควบคุมการแก้ไข -->
+  <div class="admin-bar">
+    <span id="editStatus">🔒 โหมด: <strong>ลูกค้าดูอย่างเดียว (ล็อก)</strong></span>
+    <button class="btn-toggle" id="toggleEditBtn" onclick="toggleEditMode()">✏️ เปิดโหมดแก้ไขข้อความ</button>
+  </div>
 
   <!-- 1. ส่วนหัว Hero -->
   <section class="hero">
@@ -78,53 +90,55 @@
     <a href="https://line.me/ti/p/~ใส่_ไอดีไลน์_ที่นี่" target="_blank" class="btn-line">💬 ปรึกษา / สอบถามผ่าน LINE</a>
   </section>
 
-  <!-- 2. สเปกและตารางราคา -->
-  <section class="box">
-    <h2>สเปกสินค้า & ตารางราคา</h2>
-    <p style="font-size: 13px; color: #4a5568; margin-bottom: 10px;">
-      • ขนาดมาตรฐาน: <strong>4 x 6 นิ้ว (โปสการ์ด) หน้าเดียว</strong><br>
-      • เนื้อกระดาษ: <strong>อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม</strong>
-    </p>
+  <!-- 2. สเปกและตารางราคา (กล่องปรับความสูงอัตโนมัติตามเนื้อหา) -->
+  <section class="box" id="priceBox">
+    <div id="editablePriceArea">
+      <h2>สเปกสินค้า & ตารางราคา</h2>
+      <p style="font-size: 13px; color: #4a5568; margin-bottom: 10px;">
+        • ขนาดมาตรฐาน: <strong>4 x 6 นิ้ว (โปสการ์ด) หน้าเดียว</strong><br>
+        • เนื้อกระดาษ: <strong>อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม</strong>
+      </p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>จำนวน</th>
-          <th>ราคา/ใบ</th>
-          <th>ยอดรวม</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>100 ใบ</td>
-          <td>3.50 บ.</td>
-          <td>350 บ.</td>
-        </tr>
-        <tr>
-          <td>200 ใบ</td>
-          <td class="text-red">3.00 บ.</td>
-          <td>600 บ.</td>
-        </tr>
-        <tr>
-          <td>300 ใบ</td>
-          <td class="text-red">3.00 บ.</td>
-          <td>900 บ.</td>
-        </tr>
-        <tr>
-          <td>500 ใบ</td>
-          <td class="text-red">2.80 บ.</td>
-          <td>1,400 บ.</td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="font-size: 11px; color: #a0aec0; margin-top: 8px; text-align: center;">* ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง</p>
+      <table>
+        <thead>
+          <tr>
+            <th>จำนวน</th>
+            <th>ราคา/ใบ</th>
+            <th>ยอดรวม</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>100 ใบ</td>
+            <td>3.50 บ.</td>
+            <td>350 บ.</td>
+          </tr>
+          <tr>
+            <td>200 ใบ</td>
+            <td class="text-red">3.00 บ.</td>
+            <td>600 บ.</td>
+          </tr>
+          <tr>
+            <td>300 ใบ</td>
+            <td class="text-red">3.00 บ.</td>
+            <td>900 บ.</td>
+          </tr>
+          <tr>
+            <td>500 ใบ</td>
+            <td class="text-red">2.80 บ.</td>
+            <td>1,400 บ.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 11px; color: #a0aec0; margin-top: 8px; text-align: center;">* ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง</p>
+    </div>
   </section>
 
-  <!-- 3. โซนปรับแต่งสด (Live Customizer) -->
+  <!-- 3. โซนปรับแต่งสด & ดาวน์โหลดรูปการ์ด -->
   <section class="box" id="customizer">
     <h2>💍 ทดลองปรับแต่งการ์ดแต่งงานของคุณ</h2>
     <p style="font-size: 12px; color: #718096; text-align: center; margin-bottom: 16px;">
-      พิมพ์รายละเอียดเพื่อดูตัวอย่างแบบเสมือนจริงทันที
+      พิมพ์รายละเอียดเพื่อดูตัวอย่าง และกดบันทึกรูปภาพได้ทันที
     </p>
 
     <div class="form-group">
@@ -155,7 +169,7 @@
       <input type="text" id="venueInput" class="form-control" value="ห้องแกรนด์บอลรูม โรงแรมพรีเมียม กทม.">
     </div>
 
-    <!-- กรอบแสดงผลการ์ด 4x6 นิ้ว -->
+    <!-- ชิ้นงานการ์ด 4x6 นิ้ว -->
     <div class="card-mockup-wrapper" id="cardPreview">
       <div class="card-overlay">
         <p style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #4a5568; margin-bottom: 8px;">Wedding Invitation</p>
@@ -168,8 +182,13 @@
       </div>
     </div>
 
-    <button onclick="goToOrder()" class="btn-main" style="margin-top: 14px;">
-      ✨ ใช้ข้อมูลนี้สั่งทำการ์ด (ไปยังฟอร์ม)
+    <!-- ปุ่มดาวน์โหลดภาพการ์ด -->
+    <button type="button" onclick="downloadCardPreview()" class="btn-secondary">
+      📥 ดาวน์โหลดภาพการ์ดตัวอย่าง (PNG)
+    </button>
+
+    <button type="button" onclick="goToOrder()" class="btn-main">
+      ✨ ใช้ข้อมูลนี้สั่งทำการ์ด 3 บาท
     </button>
   </section>
 
@@ -225,9 +244,9 @@
     </div>
   </section>
 
-  <!-- ส่วนท้ายหน้า -->
+  <!-- ท้ายหน้า -->
   <section style="text-align: center; padding: 10px 0 30px;">
-    <button onclick="goToOrder()" class="btn-main">💍 สั่งทำการ์ดแต่งงาน (คลิกกรอกฟอร์ม)</button>
+    <button type="button" onclick="goToOrder()" class="btn-main">💍 สั่งทำการ์ดแต่งงาน (คลิกกรอกฟอร์ม)</button>
     <a href="https://line.me/ti/p/~ใส่_ไอดีไลน์_ที่นี่" target="_blank" class="btn-line">💬 ปรึกษา / สอบถามผ่าน LINE</a>
   </section>
 
@@ -250,6 +269,41 @@
   const previewVenue = document.getElementById('previewVenue');
   const catalogContainer = document.getElementById('catalog-container');
 
+  const editablePriceArea = document.getElementById('editablePriceArea');
+  const toggleEditBtn = document.getElementById('toggleEditBtn');
+  const editStatus = document.getElementById('editStatus');
+
+  let isEditMode = false;
+
+  // โหลดข้อมูลราคาที่เคยบันทึกไว้ในเบราว์เซอร์
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedPriceContent = localStorage.getItem('dunya_price_content');
+    if (savedPriceContent) {
+      editablePriceArea.innerHTML = savedPriceContent;
+    }
+  });
+
+  // ฟังก์ชันสลับโหมด แก้ไขข้อความ / ล็อกมุมมอง
+  function toggleEditMode() {
+    isEditMode = !isEditMode;
+    if (isEditMode) {
+      editablePriceArea.contentEditable = "true";
+      editablePriceArea.classList.add('editable-active');
+      toggleEditBtn.innerText = "💾 บันทึกข้อความ & ล็อก";
+      toggleEditBtn.classList.add('locked');
+      editStatus.innerHTML = "✏️ โหมด: <strong style='color:#2b6cb0;'>กำลังแก้ไขข้อความ</strong>";
+    } else {
+      editablePriceArea.contentEditable = "false";
+      editablePriceArea.classList.remove('editable-active');
+      localStorage.setItem('dunya_price_content', editablePriceArea.innerHTML);
+      toggleEditBtn.innerText = "✏️ เปิดโหมดแก้ไขข้อความ";
+      toggleEditBtn.classList.remove('locked');
+      editStatus.innerHTML = "🔒 โหมด: <strong>ลูกค้าดูอย่างเดียว (ล็อก)</strong>";
+      alert("บันทึกการแก้ไขเรียบร้อยแล้ว!");
+    }
+  }
+
+  // อัปเดตข้อความบนการ์ดตัวอย่าง
   function updateCard() {
     if (templateSelect.value) {
       cardPreview.style.backgroundImage = `url('${templateSelect.value}')`;
@@ -261,14 +315,23 @@
     previewVenue.innerText = venueInput.value.trim() || 'สถานที่จัดงาน';
   }
 
-  // ผูกการพิมพ์เข้ากับการอัปเดตหน้าจอสด
   templateSelect.addEventListener('change', updateCard);
   groomInput.addEventListener('input', updateCard);
   brideInput.addEventListener('input', updateCard);
   dateInput.addEventListener('input', updateCard);
   venueInput.addEventListener('input', updateCard);
 
-  // ดึงรูปภาพจาก GitHub Repository เข้าสู่ระบบ
+  // ระบบดาวน์โหลดภาพการ์ดตัวอย่าง
+  function downloadCardPreview() {
+    html2canvas(cardPreview, { scale: 3, useCORS: true }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = `wedding-card-${groomInput.value || 'preview'}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+
+  // ดึงไฟล์ภาพจาก GitHub อัตโนมัติ
   fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents`)
     .then(res => res.json())
     .then(files => {
@@ -281,13 +344,11 @@
         return;
       }
 
-      // นำรูปภาพใส่ใน Select Dropdown
       templateSelect.innerHTML = images.map((img, i) => {
         const code = `DN-${String(i + 1).padStart(2, '0')}`;
         return `<option value="${img.name}">${code} (${img.name})</option>`;
       }).join('');
 
-      // นำรูปภาพแสดงในแคตตาล็อก Grid
       catalogContainer.innerHTML = images.map((img, i) => {
         const code = `DN-${String(i + 1).padStart(2, '0')}`;
         const cleanName = img.name.replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
@@ -300,7 +361,6 @@
         `;
       }).join('');
 
-      // รันตั้งค่าพื้นหลังการ์ดใบแรก
       updateCard();
     })
     .catch(() => {
