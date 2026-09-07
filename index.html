@@ -1,224 +1,51 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DUNYA Print - การ์ดแต่งงานมินิมอล ใบละ 3 บาท</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #fbf9f5; color: #2d3748; line-height: 1.6; }
-    .container { max-width: 640px; margin: 0 auto; padding: 20px 16px; }
-
-    /* ส่วนหัว */
-    .hero { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 32px 20px; text-align: center; margin-bottom: 20px; }
-    .badges { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-    .badge { background: #f3ede2; color: #825e38; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
-    h1 { font-size: 24px; color: #1a202c; margin-bottom: 10px; line-height: 1.3; }
-    .price-tag { color: #c53030; font-weight: 800; font-size: 26px; }
-    .subhead { font-size: 14px; color: #718096; margin-bottom: 22px; }
-
-    /* ปุ่มกด Call to Action */
-    .btn-main { display: block; width: 100%; max-width: 360px; margin: 0 auto 10px; background: #1a202c; color: #ffffff; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
-    .btn-line { display: block; width: 100%; max-width: 360px; margin: 0 auto; background: #06c755; color: #ffffff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
-
-    /* การ์ดเนื้อหา */
-    .box { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 24px 18px; margin-bottom: 20px; }
-    h2 { font-size: 18px; color: #1a202c; text-align: center; margin-bottom: 16px; }
-
-    /* ตารางราคา */
-    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
-    th, td { padding: 10px 8px; border-bottom: 1px solid #edf2f7; text-align: left; }
-    th { background: #f7fafc; color: #4a5568; }
-    .text-red { color: #c53030; font-weight: bold; }
-
-    /* แคตตาล็อกรูปภาพ 2 คอลัมน์ */
-    .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
-    .catalog-card { background: #ffffff; border: 1px solid #edf2f7; border-radius: 10px; overflow: hidden; text-align: center; padding-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-    .catalog-card img { width: 100%; aspect-ratio: 4/6; object-fit: cover; display: block; background: #eee; }
-    .card-code { font-weight: bold; font-size: 14px; margin-top: 8px; color: #2d3748; }
-    .card-name { font-size: 12px; color: #718096; }
-
-    /* ขั้นตอนสั่งทำ */
-    .step { display: flex; gap: 12px; margin-bottom: 14px; }
-    .step-badge { width: 26px; height: 26px; background: #f3ede2; color: #825e38; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 13px; flex-shrink: 0; }
-    .step-detail h3 { font-size: 14px; margin-bottom: 2px; }
-    .step-detail p { font-size: 12px; color: #718096; }
-
-    /* คำถามที่พบบ่อย */
-    .faq { margin-bottom: 12px; font-size: 13px; }
-    .faq-q { font-weight: 600; color: #2d3748; }
-    .faq-a { color: #718096; margin-top: 2px; }
-  </style>
-</head>
-<body>
-
-<div class="container">
-
-  <!-- ส่วนที่ 1: หน้าแรก Hero -->
-  <section class="hero">
-    <div class="badges">
-      <span class="badge">⚡ ตรวจแบบฟรี 1 ครั้ง</span>
-      <span class="badge">📦 ผลิตไว 2–3 วัน</span>
-      <span class="badge">🎨 10 ดีไซน์ยอดนิยม</span>
-    </div>
-    <h1>การ์ดแต่งงานมินิมอล สวยพรีเมียม<br><span class="price-tag">เพียงใบละ 3 บาท!</span></h1>
-    <p class="subhead">กระดาษอาร์ตการ์ดพรีเมียมหนา คมชัด ไม่ต้องออกแบบเอง แค่เลือกลายแล้วกรอกข้อมูล</p>
-    
-    <a href="ใส่_URL_NOTION_FORM_ที่นี่" target="_blank" class="btn-main">💍 สั่งทำการ์ดแต่งงาน (คลิกกรอกฟอร์ม)</a>
-    <a href="https://line.me/ti/p/~ใส่_ไอดีไลน์_ที่นี่" target="_blank" class="btn-line">💬 สอบถามเพิ่มเติมผ่าน LINE</a>
-  </section>
-
-  <!-- ส่วนที่ 2: สเปกและราคา -->
+<!-- ส่วนที่ 3: แคตตาล็อก 10 ดีไซน์ (ระบบดึงรูปและชื่ออัตโนมัติจาก GitHub) -->
   <section class="box">
-    <h2>สเปกสินค้า & ตารางราคา</h2>
-    <p style="font-size: 13px; color: #4a5568; margin-bottom: 10px;">
-      • ขนาดมาตรฐาน: <strong>4 x 6 นิ้ว (โปสการ์ด) หน้าเดียว</strong><br>
-      • เนื้อกระดาษ: <strong>อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม</strong>
-    </p>
+    <h2>ดีไซน์การ์ดสำเร็จรูป</h2>
+    <p style="font-size: 12px; color: #718096; text-align: center; margin-bottom: 12px;">จดรหัสแบบที่ชอบ เพื่อนำไปกรอกในแบบฟอร์มสั่งทำ</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>จำนวน</th>
-          <th>ราคา/ใบ</th>
-          <th>ยอดรวม</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>100 ใบ</td>
-          <td>3.50 บ.</td>
-          <td>350 บ.</td>
-        </tr>
-        <tr>
-          <td>200 ใบ</td>
-          <td class="text-red">3.00 บ.</td>
-          <td>600 บ.</td>
-        </tr>
-        <tr>
-          <td>300 ใบ</td>
-          <td class="text-red">3.00 บ.</td>
-          <td>900 บ.</td>
-        </tr>
-        <tr>
-          <td>500 ใบ</td>
-          <td class="text-red">2.80 บ.</td>
-          <td>1,400 บ.</td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="font-size: 11px; color: #a0aec0; margin-top: 8px; text-align: center;">* ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง</p>
-  </section>
-
-  <!-- ส่วนที่ 3: แคตตาล็อก 10 แบบ -->
-  <section class="box">
-    <h2>10 ดีไซน์การ์ดสำเร็จรูป</h2>
-    <p style="font-size: 12px; color: #718096; text-align: center; margin-bottom: 12px;">จดรหัสแบบที่ชอบ เพื่อนำไปเลือกในแบบฟอร์มสั่งทำ</p>
-
-    <div class="catalog-grid">
-      <div class="catalog-card">
-        <img src="dn-01.jpg" alt="DN-01">
-        <div class="card-code">DN-01</div>
-        <div class="card-name">Minimal Greenery</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-02.jpg" alt="DN-02">
-        <div class="card-code">DN-02</div>
-        <div class="card-name">Modern Monogram</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-03.jpg" alt="DN-03">
-        <div class="card-code">DN-03</div>
-        <div class="card-name">Sweet Pastel Rose</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-04.jpg" alt="DN-04">
-        <div class="card-code">DN-04</div>
-        <div class="card-name">Gold Geometric</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-05.jpg" alt="DN-05">
-        <div class="card-code">DN-05</div>
-        <div class="card-name">Thai Contemporary</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-06.jpg" alt="DN-06">
-        <div class="card-code">DN-06</div>
-        <div class="card-name">Boho Earth Tone</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-07.jpg" alt="DN-07">
-        <div class="card-code">DN-07</div>
-        <div class="card-name">Navy & White Floral</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-08.jpg" alt="DN-08">
-        <div class="card-code">DN-08</div>
-        <div class="card-name">Soft Ombre Watercolor</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-09.jpg" alt="DN-09">
-        <div class="card-code">DN-09</div>
-        <div class="card-name">Minimal Typography</div>
-      </div>
-      <div class="catalog-card">
-        <img src="dn-10.jpg" alt="DN-10">
-        <div class="card-code">DN-10</div>
-        <div class="card-name">Garden Foliage</div>
-      </div>
+    <!-- กล่องแสดงรูปภาพแบบไดนามิก -->
+    <div id="catalog-container" class="catalog-grid">
+      <p style="grid-column: span 2; text-align: center; color: #a0aec0; padding: 20px 0;">กำลังโหลดลายการ์ด...</p>
     </div>
   </section>
 
-  <!-- ส่วนที่ 4: ขั้นตอนสั่งงาน -->
-  <section class="box">
-    <h2>ขั้นตอนการสั่งทำ</h2>
-    <div class="step">
-      <div class="step-badge">1</div>
-      <div class="step-detail">
-        <h3>เลือกลายและส่งบรีฟ</h3>
-        <p>เลือกรหัสลายที่ชอบ กรอกชื่อ วันที่ กำหนดการ และสถานที่ผ่านแบบฟอร์ม</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-badge">2</div>
-      <div class="step-detail">
-        <h3>ตรวจแบบผ่าน LINE</h3>
-        <p>ทีมงานจัดวางข้อความ ส่งตัวอย่างให้ตรวจทานทาง LINE ภายใน 24 ชม. (ฟรี 1 รอบ)</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-badge">3</div>
-      <div class="step-detail">
-        <h3>ผลิตและจัดส่ง</h3>
-        <p>ยืนยันแบบและยอดมัดจำ ทีมงานพิมพ์ ตัด แพ็ก และแจ้งเลขพัสดุทันทีที่ส่งมอบ</p>
-      </div>
-    </div>
-  </section>
+  <script>
+    // สคริปต์ดึงไฟล์รูปภาพจาก GitHub Repository อัตโนมัติ
+    const repoOwner = 'dunyqprint-glitch';
+    const repoName = 'wedding-card-order';
 
-  <!-- ส่วนที่ 5: FAQ -->
-  <section class="box">
-    <h2>คำถามที่พบบ่อย</h2>
-    <div class="faq">
-      <div class="faq-q">❓ ขั้นต่ำในการสั่งพิมพ์กี่ใบ?</div>
-      <div class="faq-a">ขั้นต่ำเริ่มต้นที่ 100 ใบขึ้นไปครับ</div>
-    </div>
-    <div class="faq">
-      <div class="faq-q">❓ สามารถแก้ไขแบบได้กี่ครั้ง?</div>
-      <div class="faq-a">เพื่อคุมราคา 3 บาท สามารถตรวจทานตัวสะกดและกำหนดการได้ฟรี 1 ครั้งครับ</div>
-    </div>
-    <div class="faq">
-      <div class="faq-q">❓ ใช้เวลาผลิตกี่วัน?</div>
-      <div class="faq-a">ผลิตและจัดส่งภายใน 2–4 วันทำการหลังจากอนุมัติแบบครับ</div>
-    </div>
-  </section>
+    fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents`)
+      .then(response => response.json())
+      .then(files => {
+        const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+        // กรองเอาเฉพาะไฟล์รูปภาพ
+        const imageFiles = files.filter(file => 
+          imageExtensions.some(ext => file.name.toLowerCase().endsWith(ext))
+        );
 
-  <!-- ท้ายหน้า ปุ่มปิดการขาย -->
-  <section style="text-align: center; padding: 10px 0 30px;">
-    <a href="ใส่_URL_NOTION_FORM_ที่นี่" target="_blank" class="btn-main">💍 สั่งทำการ์ดแต่งงาน (คลิกกรอกฟอร์ม)</a>
-    <a href="https://line.me/ti/p/~ใส่_ไอดีไลน์_ที่นี่" target="_blank" class="btn-line">💬 ปรึกษา / สอบถามผ่าน LINE</a>
-  </section>
+        const container = document.getElementById('catalog-container');
+        if (imageFiles.length === 0) {
+          container.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #718096;">ยังไม่มีไฟล์รูปภาพในระบบ</p>';
+          return;
+        }
 
-</div>
+        // วนลูปสร้างการ์ดแคตตาล็อกและตั้งรหัสอัตโนมัติ
+        container.innerHTML = imageFiles.map((file, index) => {
+          const code = `DN-${String(index + 1).padStart(2, '0')}`;
+          // ตัดนามสกุลไฟล์ออกและแปลงขีดเป็นช่องว่างสำหรับแสดงเป็นชื่อลาย
+          const displayName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
 
-</body>
-</html>
+          return `
+            <div class="catalog-card">
+              <img src="${file.name}" alt="${code}">
+              <div class="card-code">${code}</div>
+              <div class="card-name" style="word-break: break-word; padding: 0 6px; font-size: 11px;">${displayName}</div>
+            </div>
+          `;
+        }).join('');
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('catalog-container').innerHTML = '<p style="grid-column: span 2; text-align: center; color: #e53e3e;">ไม่สามารถโหลดรูปภาพได้</p>';
+      });
+  </script>
