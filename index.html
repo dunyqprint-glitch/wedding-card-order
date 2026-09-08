@@ -3,323 +3,437 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DUNYA Print - การ์ดแต่งงานมินิมอล ใบละ 3 บาท</title>
+  <title>การ์ดแต่งงานมินิมอล เรียบหรู คุมงบได้ พร้อมซองเข้าชุด | DUNYA Print</title>
+  <meta name="description" content="บริการพิมพ์การ์ดแต่งงานคุณภาพพรีเมียม คมชัด สีไม่ลอก เริ่มต้นสบายกระเป๋า พร้อมซองเข้าชุด การันตีผลิตไว งานด่วนทันใจ">
   
-  <!-- ดึงฟอนต์ Inter (เน้นตัวเลขคมชัด ไม่สั่น) และ Noto Sans Thai -->
+  <!-- Fonts: ดึงทั้งฟอนต์หรูหรา และ Inter สำหรับล็อกตัวเลขไม่ให้สั่น -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- เชื่อมต่อไฟล์ style.css ภายนอก -->
+  <link rel="stylesheet" href="style.css">
 
   <style>
-    <link rel="stylesheet" href="style.css">
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif; }
-    body { background-color: #FAF8F5; color: #2D2A26; line-height: 1.6; padding-bottom: 50px; }
-    .container { max-width: 680px; margin: 0 auto; padding: 20px 16px; }
-
-    /* ฟอนต์ตัวเลขล็อกความกว้าง ป้องกันตัวเลขกระโดด */
-    .timer-num, .highlight-price, table td, .step-num, .price-display {
+    /* เสริมสไตล์ตัวเลขนิ่ง และกล่องจับเวลาให้เข้ากับธีมหรูหรา */
+    .timer-num, .price-display .amount, .currency, .highlight-price {
       font-family: 'Inter', sans-serif !important;
       font-variant-numeric: tabular-nums;
       letter-spacing: -0.02em;
     }
-
-    /* กล่องข้อความและการ์ด */
-    .box { background: #FFFFFF; border-radius: 16px; border: 1px solid #EAE3DC; padding: 24px 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .hero { text-align: center; padding: 32px 20px 24px; }
-    
-    .badge-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 14px; }
-    .badge { background: #F5EAE6; color: #B88E4F; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
-    
-    h1 { font-size: 24px; color: #1F2937; margin-bottom: 10px; line-height: 1.3; }
-    .subhead { font-size: 14px; color: #6B7280; margin-bottom: 20px; }
-
-    /* ตัวนับเวลาถอยหลังแบบตรวจเวลาจริง */
-    .timer-box { background: #FFFDF9; border: 1px dashed #D1C7BD; border-radius: 12px; padding: 16px; margin: 16px 0 20px; text-align: center; }
-    .timer-title { font-size: 13px; font-weight: 600; color: #B88E4F; margin-bottom: 10px; }
-    .timer-display { display: flex; justify-content: center; gap: 10px; margin-bottom: 8px; }
-    .timer-unit { background: #1F2937; color: #FFFFFF; border-radius: 8px; padding: 8px 12px; min-width: 60px; }
-    .timer-num { font-size: 22px; font-weight: 800; color: #FBBF24; display: block; line-height: 1; }
-    .timer-label { font-size: 10px; color: #9CA3AF; margin-top: 4px; display: block; }
-    .timer-notice { font-size: 12px; font-weight: 600; color: #DC2626; margin-top: 8px; }
-
-    /* ปุ่มกด Call to Action */
-    .btn-primary { display: block; width: 100%; max-width: 380px; margin: 0 auto 10px; background: #1F2937; color: #FFFFFF; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); border: none; cursor: pointer; }
-    .btn-primary:hover { background: #B88E4F; }
-    .btn-line { display: block; width: 100%; max-width: 380px; margin: 0 auto; background: #06C755; color: #FFFFFF; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
-    .btn-catalog { display: block; width: 100%; max-width: 380px; margin: 10px auto 0; background: #FFFFFF; color: #1F2937; border: 1.5px solid #EAE3DC; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
-
-    /* ตารางราคา */
-    h2 { font-size: 18px; margin-bottom: 14px; text-align: center; color: #1F2937; }
-    .table-box { overflow-x: auto; margin-top: 10px; }
-    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-    th, td { padding: 10px 8px; border-bottom: 1px solid #F3F4F6; text-align: left; }
-    th { background: #F9FAFB; color: #4B5563; font-weight: 600; }
-    .highlight-price { color: #DC2626; font-weight: 700; font-size: 14.5px; }
-
-    /* ขั้นตอนสั่งทำ */
-    .step-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
-    .step-num { width: 26px; height: 26px; background: #F5EAE6; color: #B88E4F; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
-    .step-text h3 { font-size: 14px; margin-bottom: 2px; }
-    .step-text p { font-size: 12px; color: #6B7280; }
-
-    /* FAQ */
-    .faq-item { margin-bottom: 12px; }
-    .faq-q { font-weight: 600; font-size: 13.5px; color: #1F2937; }
-    .faq-a { font-size: 12.5px; color: #6B7280; margin-top: 2px; }
+    .hero-timer-container {
+      background: #FFFDF9;
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 20px 0 24px;
+      text-align: center;
+      max-width: 480px;
+    }
+    .timer-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+    }
+    .timer-countdown {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .timer-badge {
+      background: var(--text-main);
+      color: #FFFFFF;
+      border-radius: 8px;
+      padding: 6px 12px;
+      min-width: 55px;
+    }
+    .timer-num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #FBBF24;
+      display: block;
+      line-height: 1.1;
+    }
+    .timer-label {
+      font-size: 0.65rem;
+      color: #9CA3AF;
+      display: block;
+    }
+    .timer-notice {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #DC2626;
+      margin-top: 6px;
+    }
   </style>
 </head>
 <body>
 
-<div class="container">
-
-  <!-- 1. Hero Section -->
-  <section class="box hero">
-    <div class="badge-group">
-      <span class="badge">⚡ ตรวจแบบฟรี</span>
-      <span class="badge">📦 ผลิตไว 2–3 วัน</span>
-      <span class="badge">🎨 การ์ด + ซองเข้าชุด</span>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">DUNYA <span>WEDDING</span></a>
+      <div class="nav-actions">
+        <a href="catalog.html" class="btn-text">🎨 แคตตาล็อก</a>
+        <a href="#pricing" class="btn-text">ดูราคา</a>
+        <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="navLineBtn" target="_blank" class="btn-primary-small">สั่งทำการ์ด</a>
+      </div>
     </div>
-    
-    <h1 id="heroHeadlineDisplay">การ์ดแต่งงานมินิมอล ดีไซน์พรีเมียม<br><span style="color: #DC2626;">เพียงใบละ 3 บาท!</span></h1>
-    <p class="subhead" id="paperSpecDisplay">อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง</p>
+  </header>
 
-    <!-- ตัวจับเวลานับถอยหลังโปรโมชัน -->
-    <div class="timer-box" id="promoContainer">
-      <div class="timer-title">⏳ สิทธิ์โปรโมชันราคาพิเศษวันนี้ กำลังจะหมดลงใน:</div>
-      <div class="timer-display">
-        <div class="timer-unit">
-          <span class="timer-num" id="hours">00</span>
-          <span class="timer-label">ชั่วโมง</span>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="badge-pill">✨ คุมงบแต่งงานได้ ไม่ต้องจ่ายหลักหมื่น</span>
+          <h1 class="hero-headline" id="heroHeadlineDisplay">
+            การ์ดแต่งงานมินิมอล เรียบหรู<br>
+            <span class="text-gold">พิมพ์คมชัด พร้อมซองเข้าชุด</span>
+          </h1>
+          <p class="hero-subtext" id="paperSpecDisplay">
+            ส่งต่อความทรงจำอันทรงคุณค่าด้วยงานพิมพ์การ์ดระดับพรีเมียม สีสด คมชัด กระดาษหนาแน่นสัมผัสหรู ผลิตไว จัดส่งตรงเวลา หมดกังวลเรื่องงานด่วน
+          </p>
+
+          <!-- ตัวนับเวลาจับเวลาจริง -->
+          <div class="hero-timer-container">
+            <div class="timer-title">⏳ สิทธิ์ราคาโปรโมชันพิเศษวันนี้ จะหมดลงใน:</div>
+            <div class="timer-countdown">
+              <div class="timer-badge">
+                <span class="timer-num" id="hours">00</span>
+                <span class="timer-label">ชั่วโมง</span>
+              </div>
+              <div class="timer-badge">
+                <span class="timer-num" id="minutes">00</span>
+                <span class="timer-label">นาที</span>
+              </div>
+              <div class="timer-badge">
+                <span class="timer-num" id="seconds">00</span>
+                <span class="timer-label">วินาที</span>
+              </div>
+            </div>
+            <div class="timer-notice" id="promoNoticeDisplay">⚠️ สิทธิ์โปรโมชันนี้เหลือเพียง 7 คิวสุดท้ายของวันนี้เท่านั้น</div>
+          </div>
+
+          <div class="hero-usp-grid">
+            <div class="usp-card">
+              <span class="usp-icon">💎</span>
+              <div>
+                <strong>คมชัดระดับ HD</strong>
+                <p>หมึกพรีเมียม ตัวอักษรคมกริบ สีตรงปก</p>
+              </div>
+            </div>
+            <div class="usp-card">
+              <span class="usp-icon">✉️</span>
+              <div>
+                <strong>แพ็กเกจครบจบ</strong>
+                <p>ฟรีซองการ์ดเข้าชุด จับคู่โทนสีสวยงาม</p>
+              </div>
+            </div>
+            <div class="usp-card">
+              <span class="usp-icon">⚡</span>
+              <div>
+                <strong>ผลิตไว ส่งด่วน</strong>
+                <p>พร้อมจัดส่งภายใน 2–4 วันทำการ</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="catalog.html" class="btn-primary">🎨 ดูแคตตาล็อก & สั่งทำ</a>
+            <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="heroLineBtn" target="_blank" rel="noopener" class="btn-secondary">
+              💬 สอบถามเพิ่มเติมผ่าน LINE
+            </a>
+          </div>
+          <p class="guarantee-text">🔒 ตรวจทานแบบพิมพ์จริงก่อนผลิต • ตรวจแก้แบบฟรี 1 ครั้ง</p>
         </div>
-        <div class="timer-unit">
-          <span class="timer-num" id="minutes">00</span>
-          <span class="timer-label">นาที</span>
+
+        <div class="hero-visual">
+          <div class="mockup-frame">
+            <img src="https://images.unsplash.com/photo-1549417229-aa67d3263c09?auto=format&fit=crop&w=800&q=80" alt="ตัวอย่างการ์ดแต่งงานมินิมอล DUNYA Print" class="hero-img">
+            <div class="floating-badge">
+              <span>เริ่มต้นเพียง</span>
+              <strong id="floatingRateBadge">2.80 บ./ชุด</strong>
+            </div>
+          </div>
         </div>
-        <div class="timer-unit">
-          <span class="timer-num" id="seconds">00</span>
-          <span class="timer-label">วินาที</span>
+      </div>
+    </section>
+
+    <!-- Pricing & Packages -->
+    <section id="pricing" class="pricing-section">
+      <div class="container">
+        <div class="section-title">
+          <span class="eyebrow">PACKAGES & PRICING</span>
+          <h2>แพ็กเกจราคาโปร่งใส คุมงบได้เป๊ะ</h2>
+          <p>รวมค่าพิมพ์การ์ดและซองเข้าชุดเรียบร้อย ไม่มีบวกเพิ่มจุกจิก</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Package 1: 100 ใบ -->
+          <div class="pricing-card">
+            <div class="package-header">
+              <h3>Standard 100</h3>
+              <p class="package-desc">สำหรับพิธีหมั้น พิธีเช้า หรืองานแต่งขนาดกะทัดรัด</p>
+              <div class="price-display">
+                <span class="currency">฿</span><span class="amount" id="p100_rate">3.50</span><span class="unit">/ ชุด</span>
+              </div>
+              <p class="min-qty" id="p100_total">ยอดรวม 350 บาท (100 ชุด)</p>
+            </div>
+            <ul class="feature-list">
+              <li>✔️ การ์ดขนาด 4x6 นิ้ว หน้าเดียว</li>
+              <li>✔️ กระดาษการ์ดขาวพรีเมียม 230 แกรม</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองสีเข้าชุดครบ 100 ซอง</li>
+              <li>✔️ บริการตรวจแบบพรีวิวก่อนพิมพ์จริง</li>
+            </ul>
+            <a href="catalog.html" class="btn-outline">เลือกลายแพ็กเกจนี้</a>
+          </div>
+
+          <!-- Package 2: 200 - 300 ใบ (ยอดนิยม) -->
+          <div class="pricing-card featured">
+            <div class="ribbon">ยอดนิยมสุดคุ้ม</div>
+            <div class="package-header">
+              <h3>Popular 200–300</h3>
+              <p class="package-desc">เหมาะที่สุดสำหรับงานเลี้ยงฉลองมงคลสมรส</p>
+              <div class="price-display">
+                <span class="currency">฿</span><span class="amount" id="p200_rate">3.00</span><span class="unit">/ ชุด</span>
+              </div>
+              <p class="min-qty" id="p200_total">200 ชุด = 600 บ. | 300 ชุด = 900 บ.</p>
+            </div>
+            <ul class="feature-list">
+              <li>✔️ การ์ดขนาด 4x6 นิ้ว มาตรฐานพรีเมียม</li>
+              <li>✔️ กระดาษอาร์ตการ์ดขาวหนา 240–260 แกรม</li>
+              <li>✔️ พิมพ์ระบบดิจิทัลคมชัด สีสดตรงปก</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองการ์ดมินิมอลพรีเมียมเข้าชุด</li>
+              <li>✔️ <strong>ฟรี!</strong> ตรวจเช็กตัวสะกดและข้อความ</li>
+            </ul>
+            <a href="catalog.html" class="btn-primary">สั่งจองแพ็กเกจยอดนิยม</a>
+          </div>
+
+          <!-- Package 3: 500 ใบขึ้นไป -->
+          <div class="pricing-card">
+            <div class="package-header">
+              <h3>Grand 500+</h3>
+              <p class="package-desc">สำหรับงานเลี้ยงขนาดใหญ่ แขกจำนวนมาก คุ้มค่าที่สุด</p>
+              <div class="price-display">
+                <span class="currency">฿</span><span class="amount" id="p500_rate">2.80</span><span class="unit">/ ชุด</span>
+              </div>
+              <p class="min-qty" id="p500_total">ยอดรวม 1,400 บาท (500 ชุด)</p>
+            </div>
+            <ul class="feature-list">
+              <li>✔️ การ์ดขนาด 4x6 นิ้ว หน้าเดียว</li>
+              <li>✔️ กระดาษอาร์ตการ์ดพรีเมียมหนาพิเศษ</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองเรียบหรูครบตามจำนวนการ์ด</li>
+              <li>✔️ <strong>ฟรี!</strong> บริการคิวพิมพ์เร่งด่วนพิเศษ</li>
+            </ul>
+            <a href="catalog.html" class="btn-outline">เลือกลายแพ็กเกจนี้</a>
+          </div>
         </div>
       </div>
-      <div class="timer-notice" id="promoNoticeDisplay">⚠️ สิทธิ์โปรโมชันนี้เหลือเพียง 7 คิวสุดท้ายของวันนี้เท่านั้น</div>
-    </div>
+    </section>
 
-    <!-- ปุ่มสั่งงาน & ลิงก์หน้าร้าน -->
-    <a href="catalog.html" class="btn-primary">🎨 กดดูแคตตาล็อก & เลือกลายการ์ด</a>
-    <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="lineLinkHero" target="_blank" class="btn-line">💬 ปรึกษา / สอบถามทาง LINE</a>
-  </section>
+    <!-- How It Works -->
+    <section class="steps-section">
+      <div class="container">
+        <div class="section-title">
+          <span class="eyebrow">EASY 3-STEP PROCESS</span>
+          <h2>3 ขั้นตอนการสั่งง่ายๆ เสร็จไวในไม่กี่คลิก</h2>
+        </div>
 
-  <!-- 2. ตารางราคา & สเปก -->
-  <section class="box">
-    <h2>สเปกสินค้า & ตารางราคา</h2>
-    <div class="table-box">
-      <table>
-        <thead>
-          <tr>
-            <th>จำนวน</th>
-            <th>ราคา/ชุด</th>
-            <th>ยอดรวม</th>
-            <th>เหมาะสำหรับ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>100 ชุด</td>
-            <td id="p100_rate">3.50 บ.</td>
-            <td id="p100_total">350 บาท</td>
-            <td>พิธีเช้า / เลี้ยงคนสนิท</td>
-          </tr>
-          <tr>
-            <td>200 ชุด</td>
-            <td id="p200_rate" class="highlight-price">3.00 บ.</td>
-            <td id="p200_total">600 บาท</td>
-            <td>งานเลี้ยงขนาดมาตรฐาน</td>
-          </tr>
-          <tr>
-            <td>300 ชุด</td>
-            <td id="p300_rate" class="highlight-price">3.00 บ.</td>
-            <td id="p300_total">900 บาท</td>
-            <td>งานเลี้ยงขนาดกลาง</td>
-          </tr>
-          <tr>
-            <td>500 ชุด</td>
-            <td id="p500_rate" class="highlight-price">2.80 บ.</td>
-            <td id="p500_total">1,400 บาท</td>
-            <td>งานเลี้ยงขนาดใหญ่ (สุดคุ้ม)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p id="priceNoteDisplay" style="font-size: 11px; color: #9CA3AF; margin-top: 10px; text-align: center;">(หมายเหตุ: ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง)</p>
-  </section>
-
-  <!-- 3. ขั้นตอนสั่งทำ -->
-  <section class="box">
-    <h2>ขั้นตอนการสั่งทำง่ายๆ 3 สเต็ป</h2>
-    <div class="step-item">
-      <div class="step-num">1</div>
-      <div class="step-text">
-        <h3>เลือกลายและส่งข้อมูล</h3>
-        <p>เลือกลายในหน้าแคตตาล็อก กรอกชื่อ วันที่ และสถานที่จัดงาน</p>
+        <div class="steps-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h4>เลือกลายในแคตตาล็อก</h4>
+            <p>เลือกลายที่ชอบในหน้า Catalog แล้วส่งข้อมูลชื่อ วันที่ สถานที่จัดงาน</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h4>ตรวจทาน Artwork ทาง LINE</h4>
+            <p>ทีมงานจัดวางเลย์เอาต์ ส่งไฟล์พรีวิวเสมือนจริงให้ตรวจความถูกต้องภายใน 24 ชม.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h4>ผลิตคมชัด & จัดส่งถึงบ้าน</h4>
+            <p>เมื่อคอนเฟิร์มแบบ พิมพ์การ์ดและจัดชุดพร้อมซอง แพ็กปลอดภัยส่งตรงถึงบ้านทันที</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">2</div>
-      <div class="step-text">
-        <h3>ตรวจแบบเสมือนจริงผ่าน LINE</h3>
-        <p>ทีมงานจัดวางข้อความ ส่งภาพตัวอย่างให้ตรวจความถูกต้องภายใน 24 ชม. (ตรวจฟรี 1 รอบ)</p>
+    </section>
+
+    <!-- Social Proof / Reviews -->
+    <section class="reviews-section">
+      <div class="container">
+        <div class="section-title">
+          <span class="eyebrow">HAPPY COUPLES</span>
+          <h2>รีวิวจากคู่บ่าวสาวตัวจริง</h2>
+        </div>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="review-comment">"ตอนแรกกังวลเรื่องงบมาก แต่ที่นี่ราคาคุ้มค่าจริงๆ กระดาษหนาและตัวหนังสือคมกริบ แขกชมทุกคนเลยค่ะ"</p>
+            <div class="reviewer-meta">
+              <strong>คุณนัท & คุณโบว์</strong>
+              <span>กทม.</span>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="review-comment">"งานด่วนมากเหลือเวลาแจกแค่สิบวัน ทีมงานวางแบบและส่งให้ไวเกินคาด ซองกับการ์ดเข้าชุดกันพอดี ประทับใจมากครับ"</p>
+            <div class="reviewer-meta">
+              <strong>คุณนนท์ & คุณพิมพ์</strong>
+              <span>นนทบุรี</span>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="review-comment">"สั่งง่ายมาก มีแบบให้เลือกเยอะ ไม่ต้องคุยยืดเยื้อ งานพิมพ์สวย สีไม่เพี้ยน แนะนำคู่บ่าวสาวที่กำลังมองหาการ์ดเลยครับ"</p>
+            <div class="reviewer-meta">
+              <strong>คุณออย & คุณเต้</strong>
+              <span>ปทุมธานี</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">3</div>
-      <div class="step-text">
-        <h3>ผลิตและจัดส่งถึงบ้าน</h3>
-        <p>คอนเฟิร์มแบบ พิมพ์คมชัดพร้อมซองเข้าชุด แพ็กปลอดภัยพร้อมส่งทันใจ</p>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="final-cta-section">
+      <div class="container text-center">
+        <h2>พร้อมสั่งการ์ดแต่งงานในฝันแบบคุมงบแล้วหรือยัง?</h2>
+        <p>ให้ DUNYA Print ช่วยดูแลวันสำคัญของคุณด้วยงานพิมพ์คุณภาพและบริการใส่ใจ</p>
+        <div class="cta-actions">
+          <a href="catalog.html" class="btn-primary">💍 เลือกแบบการ์ดแต่งงาน (Catalog)</a>
+          <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="footerLineBtn" target="_blank" class="btn-secondary">
+            💬 ปรึกษาทีมงานผ่าน LINE
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- 4. คำถามที่พบบ่อย -->
-  <section class="box">
-    <h2>คำถามที่พบบ่อย (FAQ)</h2>
-    <div class="faq-item">
-      <div class="faq-q">❓ มีขั้นต่ำในการสั่งพิมพ์กี่ชุด?</div>
-      <div class="faq-a">สั่งซื้อขั้นต่ำเริ่มต้นเพียง 100 ชุด ได้ครบทั้งการ์ดและซองเข้าชุดครับ</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">❓ แก้ไขแบบได้กี่ครั้ง?</div>
-      <div class="faq-a">สามารถตรวจทานตัวสะกด วันที่ และกำหนดการได้ฟรี 1 รอบก่อนพิมพ์จริงครับ</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">❓ ใช้เวลาผลิตและจัดส่งกี่วัน?</div>
-      <div class="faq-a">หลังยืนยันแบบ ใช้เวลาพิมพ์ 2–3 วันทำการ และขนส่งพัสดุ 1–2 วันครับ</div>
-    </div>
-  </section>
+  <!-- Floating LINE CTA Button -->
+  <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="floatLineBtn" target="_blank" rel="noopener" class="floating-line-btn" title="แชตสอบถามผ่าน LINE">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+      <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.019 9.608.391.084.922.258 1.057.592.121.303.079.777.039 1.085l-.171 1.026c-.052.315-.246 1.233 1.079.672 1.326-.562 7.151-4.212 9.757-7.213 1.472-1.637 2.22-3.411 2.22-5.768z"/>
+    </svg>
+    <span>คุยกับแอดมิน LINE</span>
+  </a>
 
-  <!-- 5. ท้ายหน้า ปิดการขาย -->
-  <section style="text-align: center; padding: 10px 0 20px;">
-    <a href="catalog.html" class="btn-primary">💍 เริ่มเลือกแบบการ์ดแต่งงาน</a>
-    <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="lineLinkFooter" target="_blank" class="btn-line">💬 ปรึกษาทีมงานผ่าน LINE</a>
-  </section>
-
-</div>
-
-<script>
-  // ค่าเริ่มต้นสำรอง (Fallback) ป้องกันหน้าจอขาวแม้ไม่มี config.json
-  const defaultCfg = {
-    orderFormUrl: "https://tally.so",
-    lineUrl: "https://line.me/ti/p/~YOUR_LINE_ID",
-    heroHeadline: "การ์ดแต่งงานมินิมอล ดีไซน์พรีเมียม<br><span style=\"color: #DC2626;\">เพียงใบละ 3 บาท!</span>",
-    paperSpec: "อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง",
-    promoPrices: { p100: 3.5, p200: 3.0, p300: 3.0, p500: 2.8 },
-    regularPrices: { p100: 5.0, p200: 5.0, p300: 5.0, p500: 4.5 },
-    priceNote: "(หมายเหตุ: ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง)",
-    promo: {
-      active: true,
-      hours: 8,
-      runningNotice: "⚠️ สิทธิ์โปรโมชันนี้เหลือเพียง 7 คิวสุดท้ายของวันนี้เท่านั้น",
-      expiredNotice: "❌ หมดเวลาโปรโมชันพิเศษแล้ว ระบบปรับเป็นราคาปกติหน้าร้าน"
-    }
-  };
-
-  let storeConfig = defaultCfg;
-  let timerInterval = null;
-
-  async function initStore() {
-    try {
-      const res = await fetch('config.json?t=' + Date.now());
-      if (res.ok) {
-        storeConfig = await res.json();
+  <!-- Script Logic: ดึง Config + จับเวลาจริง + ปรับราคาเต็มเมื่อหมดเวลา -->
+  <script>
+    const defaultCfg = {
+      lineUrl: "https://line.me/ti/p/~YOUR_LINE_ID",
+      heroHeadline: "การ์ดแต่งงานมินิมอล เรียบหรู<br><span class=\"text-gold\">พิมพ์คมชัด พร้อมซองเข้าชุด</span>",
+      paperSpec: "ส่งต่อความทรงจำอันทรงคุณค่าด้วยงานพิมพ์การ์ดระดับพรีเมียม สีสด คมชัด กระดาษหนาแน่นสัมผัสหรู ผลิตไว จัดส่งตรงเวลา หมดกังวลเรื่องงานด่วน",
+      promoPrices: { p100: 3.5, p200: 3.0, p300: 3.0, p500: 2.8 },
+      regularPrices: { p100: 5.0, p200: 5.0, p300: 5.0, p500: 4.5 },
+      promo: {
+        active: true,
+        hours: 8,
+        runningNotice: "⚠️ สิทธิ์โปรโมชันนี้เหลือเพียง 7 คิวสุดท้ายของวันนี้เท่านั้น",
+        expiredNotice: "❌ หมดเวลาโปรโมชันพิเศษแล้ว ระบบปรับเป็นราคาปกติหน้าร้าน"
       }
-    } catch (err) {
-      console.log('โหลด config ไม่สำเร็จ ใช้ค่าตั้งต้นสำรอง');
-    }
-    applyTexts(storeConfig);
-    startRealCountdown(storeConfig);
-  }
+    };
 
-  function applyTexts(cfg) {
-    if (cfg.heroHeadline) document.getElementById('heroHeadlineDisplay').innerHTML = cfg.heroHeadline;
-    if (cfg.paperSpec) document.getElementById('paperSpecDisplay').innerText = cfg.paperSpec;
-    if (cfg.priceNote) document.getElementById('priceNoteDisplay').innerText = cfg.priceNote;
+    let storeConfig = defaultCfg;
+    let timerInterval = null;
 
-    if (cfg.lineUrl) {
-      document.getElementById('lineLinkHero').href = cfg.lineUrl;
-      document.getElementById('lineLinkFooter').href = cfg.lineUrl;
-    }
-
-    // อัปเดตราคาโปรโมชันช่วงแรก
-    const pr = cfg.promoPrices || defaultCfg.promoPrices;
-    document.getElementById('p100_rate').innerText = pr.p100.toFixed(2) + " บ.";
-    document.getElementById('p100_total').innerText = (pr.p100 * 100).toLocaleString() + " บาท";
-    document.getElementById('p200_rate').innerText = pr.p200.toFixed(2) + " บ.";
-    document.getElementById('p200_total').innerText = (pr.p200 * 200).toLocaleString() + " บาท";
-    document.getElementById('p300_rate').innerText = pr.p300.toFixed(2) + " บ.";
-    document.getElementById('p300_total').innerText = (pr.p300 * 300).toLocaleString() + " บาท";
-    document.getElementById('p500_rate').innerText = pr.p500.toFixed(2) + " บ.";
-    document.getElementById('p500_total').innerText = (pr.p500 * 500).toLocaleString() + " บาท";
-  }
-
-  function startRealCountdown(cfg) {
-    const promoHours = cfg.promo?.hours || 8;
-    const storageKey = 'dunya_promo_deadline';
-    let deadline = localStorage.getItem(storageKey);
-
-    if (!deadline) {
-      deadline = Date.now() + promoHours * 3600 * 1000;
-      localStorage.setItem(storageKey, deadline);
-    } else {
-      deadline = parseInt(deadline, 10);
+    async function initStore() {
+      try {
+        const res = await fetch('config.json?t=' + Date.now());
+        if (res.ok) {
+          storeConfig = await res.json();
+        }
+      } catch (err) {
+        console.log('โหลด config ไม่สำเร็จ ใช้ค่ามาตรฐาน');
+      }
+      applyData(storeConfig);
+      startRealCountdown(storeConfig);
     }
 
-    function tick() {
-      const now = Date.now();
-      const diff = deadline - now;
+    function applyData(cfg) {
+      if (cfg.heroHeadline) document.getElementById('heroHeadlineDisplay').innerHTML = cfg.heroHeadline;
+      if (cfg.paperSpec) document.getElementById('paperSpecDisplay').innerText = cfg.paperSpec;
 
-      if (diff <= 0) {
-        clearInterval(timerInterval);
-        document.getElementById('hours').innerText = '00';
-        document.getElementById('minutes').innerText = '00';
-        document.getElementById('seconds').innerText = '00';
-        triggerPriceExpiry(cfg);
-        return;
+      if (cfg.lineUrl) {
+        document.querySelectorAll('#navLineBtn, #heroLineBtn, #footerLineBtn, #floatLineBtn').forEach(el => {
+          el.href = cfg.lineUrl;
+        });
       }
 
-      const h = Math.floor(diff / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById('hours').innerText = String(h).padStart(2, '0');
-      document.getElementById('minutes').innerText = String(m).padStart(2, '0');
-      document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+      // แสดงราคาโปรโมชันเริ่มต้น
+      const pr = cfg.promoPrices || defaultCfg.promoPrices;
+      document.getElementById('p100_rate').innerText = pr.p100.toFixed(2);
+      document.getElementById('p100_total').innerText = `ยอดรวม ${(pr.p100 * 100).toLocaleString()} บาท (100 ชุด)`;
+      document.getElementById('p200_rate').innerText = pr.p200.toFixed(2);
+      document.getElementById('p200_total').innerText = `200 ชุด = ${(pr.p200 * 200).toLocaleString()} บ. | 300 ชุด = ${(pr.p300 * 300).toLocaleString()} บ.`;
+      document.getElementById('p500_rate').innerText = pr.p500.toFixed(2);
+      document.getElementById('p500_total').innerText = `ยอดรวม ${(pr.p500 * 500).toLocaleString()} บาท (500 ชุด)`;
     }
 
-    timerInterval = setInterval(tick, 1000);
-    tick();
-  }
+    function startRealCountdown(cfg) {
+      const promoHours = cfg.promo?.hours || 8;
+      const storageKey = 'dunya_promo_deadline';
+      let deadline = localStorage.getItem(storageKey);
 
-  function triggerPriceExpiry(cfg) {
-    const reg = cfg.regularPrices || defaultCfg.regularPrices;
-    
-    const noticeEl = document.getElementById('promoNoticeDisplay');
-    if (noticeEl) {
-      noticeEl.innerText = cfg.promo?.expiredNotice || "❌ หมดเวลาโปรโมชันแล้ว ปรับเป็นราคาปกติ";
-      noticeEl.style.color = "#6B7280";
+      if (!deadline) {
+        deadline = Date.now() + promoHours * 3600 * 1000;
+        localStorage.setItem(storageKey, deadline);
+      } else {
+        deadline = parseInt(deadline, 10);
+      }
+
+      function tick() {
+        const now = Date.now();
+        const diff = deadline - now;
+
+        if (diff <= 0) {
+          clearInterval(timerInterval);
+          document.getElementById('hours').innerText = '00';
+          document.getElementById('minutes').innerText = '00';
+          document.getElementById('seconds').innerText = '00';
+          triggerPriceExpiry(cfg);
+          return;
+        }
+
+        const h = Math.floor(diff / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('hours').innerText = String(h).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+      }
+
+      timerInterval = setInterval(tick, 1000);
+      tick();
     }
 
-    document.getElementById('p100_rate').innerText = reg.p100.toFixed(2) + " บ.";
-    document.getElementById('p100_total').innerText = (reg.p100 * 100).toLocaleString() + " บาท";
-    document.getElementById('p200_rate').innerText = reg.p200.toFixed(2) + " บ.";
-    document.getElementById('p200_total').innerText = (reg.p200 * 200).toLocaleString() + " บาท";
-    document.getElementById('p300_rate').innerText = reg.p300.toFixed(2) + " บ.";
-    document.getElementById('p300_total').innerText = (reg.p300 * 300).toLocaleString() + " บาท";
-    document.getElementById('p500_rate').innerText = reg.p500.toFixed(2) + " บ.";
-    document.getElementById('p500_total').innerText = (reg.p500 * 500).toLocaleString() + " บาท";
+    // ปรับเป็นราคาเต็มทันทีเมื่อเวลาหมด
+    function triggerPriceExpiry(cfg) {
+      const reg = cfg.regularPrices || defaultCfg.regularPrices;
+      
+      const noticeEl = document.getElementById('promoNoticeDisplay');
+      if (noticeEl) {
+        noticeEl.innerText = cfg.promo?.expiredNotice || "❌ หมดเวลาโปรโมชันแล้ว ปรับเป็นราคาปกติ";
+        noticeEl.style.color = "#6B7280";
+      }
 
-    document.querySelectorAll('.highlight-price').forEach(el => el.classList.remove('highlight-price'));
-  }
+      document.getElementById('p100_rate').innerText = reg.p100.toFixed(2);
+      document.getElementById('p100_total').innerText = `ยอดรวม ${(reg.p100 * 100).toLocaleString()} บาท (100 ชุด)`;
+      document.getElementById('p200_rate').innerText = reg.p200.toFixed(2);
+      document.getElementById('p200_total').innerText = `200 ชุด = ${(reg.p200 * 200).toLocaleString()} บ. | 300 ชุด = ${(reg.p300 * 300).toLocaleString()} บ.`;
+      document.getElementById('p500_rate').innerText = reg.p500.toFixed(2);
+      document.getElementById('p500_total').innerText = `ยอดรวม ${(reg.p500 * 500).toLocaleString()} บาท (500 ชุด)`;
 
-  initStore();
-</script>
+      const badge = document.getElementById('floatingRateBadge');
+      if (badge) badge.innerText = `${reg.p500.toFixed(2)} บ./ชุด`;
+    }
 
+    initStore();
+  </script>
 </body>
 </html>
