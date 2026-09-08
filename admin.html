@@ -3,20 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DUNYA Print - ระบบจัดการข้อมูลหน้าร้าน</title>
+  <title>DUNYA Print - แดชบอร์ดจัดการหน้าร้าน</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #f0f2f5; color: #1a202c; padding: 24px 16px; }
-    .container { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-    h1 { font-size: 20px; text-align: center; margin-bottom: 20px; }
-    .section-title { font-size: 15px; font-weight: 700; margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #edf2f7; color: #2b6cb0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; }
+    body { background-color: #f0f2f5; color: #1a202c; padding: 24px 16px 60px; }
+    .container { max-width: 680px; margin: 0 auto; background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    h1 { font-size: 20px; text-align: center; margin-bottom: 20px; color: #1a202c; }
+    .section-title { font-size: 15px; font-weight: 700; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 1.5px solid #edf2f7; color: #2b6cb0; }
     .form-group { margin-bottom: 14px; }
     label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; color: #4a5568; }
     input, textarea, select { width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 14px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .btn-save { width: 100%; background: #2f855a; color: #fff; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 18px; }
+    .auth-box { background: #fffaf0; border: 1px solid #feebc8; border-radius: 8px; padding: 12px; margin-bottom: 16px; }
+    .btn-save { width: 100%; background: #2f855a; color: #fff; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 24px; }
     .btn-save:disabled { background: #a0aec0; cursor: not-allowed; }
-    .auth-box { background: #fffaf0; border: 1px solid #feebc8; border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 13px; }
+
+    /* การจัดการแคตตาล็อก */
+    .catalog-item-row { display: flex; align-items: center; gap: 12px; background: #f7fafc; border: 1px solid #edf2f7; border-radius: 10px; padding: 10px; margin-bottom: 10px; }
+    .thumb-preview { width: 50px; height: 75px; object-fit: cover; border-radius: 6px; background: #e2e8f0; flex-shrink: 0; }
+    .catalog-details { flex-grow: 1; }
+    .catalog-details strong { font-size: 13px; color: #2d3748; }
+    .catalog-details p { font-size: 11px; color: #718096; word-break: break-all; margin-top: 2px; }
+    .btn-del { background: #fed7d7; color: #9b2c2c; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    
+    /* กล่องเพิ่มลายใหม่ */
+    .add-box { background: #ebf8ff; border: 1px dashed #bee3f8; border-radius: 10px; padding: 14px; margin-top: 14px; }
+    .preview-box-live { width: 70px; height: 105px; object-fit: cover; border-radius: 6px; background: #fff; border: 1px solid #cbd5e0; display: block; margin: 8px auto 0; }
+    .btn-add { background: #3182ce; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -24,16 +37,28 @@
 <div class="container">
   <h1>⚙️ จัดการข้อมูลหน้าร้าน DUNYA Print</h1>
 
-  <input type="password" id="ghToken" placeholder="วาง ghp_... ของคุณที่นี่" style="background:#fff; margin-top:4px;">
+  <!-- 1. ความปลอดภัย & Token -->
   <div class="auth-box">
-    <label style="color: #744210;">🔑 GitHub Personal Access Token:</label>
-    <input type="password" id="ghToken" placeholder="วาง ghp_... ของคุณที่นี่" style="background:#fff; margin-top:4px;">
-    <p style="font-size: 11px; color: #975a16; margin-top: 4px;">* บันทึกไว้ในเครื่องของคุณอัตโนมัติ เพื่อใช้สิทธิ์อัปเดตไฟล์ลง GitHub</p>
+    <label style="color: #744210;">🔑 GitHub Personal Access Token (PAT):</label>
+    <input type="password" id="ghToken" placeholder="วาง ghp_... ของคุณที่นี่ (ระบบจะจำไว้ในเครื่องนี้)" style="background:#fff; margin-top:4px;">
+    <p style="font-size: 11px; color: #975a16; margin-top: 4px;">* ใช้สิทธิ์ส่งคำขอแก้ไข config.json เข้าคลัง GitHub โดยตรง</p>
   </div>
 
-  <div class="section-title">1. ข้อความหน้าแรก (Hero)</div>
+  <!-- 2. ลิงก์ปลายทางหน้าร้าน -->
+  <div class="section-title">1. ลิงก์แบบฟอร์ม & ช่องทางติดต่อ</div>
   <div class="form-group">
-    <label>พาดหัวหลัก (รองรับ HTML):</label>
+    <label>URL แบบฟอร์มสั่งทำ (Notion Form หรือ Tally Form):</label>
+    <input type="url" id="orderFormUrl" placeholder="https://...">
+  </div>
+  <div class="form-group">
+    <label>URL หรือ ลิงก์เพิ่มเพื่อน LINE:</label>
+    <input type="text" id="lineUrl" placeholder="https://line.me/ti/p/~...">
+  </div>
+
+  <!-- 3. ข้อความหลัก & สเปก -->
+  <div class="section-title">2. ข้อความหน้าแรก & สเปกสินค้า</div>
+  <div class="form-group">
+    <label>พาดหัวหลัก (Hero Headline):</label>
     <input type="text" id="heroHeadline">
   </div>
   <div class="form-group">
@@ -41,7 +66,8 @@
     <input type="text" id="paperSpec">
   </div>
 
-  <div class="section-title">2. ตารางราคา (บาท/ใบ)</div>
+  <!-- 4. ตารางราคา -->
+  <div class="section-title">3. ตารางราคา (บาท/ใบ)</div>
   <div class="grid-2">
     <div class="form-group">
       <label>100 ใบ:</label>
@@ -67,10 +93,11 @@
     <input type="text" id="priceNote">
   </div>
 
-  <div class="section-title">3. โปรโมชันนับถอยหลัง</div>
+  <!-- 5. โปรโมชันนับถอยหลัง -->
+  <div class="section-title">4. โปรโมชันนับถอยหลัง (Urgency)</div>
   <div class="grid-2">
     <div class="form-group">
-      <label>แสดงแถบโปรโมชัน:</label>
+      <label>สถานะแถบโปรโมชัน:</label>
       <select id="promoActive">
         <option value="true">เปิดใช้งาน</option>
         <option value="false">ปิดแถบโปรโมชัน</option>
@@ -82,11 +109,41 @@
     </div>
   </div>
   <div class="form-group">
-    <label>ข้อความเตือน:</label>
+    <label>ข้อความเตือนจำกัดสิทธิ์:</label>
     <input type="text" id="promoNotice">
   </div>
 
-  <button type="button" class="btn-save" id="btnSave" onclick="saveToGitHub()">💾 บันทึกและส่งข้อมูลขึ้น GitHub</button>
+  <!-- 6. จัดการแคตตาล็อก & พรีวิวรูปสด -->
+  <div class="section-title">5. จัดการลายการ์ดในแคตตาล็อก</div>
+  <div id="catalogList"></div>
+
+  <!-- กล่องเพิ่มลายการ์ดใหม่ผ่านลิงก์ -->
+  <div class="add-box">
+    <strong style="font-size: 13px; color: #2b6cb0;">➕ เพิ่มลายการ์ดใหม่ผ่าน URL รูปภาพ</strong>
+    <div class="grid-2" style="margin-top: 8px;">
+      <div class="form-group">
+        <label>รหัสลายการ์ด:</label>
+        <input type="text" id="newCardCode" placeholder="เช่น DN-02">
+      </div>
+      <div class="form-group">
+        <label>ชื่อลายการ์ด:</label>
+        <input type="text" id="newCardName" placeholder="เช่น Pastel Botanical">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>ลิงก์ URL รูปภาพ (หรือชื่อไฟล์ใน GitHub):</label>
+      <input type="text" id="newCardImgUrl" placeholder="วางลิงก์รูปภาพ https://... หรือชื่อไฟล์ .png" oninput="previewNewImage(this.value)">
+    </div>
+    
+    <div style="text-align: center;">
+      <span style="font-size: 11px; color: #718096;">ตัวอย่างภาพที่ตรวจพบ:</span>
+      <img id="livePreviewImg" src="" alt="พรีวิว" class="preview-box-live" onerror="this.src='https://via.placeholder.com/70x105?text=No+Image'">
+    </div>
+
+    <button type="button" class="btn-add" onclick="addNewCardItem()">เพิ่มลายนี้เข้าแคตตาล็อก</button>
+  </div>
+
+  <button type="button" class="btn-save" id="btnSave" onclick="saveToGitHub()">💾 บันทึกการเปลี่ยนแปลงทั้งหมดขึ้น GitHub</button>
 </div>
 
 <script>
@@ -94,8 +151,8 @@
   const REPO_NAME = 'wedding-card-order';
   const FILE_PATH = 'config.json';
   let currentFileSha = '';
+  let catalogItems = [];
 
-  // โหลดค่า Token และดึงข้อมูล config.json ปัจจุบันมาแสดง
   window.addEventListener('DOMContentLoaded', async () => {
     const savedToken = localStorage.getItem('dunya_pat');
     if (savedToken) document.getElementById('ghToken').value = savedToken;
@@ -105,30 +162,89 @@
   async function fetchCurrentConfig() {
     try {
       const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?t=${Date.now()}`);
-      if (!res.ok) throw new Error('ไม่สามารถโหลดไฟล์ config.json');
+      if (!res.ok) throw new Error('ไม่สามารถเข้าถึง config.json');
       const fileData = await res.json();
       currentFileSha = fileData.sha;
       
       const content = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+      
+      document.getElementById('orderFormUrl').value = content.orderFormUrl || '';
+      document.getElementById('lineUrl').value = content.lineUrl || '';
       document.getElementById('heroHeadline').value = content.heroHeadline || '';
       document.getElementById('paperSpec').value = content.paperSpec || '';
-      document.getElementById('price100').value = content.price100 || 3.5;
-      document.getElementById('price200').value = content.price200 || 3.0;
-      document.getElementById('price300').value = content.price300 || 3.0;
-      document.getElementById('price500').value = content.price500 || 2.8;
-      document.getElementById('priceNote').value = content.priceNote || '';
-      document.getElementById('promoActive').value = String(content.promoActive);
-      document.getElementById('promoHours').value = content.promoHours || 8;
-      document.getElementById('promoNotice').value = content.promoNotice || '';
+      
+      const prices = content.prices || {};
+      document.getElementById('price100').value = prices.p100 || 3.5;
+      document.getElementById('price200').value = prices.p200 || 3.0;
+      document.getElementById('price300').value = prices.p300 || 3.0;
+      document.getElementById('price500').value = prices.p500 || 2.8;
+      document.getElementById('priceNote').value = prices.note || '';
+
+      const promo = content.promo || {};
+      document.getElementById('promoActive').value = String(promo.active);
+      document.getElementById('promoHours').value = promo.hours || 8;
+      document.getElementById('promoNotice').value = promo.notice || '';
+
+      catalogItems = content.catalog || [];
+      renderCatalogList();
     } catch (err) {
-      alert('แจ้งเตือน: ' + err.message + ' (หากเพิ่งสร้างไฟล์ ให้รอระบบ Deploy สักครู่)');
+      alert('แจ้งเตือน: ' + err.message);
+    }
+  }
+
+  function renderCatalogList() {
+    const container = document.getElementById('catalogList');
+    if (catalogItems.length === 0) {
+      container.innerHTML = '<p style="font-size: 13px; color: #a0aec0; text-align: center; padding: 10px;">ยังไม่มีลายการ์ดในแคตตาล็อก</p>';
+      return;
+    }
+
+    container.innerHTML = catalogItems.map((item, index) => `
+      <div class="catalog-item-row">
+        <img src="${item.imageUrl}" class="thumb-preview" onerror="this.src='https://via.placeholder.com/50x75?text=Error'">
+        <div class="catalog-details">
+          <strong>${item.code}: ${item.name}</strong>
+          <p>${item.imageUrl}</p>
+        </div>
+        <button type="button" class="btn-del" onclick="deleteCardItem(${index})">ลบ</button>
+      </div>
+    `).join('');
+  }
+
+  function previewNewImage(url) {
+    document.getElementById('livePreviewImg').src = url.trim();
+  }
+
+  function addNewCardItem() {
+    const code = document.getElementById('newCardCode').value.trim();
+    const name = document.getElementById('newCardName').value.trim();
+    const imageUrl = document.getElementById('newCardImgUrl').value.trim();
+
+    if (!code || !imageUrl) {
+      alert('กรุณากรอกรหัสการ์ดและวาง URL รูปภาพ');
+      return;
+    }
+
+    catalogItems.push({ code, name: name || code, imageUrl });
+    renderCatalogList();
+
+    document.getElementById('newCardCode').value = '';
+    document.getElementById('newCardName').value = '';
+    document.getElementById('newCardImgUrl').value = '';
+    document.getElementById('livePreviewImg').src = '';
+  }
+
+  function deleteCardItem(index) {
+    if (confirm('คุณต้องการลบลายการ์ดนี้ใช่หรือไม่?')) {
+      catalogItems.splice(index, 1);
+      renderCatalogList();
     }
   }
 
   async function saveToGitHub() {
     const token = document.getElementById('ghToken').value.trim();
     if (!token) {
-      alert('กรุณาใส่ GitHub Personal Access Token ก่อนทำการบันทึก');
+      alert('กรุณากรอก GitHub Personal Access Token');
       return;
     }
     localStorage.setItem('dunya_pat', token);
@@ -137,21 +253,27 @@
     btn.disabled = true;
     btn.innerText = '⏳ กำลังบันทึกข้อมูลเข้าสู่ GitHub...';
 
-    const newConfig = {
+    const updatedConfig = {
+      orderFormUrl: document.getElementById('orderFormUrl').value.trim(),
+      lineUrl: document.getElementById('lineUrl').value.trim(),
       heroHeadline: document.getElementById('heroHeadline').value,
       paperSpec: document.getElementById('paperSpec').value,
-      price100: parseFloat(document.getElementById('price100').value) || 3.5,
-      price200: parseFloat(document.getElementById('price200').value) || 3.0,
-      price300: parseFloat(document.getElementById('price300').value) || 3.0,
-      price500: parseFloat(document.getElementById('price500').value) || 2.8,
-      priceNote: document.getElementById('priceNote').value,
-      promoActive: document.getElementById('promoActive').value === 'true',
-      promoHours: parseInt(document.getElementById('promoHours').value) || 8,
-      promoNotice: document.getElementById('promoNotice').value
+      prices: {
+        p100: parseFloat(document.getElementById('price100').value) || 3.5,
+        p200: parseFloat(document.getElementById('price200').value) || 3.0,
+        p300: parseFloat(document.getElementById('price300').value) || 3.0,
+        p500: parseFloat(document.getElementById('price500').value) || 2.8,
+        note: document.getElementById('priceNote').value
+      },
+      promo: {
+        active: document.getElementById('promoActive').value === 'true',
+        hours: parseInt(document.getElementById('promoHours').value) || 8,
+        notice: document.getElementById('promoNotice').value
+      },
+      catalog: catalogItems
     };
 
-    // แปลงข้อมูลเป็น Base64 รองรับภาษาไทย
-    const utf8Bytes = encodeURIComponent(JSON.stringify(newConfig, null, 2)).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1));
+    const utf8Bytes = encodeURIComponent(JSON.stringify(updatedConfig, null, 2)).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1));
     const base64Content = btoa(utf8Bytes);
 
     try {
@@ -162,7 +284,7 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          message: 'Admin: Update store config via admin panel',
+          message: 'Admin: Update store config & catalog via admin panel',
           content: base64Content,
           sha: currentFileSha
         })
@@ -175,12 +297,12 @@
 
       const resData = await res.json();
       currentFileSha = resData.content.sha;
-      alert('✅ บันทึกข้อมูลและอัปเดตขึ้น GitHub สำเร็จแล้ว!');
+      alert('✅ บันทึกข้อมูลและอัปเดตแคตตาล็อกขึ้น GitHub สำเร็จแล้ว!');
     } catch (err) {
       alert('เกิดข้อผิดพลาด: ' + err.message);
     } finally {
       btn.disabled = false;
-      btn.innerText = '💾 บันทึกและส่งข้อมูลขึ้น GitHub';
+      btn.innerText = '💾 บันทึกการเปลี่ยนแปลงทั้งหมดขึ้น GitHub';
     }
   }
 </script>
