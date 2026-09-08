@@ -3,82 +3,753 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>การ์ดแต่งงานมินิมอล เรียบหรู คุมงบได้ พร้อมซองเข้าชุด | DUNYA Print</title>
-  <meta name="description" content="บริการพิมพ์การ์ดแต่งงานคุณภาพพรีเมียม คมชัด สีไม่ลอก เริ่มต้นสบายกระเป๋า พร้อมซองเข้าชุด การันตีผลิตไว งานด่วนทันใจ">
-  
-  <!-- Fonts: ดึงทั้งฟอนต์หรูหรา และ Inter สำหรับล็อกตัวเลขไม่ให้สั่น -->
+  <title>การ์ดแต่งงานมินิมอล เรียบหรู ใบละ 3 บาท พร้อมซองเข้าชุด | DUNYA Print</title>
+  <meta name="description" content="พิมพ์การ์ดแต่งงานสไตล์มินิมอล กระดาษพรีเมียม 230-260 แกรม คมชัด สีไม่ลอก เริ่มต้นใบละ 3 บาท ฟรีซองเข้าชุด ตรวจแบบฟรีก่อนพิมพ์">
+
+  <!-- ฟอนต์: Cormorant Garamond (พาดหัวหรู), Noto Sans Thai (เนื้อหาอ่านง่าย), Inter (ตัวเลขนิ่ง คมชัด) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- เชื่อมต่อไฟล์ style.css ภายนอก -->
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@500;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* เสริมสไตล์ตัวเลขนิ่ง และกล่องจับเวลาให้เข้ากับธีมหรูหรา */
-    .timer-num, .price-display .amount, .currency, .highlight-price {
-      font-family: 'Inter', sans-serif !important;
+    :root {
+      --bg-main: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F4EFEA;
+      --text-main: #2D2A26;
+      --text-muted: #6B655F;
+      --text-light: #9B948D;
+      --accent-gold: #B88E4F;
+      --accent-gold-hover: #9E7538;
+      --accent-rose: #CFA99B;
+      --accent-rose-soft: #F5EAE6;
+      --line-green: #06C755;
+      --border-color: #EAE3DC;
+      --shadow-sm: 0 4px 14px rgba(45, 42, 38, 0.04);
+      --shadow-md: 0 10px 25px rgba(45, 42, 38, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-num: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 40px;
+    }
+
+    /* ป้องกันตัวเลขสั่น กระโดด หรือขยับเวลานับถอยหลัง */
+    .timer-num, .price-display .amount, .currency, .highlight-price, .step-num, table td {
+      font-family: var(--font-num) !important;
       font-variant-numeric: tabular-nums;
       letter-spacing: -0.02em;
     }
-    .hero-timer-container {
-      background: #FFFDF9;
-      border: 1px dashed var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      margin: 20px 0 24px;
-      text-align: center;
-      max-width: 480px;
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
-    .timer-title {
-      font-size: 0.85rem;
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: var(--text-main);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+    }
+
+    .text-gold {
+      color: var(--accent-gold);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      color: var(--accent-gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 46px;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 20px;
+    }
+
+    .brand-logo {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-main);
+      letter-spacing: 1.5px;
+    }
+
+    .brand-logo span {
+      color: var(--accent-gold);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-nav-link {
+      text-decoration: none;
+      color: var(--text-muted);
       font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .btn-nav-link:hover {
+      color: var(--accent-gold);
+    }
+
+    /* Buttons */
+    .btn-primary, .btn-secondary, .btn-outline {
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      font-weight: 600;
+      border-radius: 40px;
+      padding: 12px 26px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: 1.5px solid transparent;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--text-main);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(45, 42, 38, 0.15);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(184, 142, 79, 0.3);
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--text-main);
+      border-color: var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-main);
+      border-color: var(--border-color);
+      width: 100%;
+    }
+
+    .btn-outline:hover {
+      background: var(--text-main);
+      color: #FFFFFF;
+    }
+
+    .btn-nav-cta {
+      padding: 8px 18px;
+      font-size: 0.88rem;
+      background: var(--text-main);
+      color: #FFFFFF;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-nav-cta:hover {
+      background: var(--accent-gold);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 50px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      background: var(--accent-rose-soft);
+      color: var(--accent-gold);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .hero-subtext {
+      font-size: 1.02rem;
+      margin: 16px 0 24px;
+      max-width: 530px;
+      line-height: 1.65;
+    }
+
+    /* กล่องจับเวลานับถอยหลังเวลาจริง */
+    .timer-container {
+      background: #FFFDF9;
+      border: 1px dashed #D5CAC0;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 26px;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    .timer-title {
+      font-size: 0.84rem;
+      font-weight: 700;
       color: var(--accent-gold);
       margin-bottom: 10px;
     }
-    .timer-countdown {
+
+    .timer-display {
       display: flex;
       justify-content: center;
       gap: 10px;
       margin-bottom: 8px;
     }
-    .timer-badge {
+
+    .timer-unit {
       background: var(--text-main);
       color: #FFFFFF;
       border-radius: 8px;
       padding: 6px 12px;
-      min-width: 55px;
+      min-width: 60px;
     }
+
     .timer-num {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 800;
       color: #FBBF24;
       display: block;
       line-height: 1.1;
     }
+
     .timer-label {
       font-size: 0.65rem;
-      color: #9CA3AF;
+      color: #A39D97;
       display: block;
     }
+
     .timer-notice {
       font-size: 0.8rem;
       font-weight: 600;
       color: #DC2626;
       margin-top: 6px;
     }
+
+    /* 3 จุดเด่น */
+    .hero-usp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .usp-card {
+      background: var(--bg-card);
+      padding: 14px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .usp-icon {
+      font-size: 1.3rem;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .usp-card strong {
+      display: block;
+      font-size: 0.88rem;
+      margin-bottom: 2px;
+    }
+
+    .usp-card p {
+      font-size: 0.76rem;
+      line-height: 1.4;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .guarantee-note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 14px;
+    }
+
+    /* Hero Mockup */
+    .mockup-frame {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      background: #FFFFFF;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      border-radius: 14px;
+      display: block;
+    }
+
+    .floating-rate-pill {
+      position: absolute;
+      bottom: 26px;
+      left: 26px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 10px 18px;
+      border-radius: 14px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .floating-rate-pill span {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .floating-rate-pill strong {
+      font-size: 1.25rem;
+      color: var(--accent-gold);
+    }
+
+    /* Pricing Section */
+    .pricing-section {
+      padding: 80px 0;
+      background: var(--bg-subtle);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border-radius: 18px;
+      padding: 32px 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--accent-gold);
+      box-shadow: var(--shadow-md);
+    }
+
+    .ribbon {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-gold);
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 4px 16px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .package-header h3 {
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .package-desc {
+      font-size: 0.84rem;
+      min-height: 38px;
+    }
+
+    .price-display {
+      margin: 18px 0 2px;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .price-display .currency {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .price-display .amount {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .price-display .unit {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      margin-left: 6px;
+    }
+
+    .min-qty-text {
+      font-size: 0.84rem;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 26px;
+      flex-grow: 1;
+    }
+
+    .feature-list li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+
+    .feature-list li strong {
+      color: var(--text-main);
+    }
+
+    /* Steps Section */
+    .steps-section {
+      padding: 80px 0;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      padding: 26px 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-number {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent-rose);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .step-card h4 {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .step-card p {
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    /* Reviews Section */
+    .reviews-section {
+      padding: 80px 0;
+      background: #FFFDF9;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .review-card {
+      background: var(--bg-card);
+      padding: 26px 22px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stars {
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+    }
+
+    .review-comment {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      flex-grow: 1;
+      margin-bottom: 16px;
+    }
+
+    .reviewer-meta strong {
+      display: block;
+      font-size: 0.92rem;
+    }
+
+    .reviewer-meta span {
+      font-size: 0.78rem;
+      color: var(--text-light);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 80px 0;
+    }
+
+    .faq-container {
+      max-width: 720px;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .faq-header {
+      padding: 16px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      user-select: none;
+      font-size: 0.94rem;
+    }
+
+    .faq-header::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-header .icon {
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item[open] .faq-header .icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-body {
+      padding: 0 20px 18px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Final CTA */
+    .final-cta-section {
+      padding: 70px 0;
+      background: var(--accent-rose-soft);
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .final-cta-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .final-cta-section p {
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Floating LINE Button */
+    .floating-line-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: var(--line-green);
+      color: #FFFFFF;
+      border-radius: 50px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 6px 18px rgba(6, 199, 85, 0.35);
+      z-index: 99;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .floating-line-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(6, 199, 85, 0.45);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px 0 10px;
+      color: var(--text-light);
+      font-size: 0.82rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-subtext {
+        margin: 16px auto 24px;
+      }
+      .timer-container {
+        margin: 0 auto 26px;
+      }
+      .hero-usp-grid {
+        text-align: left;
+      }
+      .hero-cta-group {
+        justify-content: center;
+      }
+      .pricing-grid, .reviews-grid {
+        grid-template-columns: 1fr;
+        max-width: 440px;
+        margin: 0 auto;
+      }
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-usp-grid {
+        grid-template-columns: 1fr;
+      }
+      .floating-line-btn span {
+        display: none;
+      }
+      .floating-line-btn {
+        padding: 12px;
+        border-radius: 50%;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation -->
   <header class="navbar">
     <div class="nav-container">
       <a href="#" class="brand-logo">DUNYA <span>WEDDING</span></a>
       <div class="nav-actions">
-        <a href="catalog.html" class="btn-text">🎨 แคตตาล็อก</a>
-        <a href="#pricing" class="btn-text">ดูราคา</a>
-        <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="navLineBtn" target="_blank" class="btn-primary-small">สั่งทำการ์ด</a>
+        <a href="catalog.html" class="btn-nav-link">🎨 แคตตาล็อก</a>
+        <a href="#pricing" class="btn-nav-link">ตารางราคา</a>
+        <a href="catalog.html" class="btn-nav-cta">สั่งทำการ์ด</a>
       </div>
     </div>
   </header>
@@ -94,22 +765,22 @@
             <span class="text-gold">พิมพ์คมชัด พร้อมซองเข้าชุด</span>
           </h1>
           <p class="hero-subtext" id="paperSpecDisplay">
-            ส่งต่อความทรงจำอันทรงคุณค่าด้วยงานพิมพ์การ์ดระดับพรีเมียม สีสด คมชัด กระดาษหนาแน่นสัมผัสหรู ผลิตไว จัดส่งตรงเวลา หมดกังวลเรื่องงานด่วน
+            หมดกังวลเรื่องงบบานปลาย งานพิมพ์ดิจิทัลคุณภาพพรีเมียมบนกระดาษอาร์ตการ์ดขาวหนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง พิมพ์ไวทันใจ ตรวจแบบฟรีก่อนส่งพิมพ์จริง[cite: 1]
           </p>
 
-          <!-- ตัวนับเวลาจับเวลาจริง -->
-          <div class="hero-timer-container">
+          <!-- Real-Time Countdown Timer -->
+          <div class="timer-container" id="timerBox">
             <div class="timer-title">⏳ สิทธิ์ราคาโปรโมชันพิเศษวันนี้ จะหมดลงใน:</div>
-            <div class="timer-countdown">
-              <div class="timer-badge">
+            <div class="timer-display">
+              <div class="timer-unit">
                 <span class="timer-num" id="hours">00</span>
                 <span class="timer-label">ชั่วโมง</span>
               </div>
-              <div class="timer-badge">
+              <div class="timer-unit">
                 <span class="timer-num" id="minutes">00</span>
                 <span class="timer-label">นาที</span>
               </div>
-              <div class="timer-badge">
+              <div class="timer-unit">
                 <span class="timer-num" id="seconds">00</span>
                 <span class="timer-label">วินาที</span>
               </div>
@@ -117,43 +788,46 @@
             <div class="timer-notice" id="promoNoticeDisplay">⚠️ สิทธิ์โปรโมชันนี้เหลือเพียง 7 คิวสุดท้ายของวันนี้เท่านั้น</div>
           </div>
 
+          <!-- USPs -->
           <div class="hero-usp-grid">
             <div class="usp-card">
               <span class="usp-icon">💎</span>
               <div>
-                <strong>คมชัดระดับ HD</strong>
-                <p>หมึกพรีเมียม ตัวอักษรคมกริบ สีตรงปก</p>
+                <strong>คมชัด หมึกไม่ลอก</strong>
+                <p>ตัวอักษรคมกริบ สีตรงปก กระดาษหนาเนียน</p>
               </div>
             </div>
             <div class="usp-card">
               <span class="usp-icon">✉️</span>
               <div>
-                <strong>แพ็กเกจครบจบ</strong>
-                <p>ฟรีซองการ์ดเข้าชุด จับคู่โทนสีสวยงาม</p>
+                <strong>ฟรีซองเข้าชุด</strong>
+                <p>แถมฟรีซองการ์ดมินิมอลครบตามจำนวนการ์ด[cite: 1]</p>
               </div>
             </div>
             <div class="usp-card">
               <span class="usp-icon">⚡</span>
               <div>
-                <strong>ผลิตไว ส่งด่วน</strong>
-                <p>พร้อมจัดส่งภายใน 2–4 วันทำการ</p>
+                <strong>ผลิตไว จัดส่งด่วน</strong>
+                <p>พร้อมจัดส่งตรงเวลาภายใน 2–4 วันทำการ</p>
               </div>
             </div>
           </div>
 
+          <!-- CTAs -->
           <div class="hero-cta-group">
-            <a href="catalog.html" class="btn-primary">🎨 ดูแคตตาล็อก & สั่งทำ</a>
+            <a href="catalog.html" class="btn-primary">🎨 ดูแคตตาล็อก & เลือกลายการ์ด</a>
             <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="heroLineBtn" target="_blank" rel="noopener" class="btn-secondary">
-              💬 สอบถามเพิ่มเติมผ่าน LINE
+              💬 สอบถามทาง LINE
             </a>
           </div>
-          <p class="guarantee-text">🔒 ตรวจทานแบบพิมพ์จริงก่อนผลิต • ตรวจแก้แบบฟรี 1 ครั้ง</p>
+          <p class="guarantee-note">🔒 ตรวจทานแบบเสมือนจริงก่อนผลิต • แจ้งปรับแก้ข้อความได้ฟรีก่อนพิมพ์จริง[cite: 1]</p>
         </div>
 
+        <!-- Mockup Visual -->
         <div class="hero-visual">
           <div class="mockup-frame">
             <img src="https://images.unsplash.com/photo-1549417229-aa67d3263c09?auto=format&fit=crop&w=800&q=80" alt="ตัวอย่างการ์ดแต่งงานมินิมอล DUNYA Print" class="hero-img">
-            <div class="floating-badge">
+            <div class="floating-rate-pill">
               <span>เริ่มต้นเพียง</span>
               <strong id="floatingRateBadge">2.80 บ./ชุด</strong>
             </div>
@@ -166,9 +840,9 @@
     <section id="pricing" class="pricing-section">
       <div class="container">
         <div class="section-title">
-          <span class="eyebrow">PACKAGES & PRICING</span>
-          <h2>แพ็กเกจราคาโปร่งใส คุมงบได้เป๊ะ</h2>
-          <p>รวมค่าพิมพ์การ์ดและซองเข้าชุดเรียบร้อย ไม่มีบวกเพิ่มจุกจิก</p>
+          <span class="eyebrow">TRANSPARENT PACKAGES</span>
+          <h2>แพ็กเกจราคาโปร่งใส ไม่มีบวกเพิ่ม</h2>
+          <p>รวมค่าพิมพ์การ์ดและซองเข้าชุดเรียบร้อย คำนวณงบได้เป๊ะทุกบาท[cite: 1]</p>
         </div>
 
         <div class="pricing-grid">
@@ -180,18 +854,18 @@
               <div class="price-display">
                 <span class="currency">฿</span><span class="amount" id="p100_rate">3.50</span><span class="unit">/ ชุด</span>
               </div>
-              <p class="min-qty" id="p100_total">ยอดรวม 350 บาท (100 ชุด)</p>
+              <p class="min-qty-text" id="p100_total">ยอดรวม 350 บาท (100 ชุด)</p>
             </div>
             <ul class="feature-list">
-              <li>✔️ การ์ดขนาด 4x6 นิ้ว หน้าเดียว</li>
-              <li>✔️ กระดาษการ์ดขาวพรีเมียม 230 แกรม</li>
-              <li>✔️ <strong>ฟรี!</strong> ซองสีเข้าชุดครบ 100 ซอง</li>
-              <li>✔️ บริการตรวจแบบพรีวิวก่อนพิมพ์จริง</li>
+              <li>✔️ การ์ดขนาดมาตรฐาน 4x6 นิ้ว</li>
+              <li>✔️ กระดาษการ์ดขาวพรีเมียม หนา 230 แกรม</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองสีเข้าชุดครบ 100 ซอง[cite: 1]</li>
+              <li>✔️ บริการตรวจแบบพรีวิวก่อนพิมพ์จริง[cite: 1]</li>
             </ul>
             <a href="catalog.html" class="btn-outline">เลือกลายแพ็กเกจนี้</a>
           </div>
 
-          <!-- Package 2: 200 - 300 ใบ (ยอดนิยม) -->
+          <!-- Package 2: 200–300 ใบ (ยอดนิยม) -->
           <div class="pricing-card featured">
             <div class="ribbon">ยอดนิยมสุดคุ้ม</div>
             <div class="package-header">
@@ -200,14 +874,14 @@
               <div class="price-display">
                 <span class="currency">฿</span><span class="amount" id="p200_rate">3.00</span><span class="unit">/ ชุด</span>
               </div>
-              <p class="min-qty" id="p200_total">200 ชุด = 600 บ. | 300 ชุด = 900 บ.</p>
+              <p class="min-qty-text" id="p200_total">200 ชุด = 600 บ. | 300 ชุด = 900 บ.[cite: 1]</p>
             </div>
             <ul class="feature-list">
-              <li>✔️ การ์ดขนาด 4x6 นิ้ว มาตรฐานพรีเมียม</li>
+              <li>✔️ การ์ดขนาด 4x6 นิ้ว หรือ 5x7 นิ้ว</li>
               <li>✔️ กระดาษอาร์ตการ์ดขาวหนา 240–260 แกรม</li>
-              <li>✔️ พิมพ์ระบบดิจิทัลคมชัด สีสดตรงปก</li>
-              <li>✔️ <strong>ฟรี!</strong> ซองการ์ดมินิมอลพรีเมียมเข้าชุด</li>
-              <li>✔️ <strong>ฟรี!</strong> ตรวจเช็กตัวสะกดและข้อความ</li>
+              <li>✔️ พิมพ์ระบบดิจิทัลคมชัด หมึกไม่ซึมลอก</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองการ์ดมินิมอลพรีเมียมเข้าชุด[cite: 1]</li>
+              <li>✔️ <strong>ฟรี!</strong> ตรวจเช็กตัวสะกดและแก้แบบฟรี 1 ครั้ง[cite: 1]</li>
             </ul>
             <a href="catalog.html" class="btn-primary">สั่งจองแพ็กเกจยอดนิยม</a>
           </div>
@@ -216,16 +890,16 @@
           <div class="pricing-card">
             <div class="package-header">
               <h3>Grand 500+</h3>
-              <p class="package-desc">สำหรับงานเลี้ยงขนาดใหญ่ แขกจำนวนมาก คุ้มค่าที่สุด</p>
+              <p class="package-desc">สำหรับงานแต่งขนาดใหญ่ แขกจำนวนมาก คุ้มค่าที่สุด</p>
               <div class="price-display">
                 <span class="currency">฿</span><span class="amount" id="p500_rate">2.80</span><span class="unit">/ ชุด</span>
               </div>
-              <p class="min-qty" id="p500_total">ยอดรวม 1,400 บาท (500 ชุด)</p>
+              <p class="min-qty-text" id="p500_total">ยอดรวม 1,400 บาท (500 ชุด)[cite: 1]</p>
             </div>
             <ul class="feature-list">
-              <li>✔️ การ์ดขนาด 4x6 นิ้ว หน้าเดียว</li>
+              <li>✔️ การ์ดขนาดมาตรฐาน 4x6 นิ้ว</li>
               <li>✔️ กระดาษอาร์ตการ์ดพรีเมียมหนาพิเศษ</li>
-              <li>✔️ <strong>ฟรี!</strong> ซองเรียบหรูครบตามจำนวนการ์ด</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองเรียบหรูครบตามจำนวนการ์ด[cite: 1]</li>
               <li>✔️ <strong>ฟรี!</strong> บริการคิวพิมพ์เร่งด่วนพิเศษ</li>
             </ul>
             <a href="catalog.html" class="btn-outline">เลือกลายแพ็กเกจนี้</a>
@@ -234,35 +908,35 @@
       </div>
     </section>
 
-    <!-- How It Works -->
+    <!-- Steps Section -->
     <section class="steps-section">
       <div class="container">
         <div class="section-title">
-          <span class="eyebrow">EASY 3-STEP PROCESS</span>
-          <h2>3 ขั้นตอนการสั่งง่ายๆ เสร็จไวในไม่กี่คลิก</h2>
+          <span class="eyebrow">EASY 3 STEPS</span>
+          <h2>3 ขั้นตอนการสั่งง่ายๆ เสร็จไวในไม่กี่คลิก[cite: 1]</h2>
         </div>
 
-        <div class="steps-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="steps-grid">
           <div class="step-card">
             <div class="step-number">01</div>
-            <h4>เลือกลายในแคตตาล็อก</h4>
-            <p>เลือกลายที่ชอบในหน้า Catalog แล้วส่งข้อมูลชื่อ วันที่ สถานที่จัดงาน</p>
+            <h4>เลือกลายในแคตตาล็อก[cite: 1]</h4>
+            <p>เลือกดีไซน์ที่ชอบในหน้า Catalog แล้วระบุข้อมูลชื่อ วันที่ และสถานที่จัดงาน[cite: 1]</p>
           </div>
           <div class="step-card">
             <div class="step-number">02</div>
-            <h4>ตรวจทาน Artwork ทาง LINE</h4>
-            <p>ทีมงานจัดวางเลย์เอาต์ ส่งไฟล์พรีวิวเสมือนจริงให้ตรวจความถูกต้องภายใน 24 ชม.</p>
+            <h4>ตรวจทาน Artwork ทาง LINE[cite: 1]</h4>
+            <p>ทีมงานจัดวางเลย์เอาต์ ส่งไฟล์พรีวิวเสมือนจริงให้ตรวจทานความถูกต้องภายใน 24 ชม.[cite: 1]</p>
           </div>
           <div class="step-card">
             <div class="step-number">03</div>
-            <h4>ผลิตคมชัด & จัดส่งถึงบ้าน</h4>
-            <p>เมื่อคอนเฟิร์มแบบ พิมพ์การ์ดและจัดชุดพร้อมซอง แพ็กปลอดภัยส่งตรงถึงบ้านทันที</p>
+            <h4>ผลิตคมชัด & จัดส่งถึงบ้าน[cite: 1]</h4>
+            <p>เมื่อยืนยันแบบ ดำเนินการสั่งพิมพ์ทันที แพ็กของแน่นหนาพร้อมซองส่งตรงถึงบ้าน[cite: 1]</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Social Proof / Reviews -->
+    <!-- Reviews Section -->
     <section class="reviews-section">
       <div class="container">
         <div class="section-title">
@@ -273,10 +947,10 @@
         <div class="reviews-grid">
           <div class="review-card">
             <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p class="review-comment">"ตอนแรกกังวลเรื่องงบมาก แต่ที่นี่ราคาคุ้มค่าจริงๆ กระดาษหนาและตัวหนังสือคมกริบ แขกชมทุกคนเลยค่ะ"</p>
+            <p class="review-comment">"ตอนแรกกังวลเรื่องงบมาก แต่ที่นี่ราคาคุ้มค่าจริงๆ กระดาษหนาและตัวหนังสือคมกริบ แขกชมกันทุกคนเลยค่ะ"</p>
             <div class="reviewer-meta">
               <strong>คุณนัท & คุณโบว์</strong>
-              <span>กทม.</span>
+              <span>กรุงเทพฯ</span>
             </div>
           </div>
           <div class="review-card">
@@ -289,7 +963,7 @@
           </div>
           <div class="review-card">
             <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p class="review-comment">"สั่งง่ายมาก มีแบบให้เลือกเยอะ ไม่ต้องคุยยืดเยื้อ งานพิมพ์สวย สีไม่เพี้ยน แนะนำคู่บ่าวสาวที่กำลังมองหาการ์ดเลยครับ"</p>
+            <p class="review-comment">"สั่งง่ายมาก มีแบบให้เลือกเยอะ ไม่ต้องคุยยืดเยื้อ งานพิมพ์สวย สีไม่เพี้ยน แนะนำเพื่อนที่กำลังจะแต่งแน่นอนครับ"</p>
             <div class="reviewer-meta">
               <strong>คุณออย & คุณเต้</strong>
               <span>ปทุมธานี</span>
@@ -299,14 +973,60 @@
       </div>
     </section>
 
-    <!-- Bottom CTA -->
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container faq-container">
+        <div class="section-title">
+          <span class="eyebrow">FAQ</span>
+          <h2>คำถามที่พบบ่อย[cite: 1]</h2>
+        </div>
+
+        <div class="faq-item">
+          <details open>
+            <summary class="faq-header">
+              <span>สั่งพิมพ์ขั้นต่ำกี่ชุด และได้อะไรบ้าง?[cite: 1]</span>
+              <span class="icon">+</span>
+            </summary>
+            <div class="faq-body">
+              ขั้นต่ำเริ่มต้นเพียง 100 ชุดครับ โดยทุกชุดจะได้รับทั้งการ์ดแต่งงานและซองสีเข้าชุดฟรีครบตามจำนวน ไม่ต้องไปเดินหาซื้อซองแยกเอง[cite: 1]
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary class="faq-header">
+              <span>สามารถตรวจทานตัวสะกดและแก้ไขแบบได้ไหม?[cite: 1]</span>
+              <span class="icon">+</span>
+            </summary>
+            <div class="faq-body">
+              สามารถตรวจเช็กได้ครับ หลังจากส่งข้อมูล ทีมงานจะส่งภาพพรีวิวจำลองการจัดวางข้อความให้ตรวจทานทาง LINE ลูกค้าสามารถแจ้งแก้ไขคำผิดได้ฟรีก่อนสั่งพิมพ์จริง[cite: 1]
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary class="faq-header">
+              <span>ใช้ระยะเวลาผลิตและจัดส่งกี่วัน?[cite: 1]</span>
+              <span class="icon">+</span>
+            </summary>
+            <div class="faq-body">
+              หลังจากยืนยันแบบแล้ว ทางร้านใช้เวลาพิมพ์และแพ็กของประมาณ 2–3 วันทำการ และขนส่งพัสดุด่วนใช้เวลา 1–2 วันทำการครับ (หากเป็นงานด่วน สามารถทักแจ้งคิวพิเศษกับแอดมินทาง LINE ได้เลยครับ)[cite: 1]
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
     <section class="final-cta-section">
-      <div class="container text-center">
+      <div class="container">
         <h2>พร้อมสั่งการ์ดแต่งงานในฝันแบบคุมงบแล้วหรือยัง?</h2>
-        <p>ให้ DUNYA Print ช่วยดูแลวันสำคัญของคุณด้วยงานพิมพ์คุณภาพและบริการใส่ใจ</p>
+        <p>ให้ DUNYA Print ช่วยดูแลวันสำคัญของคุณด้วยงานพิมพ์คุณภาพและบริการที่ใส่ใจ</p>
         <div class="cta-actions">
           <a href="catalog.html" class="btn-primary">💍 เลือกแบบการ์ดแต่งงาน (Catalog)</a>
-          <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="footerLineBtn" target="_blank" class="btn-secondary">
+          <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="footerLineBtn" target="_blank" rel="noopener" class="btn-secondary">
             💬 ปรึกษาทีมงานผ่าน LINE
           </a>
         </div>
@@ -314,20 +1034,27 @@
     </section>
   </main>
 
-  <!-- Floating LINE CTA Button -->
+  <!-- Floating LINE Button -->
   <a href="https://line.me/ti/p/~YOUR_LINE_ID" id="floatLineBtn" target="_blank" rel="noopener" class="floating-line-btn" title="แชตสอบถามผ่าน LINE">
-    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
       <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.019 9.608.391.084.922.258 1.057.592.121.303.079.777.039 1.085l-.171 1.026c-.052.315-.246 1.233 1.079.672 1.326-.562 7.151-4.212 9.757-7.213 1.472-1.637 2.22-3.411 2.22-5.768z"/>
     </svg>
     <span>คุยกับแอดมิน LINE</span>
   </a>
 
-  <!-- Script Logic: ดึง Config + จับเวลาจริง + ปรับราคาเต็มเมื่อหมดเวลา -->
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 DUNYA Wedding Stationery. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Script Logic: ดึง Config + จับเวลาจริง (Real-Time) + ปรับราคาเต็มทันทีเมื่อหมดเวลา -->
   <script>
     const defaultCfg = {
       lineUrl: "https://line.me/ti/p/~YOUR_LINE_ID",
       heroHeadline: "การ์ดแต่งงานมินิมอล เรียบหรู<br><span class=\"text-gold\">พิมพ์คมชัด พร้อมซองเข้าชุด</span>",
-      paperSpec: "ส่งต่อความทรงจำอันทรงคุณค่าด้วยงานพิมพ์การ์ดระดับพรีเมียม สีสด คมชัด กระดาษหนาแน่นสัมผัสหรู ผลิตไว จัดส่งตรงเวลา หมดกังวลเรื่องงานด่วน",
+      paperSpec: "หมดกังวลเรื่องงบบานปลาย งานพิมพ์ดิจิทัลคุณภาพพรีเมียมบนกระดาษอาร์ตการ์ดขาวหนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง พิมพ์ไวทันใจ ตรวจแบบฟรีก่อนส่งพิมพ์จริง",
       promoPrices: { p100: 3.5, p200: 3.0, p300: 3.0, p500: 2.8 },
       regularPrices: { p100: 5.0, p200: 5.0, p300: 5.0, p500: 4.5 },
       promo: {
@@ -348,7 +1075,7 @@
           storeConfig = await res.json();
         }
       } catch (err) {
-        console.log('โหลด config ไม่สำเร็จ ใช้ค่ามาตรฐาน');
+        console.log('โหลด config ไม่สำเร็จ ใช้ค่ามาตรฐานเริ่มต้น');
       }
       applyData(storeConfig);
       startRealCountdown(storeConfig);
@@ -359,12 +1086,12 @@
       if (cfg.paperSpec) document.getElementById('paperSpecDisplay').innerText = cfg.paperSpec;
 
       if (cfg.lineUrl) {
-        document.querySelectorAll('#navLineBtn, #heroLineBtn, #footerLineBtn, #floatLineBtn').forEach(el => {
+        document.querySelectorAll('#heroLineBtn, #footerLineBtn, #floatLineBtn').forEach(el => {
           el.href = cfg.lineUrl;
         });
       }
 
-      // แสดงราคาโปรโมชันเริ่มต้น
+      // แสดงราคาช่วงโปรโมชัน
       const pr = cfg.promoPrices || defaultCfg.promoPrices;
       document.getElementById('p100_rate').innerText = pr.p100.toFixed(2);
       document.getElementById('p100_total').innerText = `ยอดรวม ${(pr.p100 * 100).toLocaleString()} บาท (100 ชุด)`;
@@ -374,6 +1101,7 @@
       document.getElementById('p500_total').innerText = `ยอดรวม ${(pr.p500 * 500).toLocaleString()} บาท (500 ชุด)`;
     }
 
+    // ตัวจับเวลาจริงโดยอิง Date.now() และบันทึกใน localStorage
     function startRealCountdown(cfg) {
       const promoHours = cfg.promo?.hours || 8;
       const storageKey = 'dunya_promo_deadline';
@@ -412,14 +1140,14 @@
       tick();
     }
 
-    // ปรับเป็นราคาเต็มทันทีเมื่อเวลาหมด
+    // ปรับราคาเต็มทันทีเมื่อหมดเวลา
     function triggerPriceExpiry(cfg) {
       const reg = cfg.regularPrices || defaultCfg.regularPrices;
       
       const noticeEl = document.getElementById('promoNoticeDisplay');
       if (noticeEl) {
         noticeEl.innerText = cfg.promo?.expiredNotice || "❌ หมดเวลาโปรโมชันแล้ว ปรับเป็นราคาปกติ";
-        noticeEl.style.color = "#6B7280";
+        noticeEl.style.color = "#718096";
       }
 
       document.getElementById('p100_rate').innerText = reg.p100.toFixed(2);
