@@ -742,7 +742,17 @@ button, .btn-primary, .btn-secondary, .btn-outline {
   height: 100%;
   border: none;
 }
-
+/* ล็อกความกว้างตัวเลขไม่ให้กระโดด/สั่น */
+.timer-num,
+.highlight-price,
+table td,
+.step-num,
+.code,
+.price-display {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
 /* ==========================================================================
    Responsive Breakpoints
    ========================================================================== */
