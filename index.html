@@ -3,409 +3,304 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DUNYA Print - การ์ดแต่งงานมินิมอล ใบละ 3 บาท</title>
-  <!-- สคริปต์ดาวน์โหลดรูปภาพ Mockup -->
+  <title>DUNYA Print - ระบบออกแบบและพรีวิวการ์ดแต่งงาน</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; }
-    body { background-color: #fbf9f5; color: #2d3748; line-height: 1.6; }
-    .container { max-width: 640px; margin: 0 auto; padding: 20px 16px; }
+    body { background-color: #f6f5f2; color: #2d3748; line-height: 1.5; padding-bottom: 50px; }
+    .container { max-width: 680px; margin: 0 auto; padding: 16px; }
 
-    /* แถบควบคุมแอดมิน (ล็อก / ปลดล็อก) */
-    .admin-bar { background: #edf2f7; border: 1px dashed #cbd5e0; border-radius: 12px; padding: 10px 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; position: sticky; top: 10px; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-    .btn-admin { border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px; transition: 0.2s; }
-    .btn-edit { background: #2b6cb0; color: #fff; }
-    .btn-reset { background: #e2e8f0; color: #4a5568; margin-left: 6px; }
+    /* การ์ดคอนเทนเนอร์ */
+    .box { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    h2 { font-size: 18px; color: #1a202c; text-align: center; margin-bottom: 14px; }
 
-    /* สไตล์กล่องเนื้อหา: ยืดหดความสูงอัตโนมัติตามข้อความ */
-    .box { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 24px 18px; margin-bottom: 20px; height: auto !important; min-height: fit-content; transition: border-color 0.2s; }
-    .hero { text-align: center; }
+    /* สลับหน้า-หลัง */
+    .side-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
+    .tab-btn { flex: 1; max-width: 160px; padding: 10px; border: 1px solid #cbd5e0; background: #edf2f7; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; }
+    .tab-btn.active { background: #1a202c; color: #ffffff; border-color: #1a202c; }
 
-    /* ไฮไลต์พื้นที่แก้ไขได้เมื่อเปิดโหมดแอดมิน */
-    .is-editing .editable { outline: 2px dashed #3182ce !important; background-color: #ebf8ff; border-radius: 4px; cursor: text; padding: 2px 4px; }
+    /* โซน Drag & Drop */
+    .drop-zone { border: 2px dashed #cbd5e0; border-radius: 12px; padding: 18px; text-align: center; background: #fafafa; cursor: pointer; transition: 0.2s; margin-bottom: 14px; }
+    .drop-zone.dragover { border-color: #3182ce; background: #ebf8ff; }
+    .drop-zone p { font-size: 12px; color: #718096; margin-top: 4px; }
 
-    /* ส่วนประกอบ UI ทั่วไป */
-    .badges { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-    .badge { background: #f3ede2; color: #825e38; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
-    h1 { font-size: 24px; color: #1a202c; margin-bottom: 10px; line-height: 1.3; }
-    .price-tag { color: #c53030; font-weight: 800; font-size: 26px; }
-    .subhead { font-size: 14px; color: #718096; margin-bottom: 22px; }
-    h2 { font-size: 18px; color: #1a202c; text-align: center; margin-bottom: 16px; }
+    /* ปุ่มเครื่องมือเพิ่มองค์ประกอบ */
+    .tool-bar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
+    .btn-tool { background: #edf2f7; border: 1px solid #cbd5e0; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-tool:hover { background: #e2e8f0; }
 
-    .btn-main { display: block; width: 100%; max-width: 360px; margin: 0 auto 10px; background: #1a202c; color: #ffffff; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; border: none; }
-    .btn-secondary { display: block; width: 100%; max-width: 360px; margin: 0 auto 10px; background: #4a5568; color: #ffffff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; }
-    .btn-line { display: block; width: 100%; max-width: 360px; margin: 0 auto; background: #06c755; color: #ffffff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
+    /* ผืนผ้าใบการ์ด 4x6 นิ้ว */
+    .canvas-wrapper { width: 100%; max-width: 320px; aspect-ratio: 4/6; margin: 0 auto; position: relative; border-radius: 12px; overflow: hidden; background-color: #ffffff; background-size: cover; background-position: center; border: 1px solid #cbd5e0; box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+    
+    /* เลเยอร์องค์ประกอบบนการ์ด */
+    .element-box { position: absolute; cursor: move; user-select: none; padding: 4px; border: 1px dashed transparent; }
+    .element-box:hover, .element-box:focus-within { border-color: #3182ce; background: rgba(255, 255, 255, 0.4); }
+    .element-text { outline: none; font-size: 14px; text-align: center; white-space: pre-wrap; word-break: break-word; }
+    .element-img { max-width: 100px; max-height: 100px; display: block; pointer-events: none; }
+    .del-btn { position: absolute; top: -8px; right: -8px; background: #e53e3e; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; border: none; cursor: pointer; display: none; }
+    .element-box:hover .del-btn { display: block; }
 
-    /* ตารางราคา */
-    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
-    th, td { padding: 10px 8px; border-bottom: 1px solid #edf2f7; text-align: left; }
-    th { background: #f7fafc; color: #4a5568; }
-    .text-red { color: #c53030; font-weight: bold; }
+    /* แถบสถานะงานและระบบล็อกดาวน์โหลด */
+    .status-panel { border-top: 1px solid #edf2f7; margin-top: 18px; padding-top: 16px; text-align: center; }
+    .status-tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 12px; }
+    .status-locked { background: #fed7d7; color: #9b2c2c; }
+    .status-ready { background: #c6f6d5; color: #22543d; }
 
-    /* แคตตาล็อก */
-    .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
-    .catalog-card { background: #ffffff; border: 1px solid #edf2f7; border-radius: 10px; overflow: hidden; text-align: center; padding-bottom: 10px; }
-    .catalog-card img { width: 100%; aspect-ratio: 4/6; object-fit: cover; display: block; background: #f0f0f0; }
-    .card-code { font-weight: bold; font-size: 14px; margin-top: 8px; color: #2d3748; }
-    .card-name { font-size: 11px; color: #718096; padding: 0 4px; word-break: break-word; }
-
-    /* กรอบตัวอย่างการ์ด 4x6 นิ้ว */
-    .form-group { margin-bottom: 12px; text-align: left; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; color: #4a5568; }
-    .form-control { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 14px; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .card-mockup-wrapper { width: 100%; max-width: 320px; aspect-ratio: 4/6; margin: 16px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.12); position: relative; background-size: cover; background-position: center; border: 1px solid #e2e8f0; background-color: #fff; }
-    .card-overlay { position: absolute; inset: 0; padding: 24px 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: rgba(255,255,255,0.25); }
-
-    .step { display: flex; gap: 12px; margin-bottom: 14px; }
-    .step-badge { width: 26px; height: 26px; background: #f3ede2; color: #825e38; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 13px; flex-shrink: 0; }
-    .step-detail h3 { font-size: 14px; margin-bottom: 2px; }
-    .step-detail p { font-size: 12px; color: #718096; }
-
-    .faq { margin-bottom: 12px; font-size: 13px; }
-    .faq-q { font-weight: 600; color: #2d3748; }
-    .faq-a { color: #718096; margin-top: 2px; }
+    .btn-action { display: block; width: 100%; max-width: 340px; margin: 0 auto 10px; padding: 13px; border-radius: 25px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; text-align: center; text-decoration: none; }
+    .btn-update { background: #2b6cb0; color: #fff; }
+    .btn-download { background: #a0aec0; color: #fff; cursor: not-allowed; }
+    .btn-download.unlocked { background: #2f855a; cursor: pointer; box-shadow: 0 4px 12px rgba(47,133,90,0.3); }
   </style>
 </head>
 <body>
 
-<div class="container" id="mainContainer">
+<div class="container">
 
-  <!-- แถบสลับโหมด: แอดมินแก้ไข / ล็อกมุมมองลูกค้า -->
-  <div class="admin-bar">
-    <span id="adminStatusText">🔒 โหมด: <strong>ลูกค้าดูอย่างเดียว (ล็อก)</strong></span>
-    <div>
-      <button class="btn-admin btn-edit" id="btnToggleEdit" onclick="toggleGlobalEdit()">✏️ เปิดโหมดแก้ไขทุกอย่าง</button>
-      <button class="btn-admin btn-reset" onclick="resetDefaultContent()" title="ล้างการแก้ไขกลับเป็นค่าเริ่มต้น">🔄 รีเซ็ต</button>
-    </div>
-  </div>
-
-  <!-- 1. ส่วนหัว Hero (เปิดให้แก้ข้อความได้ทั้งหมด) -->
-  <section class="box hero">
-    <div class="badges editable" data-key="hero-badges">
-      <span class="badge">⚡ ตรวจแบบฟรี 1 ครั้ง</span>
-      <span class="badge">📦 ผลิตไว 2–3 วัน</span>
-      <span class="badge">🎨 10 ดีไซน์ยอดนิยม</span>
-    </div>
-    <div class="editable" data-key="hero-title">
-      <h1>การ์ดแต่งงานมินิมอล สวยพรีเมียม<br><span class="price-tag">เพียงใบละ 3 บาท!</span></h1>
-    </div>
-    <div class="editable" data-key="hero-subhead">
-      <p class="subhead">กระดาษอาร์ตการ์ดพรีเมียมหนา คมชัด ไม่ต้องออกแบบเอง เลือกลาย ปรับชื่อ แล้วสั่งทำได้เลย</p>
-    </div>
+  <section class="box">
+    <h2>💍 ระบบจัดวางแบบการ์ดแต่งงาน (หน้า - หลัง)</h2>
     
-    <a href="#customizer" class="btn-main">💍 ทดลองปรับแต่งการ์ด & สั่งทำ</a>
-    <a href="https://line.me/ti/p/~ใส่_ไอดีไลน์_ที่นี่" target="_blank" class="btn-line">💬 ปรึกษา / สอบถามผ่าน LINE</a>
-  </section>
-
-  <!-- 2. สเปกและตารางราคา (แก้ไขข้อความ ตาราง ตัวเลข และหมายเหตุได้โดยตรง) -->
-  <section class="box">
-    <div class="editable" data-key="specs-and-pricing">
-      <h2>สเปกสินค้า & ตารางราคา</h2>
-      <p style="font-size: 13px; color: #4a5568; margin-bottom: 10px;">
-        • ขนาดมาตรฐาน: <strong>4 x 6 นิ้ว (โปสการ์ด) หน้าเดียว</strong><br>
-        • เนื้อกระดาษ: <strong>อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม</strong>
-      </p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>จำนวน</th>
-            <th>ราคา/ใบ</th>
-            <th>ยอดรวม</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>100 ใบ</td>
-            <td>3.50 บ.</td>
-            <td>350 บ.</td>
-          </tr>
-          <tr>
-            <td>200 ใบ</td>
-            <td class="text-red">3.00 บ.</td>
-            <td>600 บ.</td>
-          </tr>
-          <tr>
-            <td>300 ใบ</td>
-            <td class="text-red">3.00 บ.</td>
-            <td>900 บ.</td>
-          </tr>
-          <tr>
-            <td>500 ใบ</td>
-            <td class="text-red">2.80 บ.</td>
-            <td>1,400 บ.</td>
-          </tr>
-        </tbody>
-      </table>
-      <p style="font-size: 11px; color: #a0aec0; margin-top: 8px; text-align: center;">* ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง</p>
-    </div>
-  </section>
-
-  <!-- 3. โซนทดลองปรับแต่งการ์ดสด & ดาวน์โหลดภาพการ์ด 4x6 นิ้ว -->
-  <section class="box" id="customizer">
-    <div class="editable" data-key="customizer-header">
-      <h2>💍 ทดลองปรับแต่งการ์ดแต่งงานของคุณ</h2>
-      <p style="font-size: 12px; color: #718096; text-align: center; margin-bottom: 16px;">
-        พิมพ์รายละเอียดเพื่อดูตัวอย่าง และกดบันทึกรูปภาพได้ทันที
-      </p>
+    <!-- ปุ่มสลับด้านการ์ด -->
+    <div class="side-tabs">
+      <div class="tab-btn active" id="tabFront" onclick="switchSide('front')">การ์ดด้านหน้า</div>
+      <div class="tab-btn" id="tabBack" onclick="switchSide('back')">การ์ดด้านหลัง</div>
     </div>
 
-    <div class="form-group">
-      <label>เลือกลายการ์ด:</label>
-      <select id="templateSelect" class="form-control">
-        <option value="">กำลังโหลดรายชื่อแบบจาก GitHub...</option>
-      </select>
+    <!-- โซน Drag & Drop เปลี่ยนพื้นหลัง -->
+    <div class="drop-zone" id="dropZone" onclick="document.getElementById('bgFileInput').click()">
+      <strong>📂 ลากไฟล์รูปภาพมาวางที่นี่ หรือคลิกเพื่อเลือกไฟล์</strong>
+      <p>รองรับไฟล์ JPG, PNG สำหรับใช้เป็นภาพพื้นหลังการ์ดในหน้านี้</p>
+      <input type="file" id="bgFileInput" accept="image/*" style="display: none;" onchange="handleBgSelect(this.files[0])">
     </div>
 
-    <div class="grid-2">
-      <div class="form-group">
-        <label>ชื่อเจ้าบ่าว:</label>
-        <input type="text" id="groomInput" class="form-control" value="กิตติศักดิ์">
-      </div>
-      <div class="form-group">
-        <label>ชื่อเจ้าสาว:</label>
-        <input type="text" id="brideInput" class="form-control" value="พิมพ์มาดา">
-      </div>
+    <!-- เครื่องมือเพิ่มองค์ประกอบ -->
+    <div class="tool-bar">
+      <button class="btn-tool" onclick="addTextBox()">➕ เพิ่มกล่องข้อความ</button>
+      <button class="btn-tool" onclick="document.getElementById('elemImgInput').click()">🖼️ เพิ่มรูปภาพ / QR Code</button>
+      <button class="btn-tool" onclick="resetCurrentSide()">🔄 ล้างข้อมูลด้านนี้</button>
+      <input type="file" id="elemImgInput" accept="image/*" style="display: none;" onchange="handleAddImage(this.files[0])">
     </div>
 
-    <div class="form-group">
-      <label>วันที่และเวลางาน:</label>
-      <input type="text" id="dateInput" class="form-control" value="วันเสาร์ที่ 14 พฤศจิกายน 2026 | 18:00 น.">
-    </div>
+    <!-- ผืนผ้าใบแสดงผลการ์ด 4x6 นิ้ว -->
+    <div class="canvas-wrapper" id="cardCanvas"></div>
 
-    <div class="form-group">
-      <label>สถานที่จัดงาน:</label>
-      <input type="text" id="venueInput" class="form-control" value="ห้องแกรนด์บอลรูม โรงแรมพรีเมียม กทม.">
-    </div>
+    <!-- ส่วนควบคุมสถานะงานและการดาวน์โหลด -->
+    <div class="status-panel">
+      <div id="statusLabel" class="status-tag status-locked">🔒 สถานะ: รอทีมงานตรวจสอบและอัปเดตงาน</div>
+      
+      <!-- ปุ่มสำหรับแอดมินหรือผู้ดูแลระบบกดยืนยัน -->
+      <button class="btn-action btn-update" onclick="toggleJobDone()">
+        ✅ ยืนยันอัปเดตงานเสร็จสิ้น (ปลดล็อกให้ลูกค้าดาวน์โหลด)
+      </button>
 
-    <!-- ชิ้นงานการ์ด 4x6 นิ้ว -->
-    <div class="card-mockup-wrapper" id="cardPreview">
-      <div class="card-overlay">
-        <p style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #4a5568; margin-bottom: 8px;">Wedding Invitation</p>
-        <div style="font-size: 20px; font-weight: 700; color: #1a202c; line-height: 1.3;" id="previewNames">
-          กิตติศักดิ์ <br><span style="font-size: 15px; color: #e76f51;">&</span><br> พิมพ์มาดา
-        </div>
-        <div style="width: 40px; height: 1px; background: #cbd5e0; margin: 12px 0;"></div>
-        <p id="previewDate" style="font-size: 11px; font-weight: 600; color: #2d3748; margin-bottom: 4px;">วันเสาร์ที่ 14 พฤศจิกายน 2026</p>
-        <p id="previewVenue" style="font-size: 10px; color: #4a5568;">ห้องแกรนด์บอลรูม โรงแรมพรีเมียม กทม.</p>
-      </div>
+      <!-- ปุ่มดาวน์โหลดที่จะปลดล็อกเมื่อยืนยันแล้วเท่านั้น -->
+      <button id="downloadBtn" class="btn-action btn-download" onclick="downloadCurrentCard()" disabled>
+        📥 ดาวน์โหลดการ์ดตัวอย่าง (PNG)
+      </button>
     </div>
-
-    <button type="button" onclick="downloadCardPreview()" class="btn-secondary">
-      📥 ดาวน์โหลดภาพการ์ดตัวอย่าง (PNG)
-    </button>
-    <button type="button" onclick="goToOrder()" class="btn-main">
-      ✨ ใช้ข้อมูลนี้สั่งทำการ์ด 3 บาท
-    </button>
-  </section>
-
-  <!-- 4. แคตตาล็อกดึงจาก GitHub อัตโนมัติ -->
-  <section class="box">
-    <div class="editable" data-key="catalog-header">
-      <h2>ดีไซน์การ์ดทั้งหมด</h2>
-      <p style="font-size: 12px; color: #718096; text-align: center; margin-bottom: 12px;">จดรหัสลายที่ชอบ เพื่อนำไปกรอกในแบบฟอร์มสั่งทำ</p>
-    </div>
-    <div id="catalog-container" class="catalog-grid">
-      <p style="grid-column: span 2; text-align: center; color: #a0aec0; padding: 20px 0;">กำลังโหลดลายการ์ดจากระบบ...</p>
-    </div>
-  </section>
-
-  <!-- 5. ขั้นตอนสั่งงาน (แก้ไขหัวข้อและเนื้อหาได้ทุกข้อ) -->
-  <section class="box">
-    <div class="editable" data-key="order-steps">
-      <h2>ขั้นตอนการสั่งทำ</h2>
-      <div class="step">
-        <div class="step-badge">1</div>
-        <div class="step-detail">
-          <h3>เลือกลายและส่งบรีฟ</h3>
-          <p>เลือกรหัสลายที่ชอบ กรอกชื่อ วันที่ กำหนดการ และสถานที่ผ่านแบบฟอร์ม</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-badge">2</div>
-        <div class="step-detail">
-          <h3>ตรวจแบบผ่าน LINE</h3>
-          <p>ทีมงานจัดวางข้อความ ส่งตัวอย่างให้ตรวจทานทาง LINE ภายใน 24 ชม. (ฟรี 1 รอบ)</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-badge">3</div>
-        <div class="step-detail">
-          <h3>ผลิตและจัดส่ง</h3>
-          <p>ยืนยันแบบและยอดมัดจำ ทีมงานพิมพ์ ตัด แพ็ก และแจ้งเลขพัสดุทันที</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. คำถามที่พบบ่อย (แก้ไขคำถามและคำตอบได้อิสระ) -->
-  <section class="box">
-    <div class="editable" data-key="faq-section">
-      <h2>คำถามที่พบบ่อย</h2>
-      <div class="faq">
-        <div class="faq-q">❓ ขั้นต่ำในการสั่งพิมพ์กี่ใบ?</div>
-        <div class="faq-a">ขั้นต่ำเริ่มต้นที่ 100 ใบขึ้นไปครับ</div>
-      </div>
-      <div class="faq">
-        <div class="faq-q">❓ สามารถแก้ไขแบบได้กี่ครั้ง?</div>
-        <div class="faq-a">เพื่อคุมราคา 3 บาท สามารถตรวจทานตัวสะกดได้ฟรี 1 ครั้งครับ</div>
-      </div>
-      <div class="faq">
-        <div class="faq-q">❓ ใช้เวลาผลิตกี่วัน?</div>
-        <div class="faq-a">ผลิตและจัดส่งภายใน 2–4 วันทำการหลังจากอนุมัติแบบครับ</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ส่วนท้ายหน้า ปิดการขาย -->
-  <section style="text-align: center; padding: 10px 0 30px;">
-    <div class="editable" data-key="closing-text" style="margin-bottom: 16px;">
-      <p style="font-size: 15px; font-weight: 600; color: #2d3748;">"เตรียมงานแต่งอย่างสบายใจ ไม่ต้องจ่ายหลักหมื่น ได้งานสวยตรงปกแน่นอน"</p>
-    </div>
-    <button type="button" onclick="goToOrder()" class="btn-main">💍 สั่งทำการ์ดแต่งงาน (คลิกกรอกฟอร์ม)</button>
-    <a href="https://line.me/ti/p/~ใส่_ไอดีไลน์_ที่นี่" target="_blank" class="btn-line">💬 ปรึกษา / สอบถามผ่าน LINE</a>
   </section>
 
 </div>
 
 <script>
-  const NOTION_FORM_URL = "ใส่_URL_NOTION_FORM_ที่นี่";
-  const repoOwner = 'dunyqprint-glitch';
-  const repoName = 'wedding-card-order';
+  let currentSide = 'front';
+  let isWorkFinished = false;
 
-  const templateSelect = document.getElementById('templateSelect');
-  const groomInput = document.getElementById('groomInput');
-  const brideInput = document.getElementById('brideInput');
-  const dateInput = document.getElementById('dateInput');
-  const venueInput = document.getElementById('venueInput');
-  const cardPreview = document.getElementById('cardPreview');
-  const previewNames = document.getElementById('previewNames');
-  const previewDate = document.getElementById('previewDate');
-  const previewVenue = document.getElementById('previewVenue');
-  const catalogContainer = document.getElementById('catalog-container');
+  // โครงสร้างข้อมูลตั้งต้นของด้านหน้าและด้านหลัง (ขนาด 4x6 นิ้ว)
+  const cardData = {
+    front: {
+      bg: '',
+      elements: [
+        { type: 'text', content: 'Wedding Invitation', top: '15%', left: '20%', fontSize: '12px', color: '#4a5568', bold: false },
+        { type: 'text', content: 'กิตติศักดิ์ & พิมพ์มาดา', top: '35%', left: '15%', fontSize: '18px', color: '#1a202c', bold: true },
+        { type: 'text', content: 'วันเสาร์ที่ 14 พฤศจิกายน 2026\nโรงแรมพรีเมียม กทม.', top: '65%', left: '15%', fontSize: '12px', color: '#4a5568', bold: false }
+      ]
+    },
+    back: {
+      bg: '',
+      elements: [
+        { type: 'text', content: 'กำหนดการพิธีมงคลสมรส', top: '10%', left: '18%', fontSize: '15px', color: '#1a202c', bold: true },
+        { type: 'text', content: '07:09 น. พิธีสงฆ์\n08:29 น. พิธีสู่ขอและหลั่งน้ำพระพุทธมนต์\n11:30 น. ร่วมรับประทานอาหาร', top: '25%', left: '10%', fontSize: '12px', color: '#4a5568', bold: false },
+        { type: 'text', content: 'สแกนเพื่อเปิดแผนที่เดินทาง', top: '65%', left: '20%', fontSize: '11px', color: '#718096', bold: false }
+      ]
+    }
+  };
 
-  const mainContainer = document.getElementById('mainContainer');
-  const btnToggleEdit = document.getElementById('btnToggleEdit');
-  const adminStatusText = document.getElementById('adminStatusText');
+  const canvas = document.getElementById('cardCanvas');
+  const dropZone = document.getElementById('dropZone');
 
-  let isEditingAll = false;
+  // สลับการแสดงผลหน้า - หลัง
+  function switchSide(side) {
+    currentSide = side;
+    document.getElementById('tabFront').classList.toggle('active', side === 'front');
+    document.getElementById('tabBack').classList.toggle('active', side === 'back');
+    renderCard();
+  }
 
-  // 1. โหลดข้อมูลที่เคยแก้ไขไว้ทั้งหมดจาก LocalStorage
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.editable').forEach(el => {
-      const key = el.getAttribute('data-key');
-      const savedHtml = localStorage.getItem(`dunya_edit_${key}`);
-      if (savedHtml) {
-        el.innerHTML = savedHtml;
+  // วาดองค์ประกอบลงบน Canvas
+  function renderCard() {
+    canvas.innerHTML = '';
+    const data = cardData[currentSide];
+    canvas.style.backgroundImage = data.bg ? `url('${data.bg}')` : 'none';
+
+    data.elements.forEach((item, index) => {
+      const elBox = document.createElement('div');
+      elBox.className = 'element-box';
+      elBox.style.top = item.top;
+      elBox.style.left = item.left;
+
+      // ลบองค์ประกอบ
+      const del = document.createElement('button');
+      del.className = 'del-btn';
+      del.innerText = '✕';
+      del.onclick = (e) => { e.stopPropagation(); removeElement(index); };
+      elBox.appendChild(del);
+
+      if (item.type === 'text') {
+        const txt = document.createElement('div');
+        txt.className = 'element-text';
+        txt.contentEditable = "true";
+        txt.innerText = item.content;
+        txt.style.fontSize = item.fontSize;
+        txt.style.color = item.color;
+        txt.style.fontWeight = item.bold ? 'bold' : 'normal';
+        txt.oninput = () => { item.content = txt.innerText; };
+        elBox.appendChild(txt);
+      } else if (item.type === 'image') {
+        const img = document.createElement('img');
+        img.className = 'element-img';
+        img.src = item.src;
+        elBox.appendChild(img);
       }
+
+      makeDraggable(elBox, item);
+      canvas.appendChild(elBox);
     });
+  }
+
+  // ลากตำแหน่งอิสระ (Drag & Reposition)
+  function makeDraggable(element, item) {
+    let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+    element.onmousedown = (e) => {
+      if (e.target.contentEditable === "true") return;
+      e.preventDefault();
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      document.onmouseup = () => { document.onmouseup = null; document.onmousemove = null; };
+      document.onmousemove = (ev) => {
+        posX = mouseX - ev.clientX;
+        posY = mouseY - ev.clientY;
+        mouseX = ev.clientX;
+        mouseY = ev.clientY;
+        const newTop = element.offsetTop - posY;
+        const newLeft = element.offsetLeft - posX;
+        element.style.top = newTop + "px";
+        element.style.left = newLeft + "px";
+        item.top = newTop + "px";
+        item.left = newLeft + "px";
+      };
+    };
+  }
+
+  // ระบบ Drag & Drop ไฟล์รูปภาพลงเว็บ
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length > 0) handleBgSelect(e.dataTransfer.files[0]);
   });
 
-  // 2. ฟังก์ชันเปิด/ปิดโหมดแก้ไขทุกอย่างบนหน้าเว็บ
-  function toggleGlobalEdit() {
-    isEditingAll = !isEditingAll;
-    const editableElements = document.querySelectorAll('.editable');
+  function handleBgSelect(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      cardData[currentSide].bg = e.target.result;
+      renderCard();
+    };
+    reader.readAsDataURL(file);
+  }
 
-    if (isEditingAll) {
-      mainContainer.classList.add('is-editing');
-      editableElements.forEach(el => el.contentEditable = "true");
-      btnToggleEdit.innerText = "💾 บันทึกทุกส่วน & ล็อก";
-      btnToggleEdit.style.background = "#2f855a";
-      adminStatusText.innerHTML = "✏️ โหมด: <strong style='color:#2b6cb0;'>กำลังแก้ไขเนื้อหาทั้งหมด</strong>";
+  // เพิ่มกล่องข้อความ
+  function addTextBox() {
+    cardData[currentSide].elements.push({
+      type: 'text',
+      content: 'ข้อความใหม่',
+      top: '50%',
+      left: '30%',
+      fontSize: '14px',
+      color: '#1a202c',
+      bold: false
+    });
+    renderCard();
+  }
+
+  // เพิ่มรูปภาพ / QR Code
+  function handleAddImage(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      cardData[currentSide].elements.push({
+        type: 'image',
+        src: e.target.result,
+        top: '40%',
+        left: '35%'
+      });
+      renderCard();
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeElement(index) {
+    cardData[currentSide].elements.splice(index, 1);
+    renderCard();
+  }
+
+  function resetCurrentSide() {
+    if (confirm('คุณต้องการล้างข้อมูลด้านนี้ใช่หรือไม่?')) {
+      cardData[currentSide].bg = '';
+      cardData[currentSide].elements = [];
+      renderCard();
+    }
+  }
+
+  // ระบบล็อก / ปลดล็อกปุ่มดาวน์โหลด
+  function toggleJobDone() {
+    isWorkFinished = !isWorkFinished;
+    const statusLabel = document.getElementById('statusLabel');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    if (isWorkFinished) {
+      statusLabel.className = 'status-tag status-ready';
+      statusLabel.innerText = '✅ สถานะ: อัปเดตงานเรียบร้อย (พร้อมให้ดาวน์โหลด)';
+      downloadBtn.className = 'btn-action btn-download unlocked';
+      downloadBtn.disabled = false;
+      alert('ปลดล็อกเรียบร้อย! ลูกค้าสามารถกดดาวน์โหลดภาพได้แล้ว');
     } else {
-      mainContainer.classList.remove('is-editing');
-      editableElements.forEach(el => {
-        el.contentEditable = "false";
-        const key = el.getAttribute('data-key');
-        localStorage.setItem(`dunya_edit_${key}`, el.innerHTML);
-      });
-      btnToggleEdit.innerText = "✏️ เปิดโหมดแก้ไขทุกอย่าง";
-      btnToggleEdit.style.background = "#2b6cb0";
-      adminStatusText.innerHTML = "🔒 โหมด: <strong>ลูกค้าดูอย่างเดียว (ล็อก)</strong>";
-      alert("✅ บันทึกการแก้ไขทุกส่วนเรียบร้อยแล้ว!");
+      statusLabel.className = 'status-tag status-locked';
+      statusLabel.innerText = '🔒 สถานะ: รอทีมงานตรวจสอบและอัปเดตงาน';
+      downloadBtn.className = 'btn-action btn-download';
+      downloadBtn.disabled = true;
     }
   }
 
-  // 3. ฟังก์ชันรีเซ็ตเนื้อหากลับเป็นค่าเริ่มต้น
-  function resetDefaultContent() {
-    if (confirm("คุณต้องการล้างข้อมูลที่แก้ไขทั้งหมดแล้วกลับเป็นค่าเริ่มต้นใช่หรือไม่?")) {
-      document.querySelectorAll('.editable').forEach(el => {
-        const key = el.getAttribute('data-key');
-        localStorage.removeItem(`dunya_edit_${key}`);
-      });
-      location.reload();
+  // ดาวน์โหลดรูปภาพการ์ด
+  function downloadCurrentCard() {
+    if (!isWorkFinished) {
+      alert('ระบบยังล็อกอยู่ ไม่สามารถดาวน์โหลดได้');
+      return;
     }
-  }
-
-  // 4. การแสดงผลการ์ดตัวอย่างสด
-  function updateCard() {
-    if (templateSelect.value) {
-      cardPreview.style.backgroundImage = `url('${templateSelect.value}')`;
-    }
-    const groom = groomInput.value.trim() || 'ชื่อเจ้าบ่าว';
-    const bride = brideInput.value.trim() || 'ชื่อเจ้าสาว';
-    previewNames.innerHTML = `${groom}<br><span style="font-size: 15px; color: #e76f51;">&</span><br>${bride}`;
-    previewDate.innerText = dateInput.value.trim() || 'กำหนดการจัดงาน';
-    previewVenue.innerText = venueInput.value.trim() || 'สถานที่จัดงาน';
-  }
-
-  templateSelect.addEventListener('change', updateCard);
-  groomInput.addEventListener('input', updateCard);
-  brideInput.addEventListener('input', updateCard);
-  dateInput.addEventListener('input', updateCard);
-  venueInput.addEventListener('input', updateCard);
-
-  // 5. ระบบดาวน์โหลดภาพการ์ดตัวอย่างลงเครื่อง
-  function downloadCardPreview() {
-    html2canvas(cardPreview, { scale: 3, useCORS: true }).then(canvas => {
+    // ซ่อนเส้นขอบระหว่างแปลงภาพ
+    document.querySelectorAll('.element-box').forEach(el => el.style.borderColor = 'transparent');
+    html2canvas(canvas, { scale: 3, useCORS: true }).then(cv => {
       const link = document.createElement('a');
-      link.download = `wedding-card-${groomInput.value || 'preview'}.png`;
-      link.href = canvas.toDataURL('image/png');
+      link.download = `wedding-card-${currentSide}.png`;
+      link.href = cv.toDataURL('image/png');
       link.click();
     });
   }
 
-  // 6. ดึงรูปภาพแคตตาล็อกจาก GitHub
-  fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents`)
-    .then(res => res.json())
-    .then(files => {
-      const exts = ['.jpg', '.jpeg', '.png', '.webp'];
-      const images = files.filter(f => exts.some(ext => f.name.toLowerCase().endsWith(ext)));
-
-      if (!images || images.length === 0) {
-        catalogContainer.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #718096;">ยังไม่มีไฟล์รูปภาพในคลัง</p>';
-        templateSelect.innerHTML = '<option value="">ไม่มีภาพพื้นหลัง</option>';
-        return;
-      }
-
-      templateSelect.innerHTML = images.map((img, i) => {
-        const code = `DN-${String(i + 1).padStart(2, '0')}`;
-        return `<option value="${img.name}">${code} (${img.name})</option>`;
-      }).join('');
-
-      catalogContainer.innerHTML = images.map((img, i) => {
-        const code = `DN-${String(i + 1).padStart(2, '0')}`;
-        const cleanName = img.name.replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
-        return `
-          <div class="catalog-card">
-            <img src="${img.name}" alt="${code}">
-            <div class="card-code">${code}</div>
-            <div class="card-name">${cleanName}</div>
-          </div>
-        `;
-      }).join('');
-
-      updateCard();
-    })
-    .catch(() => {
-      catalogContainer.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #e53e3e;">ไม่สามารถเชื่อมต่อคลังภาพได้</p>';
-      templateSelect.innerHTML = '<option value="">โหลดภาพไม่สำเร็จ</option>';
-    });
-
-  function goToOrder() {
-    window.open(NOTION_FORM_URL, '_blank');
-  }
+  // รันการแสดงผลครั้งแรก
+  renderCard();
 </script>
 
 </body>
