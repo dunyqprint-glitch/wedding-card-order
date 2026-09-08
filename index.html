@@ -3,361 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DUNYA Print - การ์ดแต่งงานมินิมอล ใบละ 3 บาท</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; }
-    body { background-color: #fcfbf9; color: #2d3748; line-height: 1.6; padding-bottom: 70px; }
-    .container { max-width: 680px; margin: 0 auto; padding: 16px; }
-
-    .card-section { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 24px 20px; margin-bottom: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-    h1 { font-size: 24px; color: #1a202c; line-height: 1.35; margin-bottom: 12px; }
-    h2 { font-size: 19px; color: #1a202c; text-align: center; margin-bottom: 16px; }
-    .subhead { font-size: 14px; color: #718096; margin-bottom: 20px; }
-    
-    .badge-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
-    .badge { background: #f4eee5; color: #7c5835; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; }
-
-    /* กล่องโปรโมชัน */
-    .promo-box { background: linear-gradient(135deg, #fff5f5 0%, #fff 100%); border: 1.5px solid #feb2b2; text-align: center; }
-    .promo-tag { background: #e53e3e; color: #fff; font-size: 12px; font-weight: bold; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 10px; animation: pulse 1.5s infinite; }
-    .timer-display { display: flex; justify-content: center; gap: 10px; margin: 14px 0; }
-    .timer-unit { background: #1a202c; color: #fff; border-radius: 8px; padding: 8px 12px; min-width: 54px; text-align: center; }
-    .timer-num { font-size: 20px; font-weight: 800; display: block; line-height: 1.1; }
-    .timer-label { font-size: 10px; color: #cbd5e0; text-transform: uppercase; }
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
-
-    /* ปุ่มกดหลัก */
-    .btn-primary { display: block; width: 100%; max-width: 360px; margin: 0 auto; background: #1a202c; color: #ffffff; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 14px rgba(0,0,0,0.12); cursor: pointer; border: none; transition: 0.2s; }
-    .btn-primary:hover { background: #2d3748; }
-    .btn-line { display: block; width: 100%; max-width: 360px; margin: 10px auto 0; background: #06c755; color: #ffffff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
-    
-    /* สเปก & ตารางราคา */
-    .spec-list { list-style: none; margin-bottom: 16px; font-size: 14px; }
-    .spec-list li { padding: 6px 0; border-bottom: 1px dashed #edf2f7; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
-    th, td { padding: 10px 8px; border-bottom: 1px solid #edf2f7; }
-    th { background: #f7fafc; color: #4a5568; }
-    .highlight-price { color: #c53030; font-weight: 700; }
-
-    /* สตูดิโอจำลองการ์ด 4x6 นิ้ว & Live Preview */
-    .preview-card-wrapper {
-      width: 100%;
-      max-width: 330px;
-      aspect-ratio: 4/6;
-      margin: 0 auto 20px;
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      background-color: #f7fafc;
-      background-size: cover;
-      background-position: center;
-      border: 1px solid #cbd5e0;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 24px 16px;
-    }
-    .preview-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.2);
-    }
-    .preview-text-box {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-    }
-    .pv-title { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #4a5568; margin-bottom: 14px; }
-    .pv-names { font-size: 20px; font-weight: 800; color: #1a202c; line-height: 1.3; margin-bottom: 16px; word-break: break-word; }
-    .pv-details { font-size: 12px; color: #2d3748; line-height: 1.6; white-space: pre-line; }
-
-    /* ฟอร์มกรอกข้อความลองใส่แบบ */
-    .client-input-group { background: #f7fafc; border: 1px solid #edf2f7; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-    .input-field { margin-bottom: 12px; text-align: left; }
-    .input-field label { display: block; font-size: 12px; font-weight: 700; color: #4a5568; margin-bottom: 4px; }
-    .input-field input, .input-field textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 13px; background: #fff; }
-
-    /* แคตตาล็อก */
-    .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
-    .catalog-item { border: 1.5px solid #edf2f7; border-radius: 10px; overflow: hidden; background: #fff; text-align: center; padding-bottom: 8px; cursor: pointer; transition: 0.2s; position: relative; }
-    .catalog-item:hover { transform: translateY(-3px); border-color: #3182ce; box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
-    .catalog-item img { width: 100%; aspect-ratio: 4/6; object-fit: cover; display: block; background: #f0f0f0; }
-    .catalog-item .code { font-weight: 700; font-size: 13px; margin-top: 6px; color: #1a202c; }
-    .catalog-item .desc { font-size: 11px; color: #718096; padding: 0 4px; }
-    .catalog-item .btn-choose { display: inline-block; background: #ebf8ff; color: #2b6cb0; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 12px; margin-top: 4px; }
-
-    /* ขั้นตอน & FAQ */
-    .step-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
-    .step-num { width: 26px; height: 26px; background: #f4eee5; color: #7c5835; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
-    .step-text h3 { font-size: 14px; margin-bottom: 2px; }
-    .step-text p { font-size: 12px; color: #718096; }
-    .faq-item { margin-bottom: 14px; font-size: 13px; }
-    .faq-q { font-weight: 600; color: #2d3748; }
-    .faq-a { color: #718096; margin-top: 2px; }
-  </style>
+  <title>การ์ดแต่งงานมินิมอล เรียบหรู คุมงบได้ พร้อมซองเข้าชุด | DUNYA Print</title>
+  <meta name="description" content="บริการพิมพ์การ์ดแต่งงานคุณภาพพรีเมียม คมชัด สีไม่ลอก เริ่มต้นสบายกระเป๋า พร้อมซองเข้าชุด การันตีผลิตไว งานด่วนทันใจ">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-
-  <!-- 1. Hero Section -->
-  <section class="card-section" style="text-align: center; padding: 32px 18px 24px;">
-    <div class="badge-group">
-      <span class="badge">⚡ ตรวจแบบฟรี</span>
-      <span class="badge">📦 ผลิตไว 2–3 วัน</span>
-      <span class="badge">🎨 10 ดีไซน์ยอดนิยม</span>
-    </div>
-    <h1 id="heroHeadlineDisplay">การ์ดแต่งงานมินิมอล ดีไซน์พรีเมียม<br><span style="color: #c53030;">เพียงใบละ 3 บาท!</span></h1>
-    <p class="subhead">เลือกลายการ์ด ลองพิมพ์ข้อความดูตัวอย่างจริงบนเว็บ แล้วกดส่งสั่งทำได้ทันที</p>
-    <a href="#catalog-section" class="btn-primary">💍 กดเลือกลายการ์ดในแคตตาล็อก</a>
-    <a id="heroLineBtn" href="https://line.me" target="_blank" class="btn-line">💬 ปรึกษาและส่งแบบผ่าน LINE</a>
-  </section>
-
-  <!-- 2. ตารางราคา & สเปก -->
-  <section class="card-section">
-    <h2>รายละเอียดและราคามาตรฐาน DUNYA Print</h2>
-    <ul class="spec-list">
-      <li><strong>ขนาด:</strong> 4 x 6 นิ้ว (จับถนัดมือ ขนาดมาตรฐานสากล)</li>
-      <li><strong id="paperSpecDisplay">เนื้อกระดาษ:</strong> อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง</li>
-      <li><strong>ระบบการพิมพ์:</strong> งานพิมพ์คมชัดระดับ Digital Offset สีสด ตัวอักษรคมกริบ</li>
-    </ul>
-
-    <div style="overflow-x: auto;">
-      <table id="priceTable">
-        <thead>
-          <tr>
-            <th>จำนวน</th>
-            <th>ราคา/ใบ</th>
-            <th>ยอดรวม</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>100 ใบ</td><td id="p100_rate">3.50 บ.</td><td id="p100_total">350 บาท</td></tr>
-          <tr><td>200 ใบ</td><td class="highlight-price" id="p200_rate">3.00 บ.</td><td id="p200_total">600 บาท</td></tr>
-          <tr><td>300 ใบ</td><td class="highlight-price" id="p300_rate">3.00 บ.</td><td id="p300_total">900 บาท</td></tr>
-          <tr><td>500 ใบ</td><td class="highlight-price" id="p500_rate">พิเศษ 2.80 บ.</td><td id="p500_total">1,400 บาท</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p id="priceNoteDisplay" style="font-size: 11px; color: #a0aec0; margin-top: 10px; text-align: center;">(หมายเหตุ: ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง)</p>
-  </section>
-
-  <!-- 3. ห้องสตูดิโอพรีวิว & ทดลองใส่ข้อความ (Interactive Preview) -->
-  <section class="card-section" id="preview-section">
-    <h2>💍 ตัวอย่างการ์ดของคุณ (Live Preview 4x6 นิ้ว)</h2>
-    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 16px;">
-      ลายที่เลือก: <strong id="currentSelectedCode" style="color:#2b6cb0;">ยังไม่ได้เลือกลาย (คลิกเลือกจากแคตตาล็อกด้านล่าง)</strong>
-    </p>
-
-    <!-- ผืนผ้าใบการ์ด 4x6 นิ้ว -->
-    <div class="preview-card-wrapper" id="cardPreview">
-      <div class="preview-overlay"></div>
-      <div class="preview-text-box">
-        <div class="pv-title">WEDDING INVITATION</div>
-        <div class="pv-names" id="pvNames">กิตติศักดิ์ &amp; พิมพ์มาดา</div>
-        <div class="pv-details" id="pvDetails">วันเสาร์ที่ 14 พฤศจิกายน 2026<br>ณ โรงแรมพรีเมียม แกรนด์ บอลรูม กรุงเทพฯ</div>
+  <!-- Header / Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">DUNYA <span>WEDDING</span></a>
+      <div class="nav-actions">
+        <a href="#pricing" class="btn-text">ดูแพ็กเกจ</a>
+        <button class="btn-primary-small open-modal-btn">สั่งทำการ์ด</button>
       </div>
     </div>
+  </header>
 
-    <!-- ฟอร์มทดลองกรอกข้อมูล -->
-    <div class="client-input-group">
-      <div class="input-field">
-        <label>ชื่อเจ้าบ่าว - เจ้าสาว:</label>
-        <input type="text" id="inputNames" placeholder="เช่น กิตติศักดิ์ & พิมพ์มาดา" oninput="updateCardPreview()">
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="badge-pill">✨ คุมงบแต่งงานได้ ไม่ต้องจ่ายหลักหมื่น</span>
+          <h1 class="hero-headline">
+            การ์ดแต่งงานมินิมอล เรียบหรู<br>
+            <span class="text-gold">พิมพ์คมชัด พร้อมซองเข้าชุด</span>
+          </h1>
+          <p class="hero-subtext">
+            ส่งต่อความทรงจำอันทรงคุณค่าด้วยงานพิมพ์การ์ดระดับพรีเมียม สีสด คมชัด กระดาษหนาแน่นสัมผัสหรู ผลิตไว จัดส่งตรงเวลา หมดกังวลเรื่องงานด่วน
+          </p>
+
+          <div class="hero-usp-grid">
+            <div class="usp-card">
+              <span class="usp-icon">💎</span>
+              <div>
+                <strong>คมชัดระดับ HD</strong>
+                <p>หมึกพรีเมียม ตัวอักษรคมกริบ สีตรงปก</p>
+              </div>
+            </div>
+            <div class="usp-card">
+              <span class="usp-icon">✉️</span>
+              <div>
+                <strong>แพ็กเกจครบจบ</strong>
+                <p>ฟรีซองการ์ดเข้าชุด จับคู่โทนสีสวยงาม</p>
+              </div>
+            </div>
+            <div class="usp-card">
+              <span class="usp-icon">⚡</span>
+              <div>
+                <strong>ผลิตไว ส่งด่วน</strong>
+                <p>พร้อมจัดส่งภายใน 2–4 วันทำการ</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-cta-group">
+            <button class="btn-primary open-modal-btn">💍 สั่งทำการ์ดแต่งงาน (กรอกข้อมูล)</button>
+            <a href="https://line.me/ti/p/~YOUR_LINE_ID" target="_blank" rel="noopener" class="btn-secondary">
+              💬 สอบถามเพิ่มเติมผ่าน LINE
+            </a>
+          </div>
+          <p class="guarantee-text">🔒 ตรวจทานแบบพิมพ์จริงก่อนผลิต • ไม่พอใจยินดีแก้แบบให้ตรงใจ</p>
+        </div>
+
+        <div class="hero-visual">
+          <div class="mockup-frame">
+            <img src="https://images.unsplash.com/photo-1549417229-aa67d3263c09?auto=format&fit=crop&w=800&q=80" alt="ตัวอย่างการ์ดแต่งงานมินิมอล DUNYA Print" class="hero-img">
+            <div class="floating-badge">
+              <span>เริ่มต้นเพียง</span>
+              <strong>3.00 บ./ชุด</strong>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="input-field">
-        <label>กำหนดการ & สถานที่จัดงาน:</label>
-        <textarea id="inputDetails" rows="2" placeholder="เช่น วันเสาร์ที่ 14 พ.ย. 2026 ณ โรงแรม..." oninput="updateCardPreview()"></textarea>
+    </section>
+
+    <!-- Pricing & Packages -->
+    <section id="pricing" class="pricing-section">
+      <div class="container">
+        <div class="section-title">
+          <span class="eyebrow">PACKAGES & PRICING</span>
+          <h2>แพ็กเกจราคาโปร่งใส ไม่มีบวกเพิ่ม</h2>
+          <p>เลือกขนาดและจำนวนที่เหมาะกับสเกลงานแต่งของคุณ คุมงบได้เป๊ะทุกบาท</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Package 1 -->
+          <div class="pricing-card">
+            <div class="package-header">
+              <h3>Standard Mini</h3>
+              <p class="package-desc">สำหรับพิธีหมั้น พิธีเช้า หรืองานแต่งขนาดย่อม</p>
+              <div class="price-display">
+                <span class="currency">฿</span><span class="amount">3.50</span><span class="unit">/ ชุด</span>
+              </div>
+              <p class="min-qty">ขั้นต่ำ 100 ชุด (350 บาท)</p>
+            </div>
+            <ul class="feature-list">
+              <li>✔️ การ์ดขนาดมาตรฐาน 4x6 นิ้ว</li>
+              <li>✔️ กระดาษการ์ดขาวด้านหนา 230 แกรม</li>
+              <li>✔️ พิมพ์หน้าเดียว คมชัด 300 DPI</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองสีเข้าชุดตามจำนวนการ์ด</li>
+              <li>✔️ บริการวางข้อความและจัดพิมพ์</li>
+            </ul>
+            <button class="btn-outline open-modal-btn">เลือกแพ็กเกจนี้</button>
+          </div>
+
+          <!-- Package 2 (Best Value) -->
+          <div class="pricing-card featured">
+            <div class="ribbon">ยอดนิยมสุดคุ้ม</div>
+            <div class="package-header">
+              <h3>Popular Choice</h3>
+              <p class="package-desc">เหมาะที่สุดสำหรับงานเลี้ยงฉลองมงคลสมรส</p>
+              <div class="price-display">
+                <span class="currency">฿</span><span class="amount">3.00</span><span class="unit">/ ชุด</span>
+              </div>
+              <p class="min-qty">จำนวน 300 ชุด (900 บาท)</p>
+            </div>
+            <ul class="feature-list">
+              <li>✔️ การ์ดขนาด 4x6 นิ้ว หรือ 5x7 นิ้ว</li>
+              <li>✔️ กระดาษอาร์ตการ์ดพรีเมียม 250 แกรม</li>
+              <li>✔️ พิมพ์คมชัด หมึกกันน้ำ 100%</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองการ์ดมินิมอลพรีเมียม</li>
+              <li>✔️ <strong>ฟรี!</strong> ปรับแต่งตัวสะกดและข้อความ 2 รอบ</li>
+              <li>✔️ <strong>ฟรี!</strong> QR Code สแกนแผนที่ Google Maps</li>
+            </ul>
+            <button class="btn-primary open-modal-btn">สั่งจองแพ็กเกจยอดนิยม</button>
+          </div>
+
+          <!-- Package 3 -->
+          <div class="pricing-card">
+            <div class="package-header">
+              <h3>Grand Celebration</h3>
+              <p class="package-desc">สำหรับงานแต่งงานขนาดใหญ่ แขกจำนวนมาก</p>
+              <div class="price-display">
+                <span class="currency">฿</span><span class="amount">2.80</span><span class="unit">/ ชุด</span>
+              </div>
+              <p class="min-qty">จำนวน 500 ชุดขึ้นไป</p>
+            </div>
+            <ul class="feature-list">
+              <li>✔️ การ์ดขนาด 4x6 นิ้ว หรือ 5x7 นิ้ว</li>
+              <li>✔️ กระดาษอาร์ตการ์ดพรีเมียม หนาเนียน 260 แกรม</li>
+              <li>✔️ <strong>ฟรี!</strong> ซองการ์ดเรียบหรูครบชุด</li>
+              <li>✔️ <strong>ฟรี!</strong> ตรวจเช็กไฟล์และแก้แบบได้ไม่จำกัด</li>
+              <li>✔️ <strong>ฟรี!</strong> บริการคิวพิมพ์เร่งด่วนพิเศษ</li>
+              <li>✔️ จัดส่งพัสดุด่วนฟรีทั่วประเทศ</li>
+            </ul>
+            <button class="btn-outline open-modal-btn">เลือกแพ็กเกจนี้</button>
+          </div>
+        </div>
       </div>
-      <div class="input-field">
-        <label>จำนวนที่ต้องการพิมพ์ (ใบ):</label>
-        <input type="number" id="inputQuantity" placeholder="เช่น 100, 200, 300">
+    </section>
+
+    <!-- How It Works -->
+    <section class="steps-section">
+      <div class="container">
+        <div class="section-title">
+          <span class="eyebrow">EASY 4-STEP PROCESS</span>
+          <h2>4 ขั้นตอนการสั่งง่ายๆ เสร็จไวในไม่กี่คลิก</h2>
+          <p>ประหยัดเวลาเตรียมงานแต่ง ไม่ต้องเสียเวลาเดินทางเข้ามาหน้าร้าน</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h4>เลือกลาย & กรอกข้อมูล</h4>
+            <p>เลือกดีไซน์การ์ดที่ชอบ แล้วกรอกชื่อคู่บ่าวสาว วันที่ และสถานที่ผ่านแบบฟอร์มหน้าเว็บ</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h4>ตรวจทาน Artwork</h4>
+            <p>ทีมงานจัดวางเลย์เอาต์ ส่งไฟล์พรีวิวเสมือนจริงให้ตรวจความถูกต้องผ่าน LINE ภายใน 24 ชม.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h4>ผลิตคมชัดด้วยหมึกแท้</h4>
+            <p>เมื่อบ่าวสาวยืนยันความถูกต้อง ดำเนินการสั่งพิมพ์ลงกระดาษหนา ตัดขอบเนียน พร้อมซอง</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">04</div>
+            <h4>แพ็กปลอดภัย จัดส่งไว</h4>
+            <p>บรรจุใส่กล่องกันกระแทกอย่างดี ส่งตรงถึงหน้าบ้านพร้อมนำไปแจกแขกคนสำคัญได้ทันที</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Proof / Reviews -->
+    <section class="reviews-section">
+      <div class="container">
+        <div class="section-title">
+          <span class="eyebrow">HAPPY COUPLES</span>
+          <h2>เสียงตอบรับจากคู่บ่าวสาวตัวจริง</h2>
+          <p>ความประทับใจจากคู่แต่งงานที่ไว้วางใจให้เราเป็นส่วนหนึ่งของวันพิเศษ</p>
+        </div>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="review-comment">"ตอนแรกกังวลเรื่องงบมาก เพราะจัดงานสเกลใหญ่ แต่ที่นี่ราคาคุ้มค่าจริงๆ กระดาษหนาและตัวหนังสือคมกริบ แขกชมกันทุกคนเลยค่ะ"</p>
+            <div class="reviewer-meta">
+              <strong>คุณนัท & คุณโบว์</strong>
+              <span>จัดงานเลี้ยง ณ รร. ดิ แอทธินี โฮเทล</span>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="review-comment">"งานด่วนมากเหลือเวลาแจกการ์ดแค่ 10 วัน ทีมงานจัดการวางแบบและพิมพ์ส่งให้ไวเกินคาด ซองกับการ์ดสีเข้าชุดกันพอดี ประทับใจมากครับ"</p>
+            <div class="reviewer-meta">
+              <strong>คุณนนท์ & คุณพิมพ์</strong>
+              <span>จัดงาน ณ สโมสรทหารบก</span>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="review-comment">"ชอบความง่ายในการสั่งผ่านเว็บมาก ไม่ต้องคอยทักถามราคาไปมา ตัวหนังสือและ QR Code สแกนติดง่าย แนะนำเพื่อนที่กำลังจะแต่งแน่นอนค่ะ"</p>
+            <div class="reviewer-meta">
+              <strong>คุณออย & คุณเต้</strong>
+              <span>จัดงาน Glasshouse นนทบุรี</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container faq-container">
+        <div class="section-title">
+          <span class="eyebrow">FREQUENTLY ASKED QUESTIONS</span>
+          <h2>คำถามที่พบบ่อย</h2>
+        </div>
+
+        <div class="accordion">
+          <details class="accordion-item" open>
+            <summary class="accordion-header">
+              <span>ระยะเวลาในการผลิตและจัดส่งใช้เวลากี่วัน?</span>
+              <span class="icon">+</span>
+            </summary>
+            <div class="accordion-body">
+              หลังจากลูกค้าคอนเฟิร์มไฟล์แบบเรียบร้อย ทางร้านใช้เวลาพิมพ์และแพ็กของประมาณ 2–3 วันทำการ และขนส่งด่วนใช้เวลา 1–2 วันทำการ (หากเป็นงานด่วนพิเศษ สามารถแจ้งแอดมินทาง LINE เพื่อจัดคิวแทรกได้ทันที)
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <span>จำนวนขั้นต่ำในการสั่งพิมพ์คือเท่าไร?</span>
+              <span class="icon">+</span>
+            </summary>
+            <div class="accordion-body">
+              ขั้นต่ำเริ่มต้นเพียง 100 ชุดเท่านั้นครับ เหมาะสำหรับทั้งงานหมั้นเล็กๆ หรืองานแต่งงานขนาดใหญ่ โดยทุกชุดจะได้รับทั้งการ์ดและซองเข้าชุดฟรี
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <span>การตรวจทานแบบและแก้ไขคำผิดทำอย่างไร?</span>
+              <span class="icon">+</span>
+            </summary>
+            <div class="accordion-body">
+              หลังจากท่านกรอกข้อมูลลงในระบบ ทีมงานจะจัดวางอาร์ตเวิร์กและส่งรูปจำลองให้ตรวจเช็กตัวสะกด วันที่ และเวลาผ่านแชต LINE ลูกค้าสามารถตรวจเช็กและแจ้งปรับแก้ข้อความได้ฟรี 2 รอบ ก่อนส่งเข้าแท่นพิมพ์จริง
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Final CTA -->
+    <section class="final-cta-section">
+      <div class="container text-center">
+        <h2>พร้อมส่งมอบการ์ดแต่งงานในฝันแบบคุมงบได้แล้วหรือยัง?</h2>
+        <p>ให้เราช่วยดูแลวันสำคัญของคุณด้วยงานพิมพ์คุณภาพสูงและบริการที่ใส่ใจ</p>
+        <div class="cta-actions">
+          <button class="btn-primary open-modal-btn">💍 เริ่มสั่งทำการ์ดแต่งงานของคุณ</button>
+          <a href="https://line.me/ti/p/~YOUR_LINE_ID" target="_blank" rel="noopener" class="btn-secondary">
+            💬 ปรึกษาทีมงานผ่าน LINE
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 DUNYA Wedding Stationery. All rights reserved.</p>
+      <p class="footer-note">คุมงบอย่างมั่นใจ ส่งต่อความสุขในทุกซองจดหมาย</p>
+    </div>
+  </footer>
+
+  <!-- Floating LINE CTA Button -->
+  <a href="https://line.me/ti/p/~YOUR_LINE_ID" target="_blank" rel="noopener" class="floating-line-btn" title="แชตสอบถามผ่าน LINE">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+      <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.019 9.608.391.084.922.258 1.057.592.121.303.079.777.039 1.085l-.171 1.026c-.052.315-.246 1.233 1.079.672 1.326-.562 7.151-4.212 9.757-7.213 1.472-1.637 2.22-3.411 2.22-5.768z"/>
+    </svg>
+    <span>คุยกับแอดมิน LINE</span>
+  </a>
+
+  <!-- Notion Form Modal Popup -->
+  <div id="notionModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">แบบฟอร์มสั่งทำการ์ดแต่งงาน</h3>
+          <p class="modal-subtitle">กรอกรายละเอียดเพื่อรับแบบจำลองก่อนพิมพ์จริง</p>
+        </div>
+        <button class="close-modal-btn" aria-label="ปิดหน้าต่าง">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- ใส่ URL ของ Notion Form / Tally Form ของคุณที่นี่ -->
+        <iframe 
+          src="https://your-notion-or-tally-form-url.com" 
+          frameborder="0" 
+          width="100%" 
+          height="100%" 
+          title="Wedding Card Order Form">
+        </iframe>
       </div>
     </div>
+  </div>
 
-    <!-- ปุ่มส่งข้อมูลและสั่งทำ -->
-    <button type="button" class="btn-primary" onclick="submitOrderBrief()" style="background:#2f855a; box-shadow: 0 4px 14px rgba(47,133,90,0.3);">
-      📲 ยืนยันข้อมูลและส่งแบบสั่งทำ (คลิกส่งแบบ)
-    </button>
-  </section>
-
-  <!-- 4. แคตตาล็อกลายการ์ด Canva -->
-  <section class="card-section" id="catalog-section">
-    <h2>แคตตาล็อกดีไซน์การ์ดแต่งงาน</h2>
-    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 14px;">
-      ✨ แตะที่ลายการ์ดเพื่อนำไปลองใส่ชื่อและพรีวิวตัวอย่างทันที
-    </p>
-    <div id="catalog-container" class="catalog-grid">
-      <p style="grid-column: span 2; text-align: center; color: #a0aec0; padding: 20px 0;">กำลังโหลดดีไซน์การ์ด...</p>
-    </div>
-  </section>
-
-  <!-- 5. สเต็ปสั่งทำ -->
-  <section class="card-section">
-    <h2>ขั้นตอนการสั่งทำง่ายๆ ใน 3 ขั้นตอน</h2>
-    <div class="step-item">
-      <div class="step-num">1</div>
-      <div class="step-text">
-        <h3>เลือกลายและลองใส่ชื่อ</h3>
-        <p>แตะเลือกลายจากแคตตาล็อก พิมพ์ชื่อและกำหนดการเพื่อดูตัวอย่างทันที</p>
-      </div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">2</div>
-      <div class="step-text">
-        <h3>ส่งแบบตรวจทาน</h3>
-        <p>กดปุ่มส่งแบบ ทีมงานจะจัดแบบส่งให้ตรวจเช็กตัวสะกดอย่างละเอียดอีกครั้ง</p>
-      </div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">3</div>
-      <div class="step-text">
-        <h3>ผลิตและรอรับของ</h3>
-        <p>ยืนยันความถูกต้อง ทีมงานพิมพ์ ตัด และแพ็กส่งพร้อมแจ้งเลขพัสดุถึงมือทันที</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. ปิดการขาย -->
-  <section class="card-section" style="text-align: center; padding: 28px 16px;">
-    <p style="font-size: 15px; font-weight: 700; color: #1a202c; margin-bottom: 6px;">"เตรียมงานแต่งอย่างสบายใจ ได้การ์ดสวยตรงปก คุ้มค่าที่สุด"</p>
-    <p style="font-size: 13px; color: #718096; margin-bottom: 20px;">สเปกการ์ด 3 บาท คมชัด อยู่ทรง พร้อมบริการตรวจแบบใส่ใจทุกขั้นตอน</p>
-    <a id="mainOrderBtn" href="#catalog-section" class="btn-primary">💍 เริ่มเลือกลายการ์ดที่นี่</a>
-    <a id="mainLineBtn" href="https://line.me" target="_blank" class="btn-line">💬 สอบถามแอดมินผ่าน LINE</a>
-  </section>
-
-</div>
-
-<script>
-  let storeConfig = {};
-  let selectedDesignCode = 'DN-01';
-  let selectedDesignName = 'ค่าเริ่มต้น';
-
-  // 1. ซิงก์ข้อมูลจาก config.json
-  async function syncStoreConfig() {
-    try {
-      const res = await fetch('config.json?t=' + Date.now());
-      if (!res.ok) throw new Error('config.json not ready');
-      storeConfig = await res.json();
-
-      if (storeConfig.heroHeadline) document.getElementById('heroHeadlineDisplay').innerHTML = storeConfig.heroHeadline;
-      if (storeConfig.paperSpec) document.getElementById('paperSpecDisplay').innerText = "เนื้อกระดาษ: " + storeConfig.paperSpec;
-      if (storeConfig.lineUrl) {
-        document.getElementById('heroLineBtn').href = storeConfig.lineUrl;
-        document.getElementById('mainLineBtn').href = storeConfig.lineUrl;
-      }
-
-      if (storeConfig.prices) {
-        const p = storeConfig.prices;
-        if (p.p100) {
-          document.getElementById('p100_rate').innerText = parseFloat(p.p100).toFixed(2) + " บ.";
-          document.getElementById('p100_total').innerText = (parseFloat(p.p100) * 100).toLocaleString() + " บาท";
-        }
-        if (p.p200) {
-          document.getElementById('p200_rate').innerText = parseFloat(p.p200).toFixed(2) + " บ.";
-          document.getElementById('p200_total').innerText = (parseFloat(p.p200) * 200).toLocaleString() + " บาท";
-        }
-        if (p.p300) {
-          document.getElementById('p300_rate').innerText = parseFloat(p.p300).toFixed(2) + " บ.";
-          document.getElementById('p300_total').innerText = (parseFloat(p.p300) * 300).toLocaleString() + " บาท";
-        }
-        if (p.p500) {
-          document.getElementById('p500_rate').innerText = "พิเศษ " + parseFloat(p.p500).toFixed(2) + " บ.";
-          document.getElementById('p500_total').innerText = (parseFloat(p.p500) * 500).toLocaleString() + " บาท";
-        }
-        if (p.note) document.getElementById('priceNoteDisplay').innerText = p.note;
-      }
-
-      // แสดงแคตตาล็อก
-      renderCatalog(storeConfig.catalog || []);
-    } catch (e) {
-      renderCatalog([]);
-    }
-  }
-
-  // 2. แสดงรายการแคตตาล็อกและปุ่มคลิกเลือก
-  function renderCatalog(items) {
-    const catalogContainer = document.getElementById('catalog-container');
-    if (!items || items.length === 0) {
-      catalogContainer.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #a0aec0; padding: 20px 0;">กรุณาเพิ่มลายการ์ดในระบบแอดมิน</p>';
-      return;
-    }
-
-    catalogContainer.innerHTML = items.map(item => `
-      <div class="catalog-item" onclick="selectDesign('${item.code}', '${item.name}', '${item.imageUrl}')">
-        <img src="${item.imageUrl}" alt="${item.code}" onerror="this.src='https://via.placeholder.com/150x225?text=Wedding+Card'">
-        <div class="code">${item.code}</div>
-        <div class="desc">${item.name}</div>
-        <span class="btn-choose">👉 แตะเพื่อลองใส่ชื่อ</span>
-      </div>
-    `).join('');
-
-    // ตั้งค่าลายเริ่มต้นเป็นลายแรก
-    if (items.length > 0 && selectedDesignName === 'ค่าเริ่มต้น') {
-      selectDesign(items[0].code, items[0].name, items[0].imageUrl, false);
-    }
-  }
-
-  // 3. เมื่อลูกค้าคลิกเลือกลาย: นำภาพไปแสดงในพรีวิว และเลื่อนจอขึ้นไปดูทันที
-  function selectDesign(code, name, imageUrl, doScroll = true) {
-    selectedDesignCode = code;
-    selectedDesignName = name;
-    
-    document.getElementById('currentSelectedCode').innerText = `${code}: ${name}`;
-    document.getElementById('cardPreview').style.backgroundImage = `url('${imageUrl}')`;
-
-    if (doScroll) {
-      document.getElementById('preview-section').scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  // 4. อัปเดตข้อความบนการ์ดแบบเรียลไทม์ตามที่ลูกค้าพิมพ์
-  function updateCardPreview() {
-    const nameVal = document.getElementById('inputNames').value.trim();
-    const detailVal = document.getElementById('inputDetails').value.trim();
-
-    document.getElementById('pvNames').innerText = nameVal || 'กิตติศักดิ์ & พิมพ์มาดา';
-    document.getElementById('pvDetails').innerText = detailVal || 'วันเสาร์ที่ 14 พฤศจิกายน 2026\nณ โรงแรมพรีเมียม แกรนด์ บอลรูม กรุงเทพฯ';
-  }
-
-  // 5. ส่งข้อมูลสั่งทำ (สรุปข้อมูลและส่งต่อไปยังแบบฟอร์ม หรือ LINE OA)
-  function submitOrderBrief() {
-    const names = document.getElementById('inputNames').value.trim();
-    const details = document.getElementById('inputDetails').value.trim();
-    const qty = document.getElementById('inputQuantity').value.trim();
-
-    if (!names) {
-      alert('กรุณากรอกชื่อเจ้าบ่าว - เจ้าสาว ก่อนกดส่งแบบครับ');
-      document.getElementById('inputNames').focus();
-      return;
-    }
-
-    const message = `💍 บรีฟสั่งทำการ์ดแต่งงาน DUNYA Print\n` +
-                    `• รหัสลายที่เลือก: ${selectedDesignCode} (${selectedDesignName})\n` +
-                    `• ชื่อคู่บ่าวสาว: ${names}\n` +
-                    `• กำหนดการ/สถานที่: ${details || '-'}\n` +
-                    `• จำนวนพิมพ์: ${qty ? qty + ' ใบ' : 'รอสรุป'}`;
-
-    // กรณีมีแบบฟอร์ม Notion/Tally ให้เปิดฟอร์ม พร้อมคัดลอกข้อความสรุปไว้ให้
-    if (storeConfig.orderFormUrl && storeConfig.orderFormUrl.startsWith('http')) {
-      if (navigator.clipboard) navigator.clipboard.writeText(message);
-      alert('คัดลอกข้อมูลการ์ดให้เรียบร้อยแล้ว กำลังนำท่านไปยังแบบฟอร์มสั่งทำ...');
-      window.open(storeConfig.orderFormUrl, '_blank');
-      return;
-    }
-
-    // กรณีไม่มีฟอร์ม ส่งเปิดห้องแชท LINE ทันที
-    const lineTarget = storeConfig.lineUrl || 'https://line.me';
-    alert('กำลังนำท่านไปยัง LINE เพื่อส่งแบบและสรุปยอดกับแอดมิน...');
-    window.open(lineTarget, '_blank');
-  }
-
-  // รันระบบเริ่มต้น
-  syncStoreConfig();
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
