@@ -3,147 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DUNYA Print - ระบบจัดการหลังบ้าน (Admin)</title>
+  <title>DUNYA Print - ระบบจัดการข้อมูลหน้าร้าน</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #f0f2f5; color: #1a202c; padding: 20px 16px; }
-    .container { max-width: 580px; margin: 0 auto; background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
-    h1 { font-size: 20px; text-align: center; margin-bottom: 20px; color: #2d3748; }
-    .form-group { margin-bottom: 16px; }
-    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #4a5568; }
-    input, textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 14px; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .btn-save { width: 100%; background: #2b6cb0; color: #fff; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 12px; }
-    .btn-save:hover { background: #2c5282; }
-    .auth-overlay { position: fixed; inset: 0; background: #f0f2f5; display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 99; }
-    .auth-card { background: #fff; padding: 30px 24px; border-radius: 12px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-    .status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    body { background-color: #f0f2f5; color: #1a202c; padding: 24px 16px; }
+    .container { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    h1 { font-size: 20px; text-align: center; margin-bottom: 20px; }
+    .section-title { font-size: 15px; font-weight: 700; margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #edf2f7; color: #2b6cb0; }
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; color: #4a5568; }
+    input, textarea, select { width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 14px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .btn-save { width: 100%; background: #2f855a; color: #fff; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 18px; }
+    .btn-save:disabled { background: #a0aec0; cursor: not-allowed; }
+    .auth-box { background: #fffaf0; border: 1px solid #feebc8; border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 13px; }
   </style>
 </head>
 <body>
 
-  <!-- ชั้นป้องกันรหัสผ่านแอดมิน -->
-  <div id="authScreen" class="auth-overlay">
-    <div class="auth-card">
-      <h2 style="font-size: 18px; margin-bottom: 8px;">🔐 เข้าสู่ระบบหลังบ้าน</h2>
-      <p style="font-size: 13px; color: #718096; margin-bottom: 16px;">กรุณากรอกรหัส PIN ผู้ดูแลระบบ DUNYA Print</p>
-      <input type="password" id="adminPin" placeholder="กรอกรหัสผ่าน..." style="text-align: center; font-size: 18px; margin-bottom: 12px;">
-      <button onclick="checkAuth()" class="btn-save" style="margin-top: 0;">ยืนยันสิทธิ์</button>
-    </div>
+<div class="container">
+  <h1>⚙️ จัดการข้อมูลหน้าร้าน DUNYA Print</h1>
+
+  <!-- ช่องกรอก GitHub Token -->
+  <div class="auth-box">
+    <label style="color: #744210;">🔑 GitHub Personal Access Token:</label>
+    <input type="password" id="ghToken" placeholder="วาง ghp_... ของคุณที่นี่" style="background:#fff; margin-top:4px;">
+    <p style="font-size: 11px; color: #975a16; margin-top: 4px;">* บันทึกไว้ในเครื่องของคุณอัตโนมัติ เพื่อใช้สิทธิ์อัปเดตไฟล์ลง GitHub</p>
   </div>
 
-  <!-- หน้าจอแอดมินหลัก -->
-  <div class="container" id="adminPanel" style="display: none;">
-    <h1>⚙️ ตั้งค่าราคาและข้อมูลร้าน DUNYA Print</h1>
-    
-    <div class="form-group">
-      <label>พาดหัวหน้าแรก (Hero Headline):</label>
-      <input type="text" id="heroHeadline" value="การ์ดแต่งงานมินิมอล สวยพรีเมียม เพียงใบละ 3 บาท!">
-    </div>
-
-    <div class="form-group">
-      <label>สเปกกระดาษ:</label>
-      <input type="text" id="paperSpec" value="อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม">
-    </div>
-
-    <h3 style="font-size: 15px; margin: 20px 0 10px; border-top: 1px solid #edf2f7; padding-top: 14px;">💵 ตารางราคาสินค้า (ราคาต่อใบ)</h3>
-    <div class="grid-2">
-      <div class="form-group">
-        <label>100 ใบ (บ./ใบ):</label>
-        <input type="number" step="0.1" id="price100" value="3.5">
-      </div>
-      <div class="form-group">
-        <label>200 ใบ (บ./ใบ):</label>
-        <input type="number" step="0.1" id="price200" value="3.0">
-      </div>
-    </div>
-    <div class="grid-2">
-      <div class="form-group">
-        <label>300 ใบ (บ./ใบ):</label>
-        <input type="number" step="0.1" id="price300" value="3.0">
-      </div>
-      <div class="form-group">
-        <label>500 ใบ (บ./ใบ):</label>
-        <input type="number" step="0.1" id="price500" value="2.8">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>ข้อความหมายเหตุใต้ตาราง:</label>
-      <input type="text" id="priceNote" value="* ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง">
-    </div>
-
-    <button onclick="saveAndSync()" class="btn-save" id="submitBtn">
-      💾 บันทึกและส่งข้อมูลเข้าระบบหลังบ้าน (Sync Notion)
-    </button>
+  <div class="section-title">1. ข้อความหน้าแรก (Hero)</div>
+  <div class="form-group">
+    <label>พาดหัวหลัก (รองรับ HTML):</label>
+    <input type="text" id="heroHeadline">
+  </div>
+  <div class="form-group">
+    <label>สเปกกระดาษ:</label>
+    <input type="text" id="paperSpec">
   </div>
 
-  <script>
-    const CORRECT_PIN = "1234"; // เปลี่ยนรหัสผ่านตรงนี้
-    const MAKE_WEBHOOK_URL = "ใส่_WEBHOOK_URL_ของ_MAKE_ตรงนี้"; // นำ Webhook URL จาก Make.com มาวาง
+  <div class="section-title">2. ตารางราคา (บาท/ใบ)</div>
+  <div class="grid-2">
+    <div class="form-group">
+      <label>100 ใบ:</label>
+      <input type="number" step="0.1" id="price100">
+    </div>
+    <div class="form-group">
+      <label>200 ใบ:</label>
+      <input type="number" step="0.1" id="price200">
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="form-group">
+      <label>300 ใบ:</label>
+      <input type="number" step="0.1" id="price300">
+    </div>
+    <div class="form-group">
+      <label>500 ใบ:</label>
+      <input type="number" step="0.1" id="price500">
+    </div>
+  </div>
+  <div class="form-group">
+    <label>หมายเหตุใต้ตารางราคา:</label>
+    <input type="text" id="priceNote">
+  </div>
 
-    function checkAuth() {
-      const pin = document.getElementById('adminPin').value;
-      if (pin === CORRECT_PIN) {
-        document.getElementById('authScreen').style.display = 'none';
-        document.getElementById('adminPanel').style.display = 'block';
-        loadCurrentData();
-      } else {
-        alert('รหัส PIN ไม่ถูกต้อง!');
-      }
+  <div class="section-title">3. โปรโมชันนับถอยหลัง</div>
+  <div class="grid-2">
+    <div class="form-group">
+      <label>แสดงแถบโปรโมชัน:</label>
+      <select id="promoActive">
+        <option value="true">เปิดใช้งาน</option>
+        <option value="false">ปิดแถบโปรโมชัน</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>เวลานับถอยหลัง (ชั่วโมง):</label>
+      <input type="number" id="promoHours">
+    </div>
+  </div>
+  <div class="form-group">
+    <label>ข้อความเตือน:</label>
+    <input type="text" id="promoNotice">
+  </div>
+
+  <button type="button" class="btn-save" id="btnSave" onclick="saveToGitHub()">💾 บันทึกและส่งข้อมูลขึ้น GitHub</button>
+</div>
+
+<script>
+  const REPO_OWNER = 'dunyqprint-glitch';
+  const REPO_NAME = 'wedding-card-order';
+  const FILE_PATH = 'config.json';
+  let currentFileSha = '';
+
+  // โหลดค่า Token และดึงข้อมูล config.json ปัจจุบันมาแสดง
+  window.addEventListener('DOMContentLoaded', async () => {
+    const savedToken = localStorage.getItem('dunya_pat');
+    if (savedToken) document.getElementById('ghToken').value = savedToken;
+    await fetchCurrentConfig();
+  });
+
+  async function fetchCurrentConfig() {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?t=${Date.now()}`);
+      if (!res.ok) throw new Error('ไม่สามารถโหลดไฟล์ config.json');
+      const fileData = await res.json();
+      currentFileSha = fileData.sha;
+      
+      const content = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+      document.getElementById('heroHeadline').value = content.heroHeadline || '';
+      document.getElementById('paperSpec').value = content.paperSpec || '';
+      document.getElementById('price100').value = content.price100 || 3.5;
+      document.getElementById('price200').value = content.price200 || 3.0;
+      document.getElementById('price300').value = content.price300 || 3.0;
+      document.getElementById('price500').value = content.price500 || 2.8;
+      document.getElementById('priceNote').value = content.priceNote || '';
+      document.getElementById('promoActive').value = String(content.promoActive);
+      document.getElementById('promoHours').value = content.promoHours || 8;
+      document.getElementById('promoNotice').value = content.promoNotice || '';
+    } catch (err) {
+      alert('แจ้งเตือน: ' + err.message + ' (หากเพิ่งสร้างไฟล์ ให้รอระบบ Deploy สักครู่)');
     }
+  }
 
-    function loadCurrentData() {
-      const saved = localStorage.getItem('dunya_global_config');
-      if (saved) {
-        const data = JSON.parse(saved);
-        document.getElementById('heroHeadline').value = data.heroHeadline || '';
-        document.getElementById('paperSpec').value = data.paperSpec || '';
-        document.getElementById('price100').value = data.price100 || '3.5';
-        document.getElementById('price200').value = data.price200 || '3.0';
-        document.getElementById('price300').value = data.price300 || '3.0';
-        document.getElementById('price500').value = data.price500 || '2.8';
-        document.getElementById('priceNote').value = data.priceNote || '';
-      }
+  async function saveToGitHub() {
+    const token = document.getElementById('ghToken').value.trim();
+    if (!token) {
+      alert('กรุณาใส่ GitHub Personal Access Token ก่อนทำการบันทึก');
+      return;
     }
+    localStorage.setItem('dunya_pat', token);
 
-    async function saveAndSync() {
-      const btn = document.getElementById('submitBtn');
-      btn.innerText = "⏳ กำลังบันทึกและส่งข้อมูล...";
-      btn.disabled = true;
+    const btn = document.getElementById('btnSave');
+    btn.disabled = true;
+    btn.innerText = '⏳ กำลังบันทึกข้อมูลเข้าสู่ GitHub...';
 
-      const configData = {
-        updatedAt: new Date().toISOString(),
-        heroHeadline: document.getElementById('heroHeadline').value,
-        paperSpec: document.getElementById('paperSpec').value,
-        price100: document.getElementById('price100').value,
-        price200: document.getElementById('price200').value,
-        price300: document.getElementById('price300').value,
-        price500: document.getElementById('price500').value,
-        priceNote: document.getElementById('priceNote').value
-      };
+    const newConfig = {
+      heroHeadline: document.getElementById('heroHeadline').value,
+      paperSpec: document.getElementById('paperSpec').value,
+      price100: parseFloat(document.getElementById('price100').value) || 3.5,
+      price200: parseFloat(document.getElementById('price200').value) || 3.0,
+      price300: parseFloat(document.getElementById('price300').value) || 3.0,
+      price500: parseFloat(document.getElementById('price500').value) || 2.8,
+      priceNote: document.getElementById('priceNote').value,
+      promoActive: document.getElementById('promoActive').value === 'true',
+      promoHours: parseInt(document.getElementById('promoHours').value) || 8,
+      promoNotice: document.getElementById('promoNotice').value
+    };
 
-      // 1. บันทึกลงหน่วยความจำกลางสำหรับหน้าเว็บ
-      localStorage.setItem('dunya_global_config', JSON.stringify(configData));
+    // แปลงข้อมูลเป็น Base64 รองรับภาษาไทย
+    const utf8Bytes = encodeURIComponent(JSON.stringify(newConfig, null, 2)).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1));
+    const base64Content = btoa(utf8Bytes);
 
-      // 2. ส่งข้อมูลยิงตรงเข้า Make.com Webhook เพื่ออัปเดตระบบหลังบ้าน Notion
-      try {
-        if (MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL.startsWith('http')) {
-          await fetch(MAKE_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(configData)
-          });
-        }
-        alert("✅ อัปเดตข้อมูลและส่งเข้าสู่ระบบหลังบ้านเรียบร้อยแล้ว!");
-      } catch (err) {
-        console.error(err);
-        alert("บันทึกลงระบบแล้ว (แต่การเชื่อมต่อ Make.com ขัดข้อง กรุณาเช็ก Webhook URL)");
-      } finally {
-        btn.innerText = "💾 บันทึกและส่งข้อมูลเข้าระบบหลังบ้าน (Sync Notion)";
-        btn.disabled = false;
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: 'Admin: Update store config via admin panel',
+          content: base64Content,
+          sha: currentFileSha
+        })
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'บันทึกไม่สำเร็จ');
       }
+
+      const resData = await res.json();
+      currentFileSha = resData.content.sha;
+      alert('✅ บันทึกข้อมูลและอัปเดตขึ้น GitHub สำเร็จแล้ว!');
+    } catch (err) {
+      alert('เกิดข้อผิดพลาด: ' + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerText = '💾 บันทึกและส่งข้อมูลขึ้น GitHub';
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
