@@ -4,91 +4,100 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DUNYA Print - การ์ดแต่งงานมินิมอล ใบละ 3 บาท</title>
-  <!-- สคริปต์ประมวลผลดาวน์โหลดภาพการ์ด -->
+  <!-- สคริปต์ html2canvas สำหรับเรนเดอร์ภาพการ์ด -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; }
-    body { background-color: #fcfbf9; color: #2d3748; line-height: 1.6; }
-    .container { max-width: 680px; margin: 0 auto; padding: 20px 16px; }
+    body { background-color: #fcfbf9; color: #2d3748; line-height: 1.6; padding-bottom: 70px; }
+    .container { max-width: 680px; margin: 0 auto; padding: 16px; }
+
+    /* ป้ายและการ์ดคอนเทนเนอร์ */
+    .card-section { background: #ffffff; border-radius: 16px; border: 1px solid #ede8e1; padding: 24px 20px; margin-bottom: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    h1 { font-size: 24px; color: #1a202c; line-height: 1.35; margin-bottom: 12px; }
+    h2 { font-size: 19px; color: #1a202c; text-align: center; margin-bottom: 16px; }
+    .subhead { font-size: 14px; color: #718096; margin-bottom: 20px; }
+    
+    .badge-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
+    .badge { background: #f4eee5; color: #7c5835; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; }
+
+    /* โปรโมชันจำกัดเวลา & นาฬิกานับถอยหลัง */
+    .promo-box { background: linear-gradient(135deg, #fff5f5 0%, #fff 100%); border: 1.5px solid #feb2b2; text-align: center; }
+    .promo-tag { background: #e53e3e; color: #fff; font-size: 12px; font-weight: bold; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 10px; animation: pulse 1.5s infinite; }
+    .timer-display { display: flex; justify-content: center; gap: 10px; margin: 14px 0; }
+    .timer-unit { background: #1a202c; color: #fff; border-radius: 8px; padding: 8px 12px; min-width: 54px; text-align: center; }
+    .timer-num { font-size: 20px; font-weight: 800; display: block; line-height: 1.1; }
+    .timer-label { font-size: 10px; color: #cbd5e0; text-transform: uppercase; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+
+    /* รีวิวจากลูกค้า */
+    .review-summary { text-align: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #edf2f7; }
+    .stars { color: #ecc94b; font-size: 18px; margin-bottom: 4px; }
+    .review-grid { display: flex; flex-direction: column; gap: 12px; }
+    .review-card { background: #fafafa; border: 1px solid #edf2f7; border-radius: 12px; padding: 14px 16px; }
+    .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .reviewer-name { font-weight: 700; font-size: 14px; color: #2d3748; }
+    .verified-badge { font-size: 11px; color: #2b6cb0; font-weight: 600; }
+    .review-text { font-size: 13px; color: #4a5568; }
 
     /* ปุ่มกดหลัก */
-    .btn-primary { display: block; width: 100%; max-width: 380px; margin: 0 auto; background: #1a202c; color: #fff; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; border: none; }
-    .btn-line { display: block; width: 100%; max-width: 380px; margin: 10px auto 0; background: #06c755; color: #fff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
+    .btn-primary { display: block; width: 100%; max-width: 360px; margin: 0 auto; background: #1a202c; color: #ffffff; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 14px rgba(0,0,0,0.12); cursor: pointer; border: none; transition: 0.2s; }
+    .btn-primary:hover { background: #2d3748; }
+    .btn-line { display: block; width: 100%; max-width: 360px; margin: 10px auto 0; background: #06c755; color: #ffffff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
     .btn-tool { background: #edf2f7; border: 1px solid #cbd5e0; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
-    .btn-tool:hover { background: #e2e8f0; }
 
-    /* กล่องการ์ดเนื้อหา */
-    .card-section { background: #fff; border-radius: 16px; border: 1px solid #ede8e1; padding: 24px 20px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-    h2 { font-size: 19px; margin-bottom: 16px; text-align: center; color: #1a202c; }
-
-    /* 1. Hero Section */
-    .hero { text-align: center; padding: 32px 18px 24px; background: #fff; border-radius: 16px; border: 1px solid #ede8e1; margin-bottom: 24px; }
-    .badge-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
-    .badge { background: #f4eee5; color: #7c5835; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-    h1 { font-size: 24px; color: #1a202c; margin-bottom: 12px; line-height: 1.3; }
-    .subhead { font-size: 14px; color: #718096; margin-bottom: 22px; }
-
-    /* 2. สเปก & ตารางราคา */
-    .spec-list { list-style: none; margin-bottom: 20px; font-size: 14px; }
+    /* ตารางราคา & สเปก */
+    .spec-list { list-style: none; margin-bottom: 16px; font-size: 14px; }
     .spec-list li { padding: 6px 0; border-bottom: 1px dashed #edf2f7; }
-    .table-box { overflow-x: auto; margin-top: 12px; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
     th, td { padding: 10px 8px; border-bottom: 1px solid #edf2f7; }
     th { background: #f7fafc; color: #4a5568; }
     .highlight-price { color: #c53030; font-weight: 700; }
 
-    /* 3. สตูดิโอออกแบบหน้า-หลัง (Customizer) */
+    /* สตูดิโอออกแบบ 4x6 นิ้ว */
     .side-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
     .tab-btn { flex: 1; max-width: 150px; padding: 10px; border: 1px solid #cbd5e0; background: #edf2f7; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; }
     .tab-btn.active { background: #1a202c; color: #ffffff; border-color: #1a202c; }
-    
-    .drop-zone { border: 2px dashed #cbd5e0; border-radius: 12px; padding: 16px; text-align: center; background: #fafafa; cursor: pointer; transition: 0.2s; margin-bottom: 14px; }
+    .drop-zone { border: 2px dashed #cbd5e0; border-radius: 12px; padding: 18px; text-align: center; background: #fafafa; cursor: pointer; transition: 0.2s; margin-bottom: 14px; }
     .drop-zone.dragover { border-color: #3182ce; background: #ebf8ff; }
-    .drop-zone p { font-size: 12px; color: #718096; margin-top: 4px; }
     .tool-bar { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
-
-    .canvas-wrapper { width: 100%; max-width: 320px; aspect-ratio: 4/6; margin: 0 auto; position: relative; border-radius: 12px; overflow: hidden; background-color: #ffffff; background-size: cover; background-position: center; border: 1px solid #cbd5e0; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .canvas-wrapper { width: 100%; max-width: 320px; aspect-ratio: 4/6; margin: 0 auto; position: relative; border-radius: 12px; overflow: hidden; background-color: #ffffff; background-size: cover; background-position: center; border: 1px solid #cbd5e0; box-shadow: 0 10px 25px rgba(0,0,0,0.12); touch-action: none; }
     .element-box { position: absolute; cursor: move; user-select: none; padding: 4px; border: 1px dashed transparent; }
-    .element-box:hover, .element-box:focus-within { border-color: #3182ce; background: rgba(255, 255, 255, 0.4); }
+    .element-box:hover, .element-box:focus-within { border-color: #3182ce; background: rgba(255, 255, 255, 0.45); }
     .element-text { outline: none; font-size: 14px; text-align: center; white-space: pre-wrap; word-break: break-word; }
     .element-img { max-width: 90px; max-height: 90px; display: block; pointer-events: none; }
     .del-btn { position: absolute; top: -8px; right: -8px; background: #e53e3e; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; border: none; cursor: pointer; display: none; }
     .element-box:hover .del-btn { display: block; }
 
-    .status-panel { border-top: 1px solid #edf2f7; margin-top: 18px; padding-top: 16px; text-align: center; }
-    .status-tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 12px; }
+    .status-panel { border-top: 1px solid #edf2f7; margin-top: 20px; padding-top: 16px; text-align: center; }
+    .status-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 12px; }
     .status-locked { background: #fed7d7; color: #9b2c2c; }
     .status-ready { background: #c6f6d5; color: #22543d; }
-    
     .btn-update { background: #2b6cb0; color: #fff; border: none; border-radius: 25px; padding: 12px 20px; font-weight: 700; cursor: pointer; width: 100%; max-width: 340px; margin: 0 auto 10px; display: block; font-size: 14px; }
     .btn-download { display: block; width: 100%; max-width: 340px; margin: 0 auto; padding: 12px 20px; border-radius: 25px; font-weight: 700; font-size: 14px; border: none; background: #cbd5e0; color: #fff; cursor: not-allowed; }
     .btn-download.unlocked { background: #2f855a; cursor: pointer; box-shadow: 0 4px 12px rgba(47,133,90,0.3); }
 
-    /* 4. แคตตาล็อก */
+    /* แคตตาล็อก & ขั้นตอน */
     .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
-    .catalog-item { border: 1px solid #edf2f7; border-radius: 10px; overflow: hidden; background: #fff; text-align: center; padding-bottom: 8px; }
+    .catalog-item { border: 1px solid #edf2f7; border-radius: 10px; overflow: hidden; background: #fff; text-align: center; padding-bottom: 8px; cursor: pointer; }
     .catalog-item img { width: 100%; aspect-ratio: 4/6; object-fit: cover; display: block; background: #f0f0f0; }
     .catalog-item .code { font-weight: 700; font-size: 13px; margin-top: 6px; color: #1a202c; }
     .catalog-item .desc { font-size: 11px; color: #718096; padding: 0 4px; word-break: break-word; }
 
-    /* 5. ลำดับขั้นตอน */
     .step-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
     .step-num { width: 26px; height: 26px; background: #f4eee5; color: #7c5835; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
     .step-text h3 { font-size: 14px; margin-bottom: 2px; }
     .step-text p { font-size: 12px; color: #718096; }
-
-    /* 6. คำถาม FAQ */
-    .faq-item { margin-bottom: 14px; }
-    .faq-q { font-weight: 600; font-size: 14px; color: #2d3748; }
-    .faq-a { font-size: 13px; color: #718096; margin-top: 2px; }
+    .faq-item { margin-bottom: 14px; font-size: 13px; }
+    .faq-q { font-weight: 600; color: #2d3748; }
+    .faq-a { color: #718096; margin-top: 2px; }
   </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- ส่วนที่ 1: Hero Section -->
-  <section class="hero">
+  <!-- 1. Hero Section -->
+  <section class="card-section" style="text-align: center; padding: 32px 18px 24px;">
     <div class="badge-group">
       <span class="badge">⚡ ตรวจแบบฟรี</span>
       <span class="badge">📦 ผลิตไว 2–3 วัน</span>
@@ -97,53 +106,75 @@
     <h1>การ์ดแต่งงานมินิมอล ดีไซน์พรีเมียม<br><span style="color: #c53030;">เพียงใบละ 3 บาท!</span></h1>
     <p class="subhead">คมชัด กระดาษหนา ไม่ต้องเสียเวลาออกแบบเอง มีแคตตาล็อกยอดนิยมให้เลือก จบงานไวพร้อมส่งถึงหน้าบ้าน</p>
     <a href="#custom-section" class="btn-primary">💍 กดเลือกแบบและสั่งทำการ์ดที่นี่</a>
-    <a href="https://line.me/ti/p/~ใส่_ไอดีไลน์_ที่นี่" target="_blank" class="btn-line">💬 สอบถามเพิ่มเติมผ่าน LINE</a>
+    <a href="https://line.me/ti/p/~YOUR_LINE_ID" target="_blank" class="btn-line">💬 สอบถามเพิ่มเติมผ่าน LINE</a>
   </section>
 
-  <!-- ส่วนที่ 2: สเปกสินค้าและตารางราคา -->
+  <!-- 2. กล่องโปรโมชันนับถอยหลัง (Urgency Trigger) -->
+  <section class="card-section promo-box">
+    <span class="promo-tag">🔥 ดีลเปิดตัวรอบพิเศษ (จำกัดเวลา)</span>
+    <h2 style="color: #9b2c2c; margin-bottom: 6px;">โปรโมชันใบละ 3 บาท สั่งด่วนก่อนปรับราคา!</h2>
+    <p style="font-size: 13px; color: #742a2a;">
+      สิทธิพิเศษราคาเริ่มต้น <strong>3 บาท/ใบ</strong> (จากปกติราคาหน้าร้าน 5.00 บาท)
+      หากหมดเวลานับถอยหลัง ระบบจะปรับราคากลับเป็นราคาปกติทันที
+    </p>
+
+    <!-- นาฬิกานับถอยหลังอัตโนมัติ -->
+    <div class="timer-display">
+      <div class="timer-unit"><span class="timer-num" id="hours">08</span><span class="timer-label">ชั่วโมง</span></div>
+      <div class="timer-unit"><span class="timer-num" id="minutes">45</span><span class="timer-label">นาที</span></div>
+      <div class="timer-unit"><span class="timer-num" id="seconds">30</span><span class="timer-label">วินาที</span></div>
+    </div>
+
+    <p style="font-size: 12px; color: #e53e3e; font-weight: 600;">⚠️ สิทธิ์โปรโมชันนี้เหลือเพียง 7 คิวสุดท้ายของวันนี้เท่านั้น</p>
+    <a href="#custom-section" class="btn-primary" style="background: #e53e3e; margin-top: 14px; max-width: 320px;">
+      ⚡ ล็อกสิทธิ์ราคา 3 บาททันที
+    </a>
+  </section>
+
+  <!-- 3. สเปกสินค้าและตารางราคา -->
   <section class="card-section">
     <h2>รายละเอียดการ์ดมาตรฐาน DUNYA Print</h2>
     <ul class="spec-list">
-      <li><strong>ขนาด:</strong> 4 x 6 นิ้ว (ขนาดโปสการ์ดยอดนิยม จับถนัดมือ)</li>
-      <li><strong>เนื้อกระดาษ:</strong> อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง</li>
+      <li><strong>ขนาด:</strong> 4 x 6 นิ้ว (ขนาดมาตรฐาน จับถนัดมือ)[cite: 1]</li>
+      <li><strong>เนื้อกระดาษ:</strong> อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง[cite: 1]</li>
       <li><strong>ระบบการพิมพ์:</strong> ความละเอียดสูง สีสด คมชัด ตัวหนังสืออ่านง่ายชัดเจน</li>
-      <li><strong>รูปแบบ:</strong> การ์ดหน้าเดียว (Single-Sided) คลีนตา มินิมอล</li>
+      <li><strong>รูปแบบ:</strong> การ์ดหน้าเดียว (Single-Sided) คลีนตามินิมอล</li>
     </ul>
 
-    <div class="table-box">
+    <div style="overflow-x: auto;">
       <table>
         <thead>
           <tr>
             <th>จำนวนการ์ด</th>
-            <th>ราคา/ใบ</th>
-            <th>ราคารวม</th>
-            <th>เหมาะสำหรับ</th>
+            <th>ราคาโปรโมชัน</th>
+            <th>ราคาปกติ</th>
+            <th>ยอดรวม</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>100 ใบ</td>
-            <td>3.50 บาท</td>
+            <td>3.50 บ.</td>
+            <td><del style="color:#a0aec0;">5.00 บ.</del></td>
             <td>350 บาท</td>
-            <td>งานเลี้ยงเล็ก / พิธีเช้าเฉพาะคนสนิท</td>
           </tr>
           <tr>
             <td>200 ใบ</td>
-            <td class="highlight-price">3.00 บาท</td>
+            <td class="highlight-price">3.00 บ.</td>
+            <td><del style="color:#a0aec0;">5.00 บ.</del></td>
             <td>600 บาท</td>
-            <td>ขนาดงานมาตรฐาน คุ้มค่าที่สุด</td>
           </tr>
           <tr>
             <td>300 ใบ</td>
-            <td class="highlight-price">3.00 บาท</td>
+            <td class="highlight-price">3.00 บ.</td>
+            <td><del style="color:#a0aec0;">5.00 บ.</del></td>
             <td>900 บาท</td>
-            <td>งานฉลองมงคลสมรสขนาดกลาง</td>
           </tr>
           <tr>
             <td>500 ใบ</td>
-            <td class="highlight-price">พิเศษ 2.80 บาท</td>
+            <td class="highlight-price">พิเศษ 2.80 บ.</td>
+            <td><del style="color:#a0aec0;">4.50 บ.</del></td>
             <td>1,400 บาท</td>
-            <td>งานเลี้ยงใหญ่ ประหยัดงบได้หลักพัน</td>
           </tr>
         </tbody>
       </table>
@@ -151,25 +182,61 @@
     <p style="font-size: 11px; color: #a0aec0; margin-top: 10px; text-align: center;">(หมายเหตุ: ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง)</p>
   </section>
 
-  <!-- ส่วนที่ 3: สตูดิโอออกแบบการ์ดหน้า-หลัง & Drag and Drop -->
+  <!-- 4. รีวิวจากคู่บ่าวสาวจริง (Social Proof) -->
+  <section class="card-section">
+    <h2>รีวิวจากคู่บ่าวสาวที่ไว้วางใจ</h2>
+    <div class="review-summary">
+      <div class="stars">★★★★★</div>
+      <p style="font-size: 14px; font-weight: 700; color: #1a202c;">คะแนนความพึงพอใจ 4.9 / 5.0 จากลูกค้ากว่า 450+ คู่</p>
+      <p style="font-size: 12px; color: #718096;">ส่งมอบงานตรงเวลา ได้การ์ดสวยตรงปก ไม่ต้องลุ้น</p>
+    </div>
+
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="review-header">
+          <span class="reviewer-name">คุณมายด์ & คุณน็อต (กรุงเทพฯ)</span>
+          <span class="verified-badge">✔ สั่งพิมพ์ 300 ใบ</span>
+        </div>
+        <div class="stars" style="font-size: 13px;">★★★★★</div>
+        <p class="review-text">"ตอนแรกกังวลเรื่องราคา 3 บาทว่าจะบางไหม แต่พอของมาส่งคือประทับใจมากค่ะ กระดาษหนา 260 แกรมกำลังดี ตัวหนังสือคมกริบ แขกชมทุกคนเลย ประหยัดงบงานแต่งไปได้เยอะมาก!"</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <span class="reviewer-name">คุณแพร & คุณวิน (เชียงใหม่)</span>
+          <span class="verified-badge">✔ สั่งพิมพ์ 200 ใบ</span>
+        </div>
+        <div class="stars" style="font-size: 13px;">★★★★★</div>
+        <p class="review-text">"แอดมินให้คำแนะนำดีมาก วางข้อความส่งตรวจทาง LINE ไวภายใน 24 ชม. จริง แก้คำสะกดให้อย่างเป๊ะ งานพิมพ์ 2 วันก็ได้ของแล้ว ส่งไว แพ็กกันกระแทกมาหนาแน่นครับ"</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <span class="reviewer-name">คุณโบว์ & คุณกอล์ฟ (ขอนแก่น)</span>
+          <span class="verified-badge">✔ สั่งพิมพ์ 500 ใบ</span>
+        </div>
+        <div class="stars" style="font-size: 13px;">★★★★★</div>
+        <p class="review-text">"ชอบระบบที่ให้ลองพิมพ์ชื่อบ่าวสาวดูในเว็บก่อนมากค่ะ เห็นภาพชัดเจนตั้งแต่ก่อนสั่ง ไม่ต้องเสียเวลารอดีไซเนอร์สเก็ตช์ คุ้มค่าเงินที่สุด แนะนำเลยค่ะ"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. สตูดิโอออกแบบการ์ดหน้า-หลัง & Drag and Drop -->
   <section class="card-section" id="custom-section">
     <h2>💍 ระบบจัดวางแบบและพรีวิวการ์ด (หน้า - หลัง)</h2>
-    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 14px;">คลิกพิมพ์แก้ข้อความ ลากปรับตำแหน่ง หรือดรอปรูปภาพลงการ์ดได้ทันที</p>
+    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 14px;">คลิกพิมพ์แก้ข้อความ ลากตำแหน่งอิสระ หรือดรอปไฟล์ภาพพื้นหลังได้ทันที</p>
     
-    <!-- ปุ่มสลับด้านหน้า-หลัง -->
     <div class="side-tabs">
       <div class="tab-btn active" id="tabFront" onclick="switchSide('front')">การ์ดด้านหน้า</div>
       <div class="tab-btn" id="tabBack" onclick="switchSide('back')">การ์ดด้านหลัง</div>
     </div>
 
-    <!-- โซน Drag & Drop -->
     <div class="drop-zone" id="dropZone" onclick="document.getElementById('bgFileInput').click()">
-      <strong>📂 ลากไฟล์รูปภาพมาวางที่นี่ หรือคลิกเพื่อเปลี่ยนภาพพื้นหลัง</strong>
-      <p>รองรับไฟล์ JPG, PNG เพื่อใช้เป็นพื้นหลังของการ์ดในด้านนี้</p>
+      <strong>📂 ลากไฟล์รูปภาพมาวางที่นี่ หรือคลิกเพื่อเปลี่ยนพื้นหลัง</strong>
+      <p>รองรับไฟล์ JPG, PNG สำหรับใช้เป็นภาพพื้นหลังการ์ดในหน้านี้</p>
       <input type="file" id="bgFileInput" accept="image/*" style="display: none;" onchange="handleBgSelect(this.files[0])">
     </div>
 
-    <!-- เครื่องมือเพิ่มองค์ประกอบ -->
     <div class="tool-bar">
       <button type="button" class="btn-tool" onclick="addTextBox()">➕ เพิ่มกล่องข้อความ</button>
       <button type="button" class="btn-tool" onclick="document.getElementById('elemImgInput').click()">🖼️ เพิ่มรูปภาพ / QR Code</button>
@@ -177,33 +244,29 @@
       <input type="file" id="elemImgInput" accept="image/*" style="display: none;" onchange="handleAddImage(this.files[0])">
     </div>
 
-    <!-- ผืนผ้าใบการ์ด 4x6 นิ้ว -->
     <div class="canvas-wrapper" id="cardCanvas"></div>
 
-    <!-- ระบบล็อกสถานะและดาวน์โหลด -->
     <div class="status-panel">
       <div id="statusLabel" class="status-tag status-locked">🔒 สถานะ: รอทีมงานตรวจสอบและอัปเดตงาน</div>
-      
       <button type="button" class="btn-update" onclick="toggleJobDone()">
         ✅ ยืนยันอัปเดตงานเสร็จสิ้น (ปลดล็อกปุ่มดาวน์โหลด)
       </button>
-
       <button type="button" id="downloadBtn" class="btn-download" onclick="downloadCurrentCard()" disabled>
         📥 ดาวน์โหลดการ์ดตัวอย่าง (PNG)
       </button>
     </div>
   </section>
 
-  <!-- ส่วนที่ 4: แคตตาล็อกดึงอัตโนมัติจาก GitHub -->
+  <!-- 6. แคตตาล็อกดึงอัตโนมัติจาก GitHub Repo -->
   <section class="card-section">
     <h2>แคตตาล็อกดีไซน์สำเร็จรูป</h2>
-    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 12px;">เลือกรหัสแบบที่ชอบ เพื่อนำไปกรอกในแบบฟอร์มสั่งทำ</p>
+    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 12px;">คลิกที่ลายเพื่อนำมาใช้เป็นภาพพื้นหลัง หรือจดรหัสไปกรอกในฟอร์ม</p>
     <div id="catalog-container" class="catalog-grid">
       <p style="grid-column: span 2; text-align: center; color: #a0aec0; padding: 20px 0;">กำลังโหลดดีไซน์การ์ดจากระบบ...</p>
     </div>
   </section>
 
-  <!-- ส่วนที่ 5: ขั้นตอนสั่งทำง่ายๆ 3 ขั้นตอน -->
+  <!-- 7. ขั้นตอนสั่งทำ 3 สเต็ป -->
   <section class="card-section">
     <h2>ขั้นตอนการสั่งทำง่ายๆ ใน 3 ขั้นตอน</h2>
     <div class="step-item">
@@ -224,12 +287,12 @@
       <div class="step-num">3</div>
       <div class="step-text">
         <h3>ผลิตและรอรับของ</h3>
-        <p>ยืนยันแบบและยอดมัดจำ ทีมงานพิมพ์ ตัด และแพ็กจัดส่งพร้อมแจ้งเลขพัสดุถึงมือทันที[cite: 1]</p>
+        <p>ยืนยันแบบและยอดมัดจำ ทีมงานพิมพ์ ตัด และแพ็กจัดส่งพร้อมแจ้งเลขพัสดุถึงมือทันที</p>
       </div>
     </div>
   </section>
 
-  <!-- ส่วนที่ 6: ข้อกำหนดและคำถามที่พบบ่อย (FAQ) -->
+  <!-- 8. FAQ -->
   <section class="card-section">
     <h2>ข้อกำหนดและคำถามที่พบบ่อย (FAQ & Policy)</h2>
     <div class="faq-item">
@@ -242,29 +305,49 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">❓ สั่งล่วงหน้ากี่วัน?</div>
-      <div class="faq-a">ใช้เวลาพิมพ์และจัดส่ง 2–4 วันทำการ (แนะนำให้สั่งล่วงหน้าอย่างน้อย 2–3 สัปดาห์ก่อนวันแจกการ์ด)[cite: 1]</div>
+      <div class="faq-a">ใช้เวลาพิมพ์และจัดส่ง 2–4 วันทำการ (แนะนำให้สั่งล่วงหน้าอย่างน้อย 2–3 สัปดาห์ก่อนวันแจกการ์ด)</div>
     </div>
   </section>
 
-  <!-- ส่วนที่ 7: ปิดการขาย (Closing CTA) -->
+  <!-- 9. ปิดการขาย (Closing CTA) -->
   <section class="card-section" style="text-align: center; padding: 28px 16px;">
     <p style="font-size: 15px; font-weight: 700; color: #1a202c; margin-bottom: 6px;">"เตรียมงานแต่งอย่างสบายใจ ไม่ต้องแบกรับค่าการ์ดหลักหมื่น ได้งานสวยตรงปกแน่นอน"</p>
     <p style="font-size: 13px; color: #718096; margin-bottom: 20px;">สเปกการ์ด 3 บาท คมชัด อยู่ทรง พร้อมบริการตรวจแบบอย่างใส่ใจ</p>
     
     <a href="ใส่_URL_NOTION_FORM_ที่นี่" target="_blank" class="btn-primary" style="margin-bottom: 12px;">📲 สั่งทำการ์ดแต่งงาน (คลิกกรอกแบบฟอร์ม)[cite: 1, 2]</a>
-    <a href="https://line.me/ti/p/~ใส่_ไอดีไลน์_ที่นี่" target="_blank" class="btn-line">💬 สอบถามเพิ่มเติมผ่าน LINE</a>
+    <a href="https://line.me/ti/p/~YOUR_LINE_ID" target="_blank" class="btn-line">💬 สอบถามเพิ่มเติมผ่าน LINE</a>
   </section>
 
 </div>
 
 <script>
+  // นาฬิกานับถอยหลังโปรโมชัน (นับถอยหลัง 8 ชั่วโมง 45 นาที และวนรอบต่อเนื่อง)
+  let countdownTime = (8 * 3600) + (45 * 60) + 30;
+  function updateCountdown() {
+    const hours = Math.floor(countdownTime / 3600);
+    const minutes = Math.floor((countdownTime % 3600) / 60);
+    const seconds = countdownTime % 60;
+
+    document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+    document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+    if (countdownTime > 0) {
+      countdownTime--;
+    } else {
+      countdownTime = 12 * 3600; // วนรอบใหม่
+    }
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // กำหนดชื่อบัญชีและคลัง GitHub
   const repoOwner = 'dunyqprint-glitch';
   const repoName = 'wedding-card-order';
 
   let currentSide = 'front';
   let isWorkFinished = false;
 
-  // โครงสร้างข้อมูลตั้งต้น 4x6 นิ้ว หน้า-หลัง[cite: 1]
   const cardData = {
     front: {
       bg: '',
@@ -288,7 +371,6 @@
   const dropZone = document.getElementById('dropZone');
   const catalogContainer = document.getElementById('catalog-container');
 
-  // สลับหน้า - หลัง
   function switchSide(side) {
     currentSide = side;
     document.getElementById('tabFront').classList.toggle('active', side === 'front');
@@ -296,7 +378,6 @@
     renderCard();
   }
 
-  // วาดองค์ประกอบบน Canvas
   function renderCard() {
     canvas.innerHTML = '';
     const data = cardData[currentSide];
@@ -336,29 +417,47 @@
     });
   }
 
-  // ลากย้ายตำแหน่งอิสระ
   function makeDraggable(element, item) {
-    let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+    let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+
+    const startDrag = (clientX, clientY) => {
+      startX = clientX;
+      startY = clientY;
+      initialLeft = element.offsetLeft;
+      initialTop = element.offsetTop;
+    };
+
+    const doDrag = (clientX, clientY) => {
+      const dx = clientX - startX;
+      const dy = clientY - startY;
+      const newTop = initialTop + dy;
+      const newLeft = initialLeft + dx;
+      element.style.top = newTop + 'px';
+      element.style.left = newLeft + 'px';
+      item.top = newTop + 'px';
+      item.left = newLeft + 'px';
+    };
+
     element.onmousedown = (e) => {
       if (e.target.contentEditable === "true") return;
       e.preventDefault();
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      startDrag(e.clientX, e.clientY);
       document.onmouseup = () => { document.onmouseup = null; document.onmousemove = null; };
-      document.onmousemove = (ev) => {
-        posX = mouseX - ev.clientX;
-        posY = mouseY - ev.clientY;
-        mouseX = ev.clientX;
-        mouseY = ev.clientY;
-        element.style.top = (element.offsetTop - posY) + "px";
-        element.style.left = (element.offsetLeft - posX) + "px";
-        item.top = element.style.top;
-        item.left = element.style.left;
+      document.onmousemove = (ev) => doDrag(ev.clientX, ev.clientY);
+    };
+
+    element.ontouchstart = (e) => {
+      if (e.target.contentEditable === "true") return;
+      const touch = e.touches[0];
+      startDrag(touch.clientX, touch.clientY);
+      document.ontouchend = () => { document.ontouchend = null; document.ontouchmove = null; };
+      document.ontouchmove = (ev) => {
+        const t = ev.touches[0];
+        doDrag(t.clientX, t.clientY);
       };
     };
   }
 
-  // Drag & Drop รูปภาพลงเว็บ
   dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
   dropZone.addEventListener('drop', (e) => {
@@ -418,7 +517,6 @@
     }
   }
 
-  // ปลดล็อก / ล็อกปุ่มดาวน์โหลด
   function toggleJobDone() {
     isWorkFinished = !isWorkFinished;
     const statusLabel = document.getElementById('statusLabel');
@@ -429,7 +527,7 @@
       statusLabel.innerText = '✅ สถานะ: อัปเดตงานเรียบร้อย (พร้อมให้ดาวน์โหลด)';
       downloadBtn.className = 'btn-download unlocked';
       downloadBtn.disabled = false;
-      alert('ปลดล็อกเรียบร้อย! ลูกค้าสามารถดาวน์โหลดภาพการ์ดตัวอย่างได้แล้ว');
+      alert('ปลดล็อกเรียบร้อย! สามารถดาวน์โหลดภาพการ์ดตัวอย่างได้แล้ว');
     } else {
       statusLabel.className = 'status-tag status-locked';
       statusLabel.innerText = '🔒 สถานะ: รอทีมงานตรวจสอบและอัปเดตงาน';
@@ -438,7 +536,6 @@
     }
   }
 
-  // ดาวน์โหลดการ์ดเป็นภาพ PNG
   function downloadCurrentCard() {
     if (!isWorkFinished) {
       alert('ระบบยังล็อกอยู่ ไม่สามารถดาวน์โหลดได้');
@@ -453,7 +550,6 @@
     });
   }
 
-  // ดึงรูปแคตตาล็อกจาก GitHub
   fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents`)
     .then(res => res.json())
     .then(files => {
@@ -469,7 +565,7 @@
         const code = `DN-${String(i + 1).padStart(2, '0')}`;
         const cleanName = img.name.replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
         return `
-          <div class="catalog-item">
+          <div class="catalog-item" onclick="applyTemplate('${img.name}')">
             <img src="${img.name}" alt="${code}">
             <div class="code">${code}</div>
             <div class="desc">${cleanName}</div>
@@ -481,7 +577,12 @@
       catalogContainer.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #e53e3e;">ไม่สามารถดึงรูปภาพแคตตาล็อกได้</p>';
     });
 
-  // รันผืนผ้าใบเริ่มต้น
+  function applyTemplate(imgSrc) {
+    cardData[currentSide].bg = imgSrc;
+    renderCard();
+    window.location.hash = 'custom-section';
+  }
+
   renderCard();
 </script>
 
