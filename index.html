@@ -224,42 +224,37 @@
     </div>
   </section>
 
-  <!-- 5. สตูดิโอออกแบบ 4x6 นิ้ว หน้า-หลัง -->
+ <!-- ส่วนแสดงผล Canva Interactive Viewer & ระบบดาวน์โหลด -->
   <section class="card-section" id="custom-section">
-    <h2>💍 ระบบจัดวางแบบและพรีวิวการ์ด (หน้า - หลัง)</h2>
-    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 14px;">คลิกพิมพ์แก้ข้อความ ลากตำแหน่งอิสระ หรือดรอปไฟล์ภาพพื้นหลังได้ทันที</p>
-    
-    <div class="side-tabs">
-      <div class="tab-btn active" id="tabFront" onclick="switchSide('front')">การ์ดด้านหน้า</div>
-      <div class="tab-btn" id="tabBack" onclick="switchSide('back')">การ์ดด้านหลัง</div>
+    <h2>💍 ตัวอย่างการ์ดแต่งงานของคุณ (Canva Preview)</h2>
+    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 14px;">
+      ตรวจทานชื่อ กำหนดการ และความถูกต้องของแบบได้สดๆ บนหน้าจอ
+    </p>
+
+    <!-- กรอบแสดงผล Canva iframe สัดส่วน 4x6 นิ้ว -->
+    <div style="position: relative; width: 100%; max-width: 360px; aspect-ratio: 4/6; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.12); border: 1px solid #cbd5e0; background: #fff;">
+      <iframe 
+        id="canvaViewer" 
+        src="" 
+        loading="lazy" 
+        style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;" 
+        allowfullscreen="allowfullscreen" 
+        allow="fullscreen">
+      </iframe>
+      <div id="canvaPlaceholder" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #f7fafc; color: #a0aec0; font-size: 13px; text-align: center; padding: 16px;">
+        กำลังเตรียมตัวอย่างการ์ดจาก Canva...
+      </div>
     </div>
 
-    <div class="drop-zone" id="dropZone" onclick="document.getElementById('bgFileInput').click()">
-      <strong>📂 ลากไฟล์รูปภาพมาวางที่นี่ หรือคลิกเพื่อเปลี่ยนพื้นหลัง</strong>
-      <p>รองรับไฟล์ JPG, PNG สำหรับใช้เป็นภาพพื้นหลังการ์ดในหน้านี้</p>
-      <input type="file" id="bgFileInput" accept="image/*" style="display: none;" onchange="handleBgSelect(this.files[0])">
-    </div>
-
-    <div class="tool-bar">
-      <button type="button" class="btn-tool" onclick="addTextBox()">➕ เพิ่มกล่องข้อความ</button>
-      <button type="button" class="btn-tool" onclick="document.getElementById('elemImgInput').click()">🖼️ เพิ่มรูปภาพ / QR Code</button>
-      <button type="button" class="btn-tool" onclick="resetCurrentSide()">🔄 ล้างข้อมูลด้านนี้</button>
-      <input type="file" id="elemImgInput" accept="image/*" style="display: none;" onchange="handleAddImage(this.files[0])">
-    </div>
-
-    <div class="canvas-wrapper" id="cardCanvas"></div>
-
-    <div class="status-panel">
-      <div id="statusLabel" class="status-tag status-locked">🔒 สถานะ: รอทีมงานตรวจสอบและอัปเดตงาน</div>
-      <button type="button" class="btn-update" onclick="toggleJobDone()">
-        ✅ ยืนยันอัปเดตงานเสร็จสิ้น (ปลดล็อกปุ่มดาวน์โหลด)
-      </button>
-      <button type="button" id="downloadBtn" class="btn-download" onclick="downloadCurrentCard()" disabled>
-        📥 ดาวน์โหลดการ์ดตัวอย่าง (PNG)
-      </button>
+    <!-- สถานะและปุ่มดาวน์โหลด -->
+    <div class="status-panel" style="border-top: 1px solid #edf2f7; margin-top: 20px; padding-top: 16px; text-align: center;">
+      <div id="clientStatusTag" class="status-tag status-locked">🔒 สถานะ: กำลังขึ้นแบบ (ยังไม่เปิดให้ดาวน์โหลด)</div>
+      
+      <a id="clientDownloadBtn" href="#" target="_blank" class="btn-download" style="text-decoration: none;" onclick="return checkDownloadReady(event)">
+        📥 ดาวน์โหลดไฟล์การ์ดจริง (ความละเอียดสูง)
+      </a>
     </div>
   </section>
-
   <!-- 6. แคตตาล็อก -->
   <section class="card-section">
     <h2>แคตตาล็อกดีไซน์สำเร็จรูป</h2>
@@ -607,7 +602,31 @@
         if (pSection) pSection.style.display = cfg.promo.active ? 'block' : 'none';
         if (cfg.promo.notice) document.getElementById('promoNoticeDisplay').innerText = cfg.promo.notice;
       }
-
+// ดึง iframe Canva มาแสดงผล
+      const canvaFrame = document.getElementById('canvaViewer');
+      const placeholder = document.getElementById('canvaPlaceholder');
+      if (cfg.canvaEmbedUrl && canvaFrame) {
+        canvaFrame.src = cfg.canvaEmbedUrl;
+        if (placeholder) placeholder.style.display = 'none';
+      }
+      // ตรวจสอบสถานะการปลดล็อกดาวน์โหลด
+      const statusTag = document.getElementById('clientStatusTag');
+      const downloadBtn = document.getElementById('clientDownloadBtn');
+      if (statusTag && downloadBtn) {
+        if (cfg.isCompleted && cfg.downloadUrl) {
+          isReadyToDownload = true;
+          statusTag.className = 'status-tag status-ready';
+          statusTag.innerText = '✅ แบบการ์ดเสร็จสมบูรณ์ พร้อมดาวน์โหลด';
+          downloadBtn.className = 'btn-download unlocked';
+          downloadBtn.href = cfg.downloadUrl;
+        } else {
+          isReadyToDownload = false;
+          statusTag.className = 'status-tag status-locked';
+          statusTag.innerText = '🔒 สถานะ: กำลังขึ้นแบบ (ยังไม่เปิดให้ดาวน์โหลด)';
+          downloadBtn.className = 'btn-download';
+          downloadBtn.removeAttribute('href');
+        }
+      }
       // แคตตาล็อก
       if (cfg.catalog && cfg.catalog.length > 0) {
         catalogContainer.innerHTML = cfg.catalog.map(item => `
@@ -654,7 +673,15 @@
         catalogContainer.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #a0aec0; padding: 20px 0;">พร้อมเชื่อมต่อแคตตาล็อก</p>';
       });
   }
+let isReadyToDownload = false;
 
+  function checkDownloadReady(e) {
+    if (!isReadyToDownload) {
+      e.preventDefault();
+      alert('⚠️ แบบการ์ดกำลังอยู่ระหว่างจัดทำ ทีมงานจะปลดล็อกให้ดาวน์โหลดทันทีเมื่อตรวจแบบเรียบร้อยครับ');
+      return false;
+    }
+  }
   // รันระบบเริ่มต้นทันที
   renderCard();
   syncStoreConfig();
