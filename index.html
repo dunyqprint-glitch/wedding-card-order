@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DUNYA Print - การ์ดแต่งงานมินิมอล ใบละ 3 บาท</title>
-  <!-- สคริปต์สำหรับแปลงและดาวน์โหลดภาพการ์ด -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; }
     body { background-color: #fcfbf9; color: #2d3748; line-height: 1.6; padding-bottom: 70px; }
@@ -33,7 +31,6 @@
     .btn-primary { display: block; width: 100%; max-width: 360px; margin: 0 auto; background: #1a202c; color: #ffffff; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 14px rgba(0,0,0,0.12); cursor: pointer; border: none; transition: 0.2s; }
     .btn-primary:hover { background: #2d3748; }
     .btn-line { display: block; width: 100%; max-width: 360px; margin: 10px auto 0; background: #06c755; color: #ffffff; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
-    .btn-tool { background: #edf2f7; border: 1px solid #cbd5e0; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
     /* ตารางราคา & สเปก */
     .spec-list { list-style: none; margin-bottom: 16px; font-size: 14px; }
@@ -53,29 +50,12 @@
     .verified-badge { font-size: 11px; color: #2b6cb0; font-weight: 600; }
     .review-text { font-size: 13px; color: #4a5568; }
 
-    /* สตูดิโอออกแบบ 4x6 นิ้ว หน้า-หลัง */
-    .side-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
-    .tab-btn { flex: 1; max-width: 150px; padding: 10px; border: 1px solid #cbd5e0; background: #edf2f7; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; }
-    .tab-btn.active { background: #1a202c; color: #ffffff; border-color: #1a202c; }
-    .drop-zone { border: 2px dashed #cbd5e0; border-radius: 12px; padding: 18px; text-align: center; background: #fafafa; cursor: pointer; transition: 0.2s; margin-bottom: 14px; }
-    .drop-zone.dragover { border-color: #3182ce; background: #ebf8ff; }
-    .tool-bar { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
-    
-    .canvas-wrapper { width: 100%; max-width: 320px; aspect-ratio: 4/6; margin: 0 auto; position: relative; border-radius: 12px; overflow: hidden; background-color: #ffffff; background-size: cover; background-position: center; border: 1px solid #cbd5e0; box-shadow: 0 10px 25px rgba(0,0,0,0.12); touch-action: none; }
-    .element-box { position: absolute; cursor: move; user-select: none; padding: 4px; border: 1px dashed transparent; }
-    .element-box:hover, .element-box:focus-within { border-color: #3182ce; background: rgba(255, 255, 255, 0.45); }
-    .element-text { outline: none; font-size: 14px; text-align: center; white-space: pre-wrap; word-break: break-word; }
-    .element-img { max-width: 90px; max-height: 90px; display: block; pointer-events: none; }
-    .del-btn { position: absolute; top: -8px; right: -8px; background: #e53e3e; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; border: none; cursor: pointer; display: none; }
-    .element-box:hover .del-btn { display: block; }
-
-    /* แถบสถานะงาน & สิทธิ์ดาวน์โหลด */
+    /* Canva Preview & แถบสถานะดาวน์โหลด */
     .status-panel { border-top: 1px solid #edf2f7; margin-top: 20px; padding-top: 16px; text-align: center; }
     .status-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 12px; }
     .status-locked { background: #fed7d7; color: #9b2c2c; }
     .status-ready { background: #c6f6d5; color: #22543d; }
-    .btn-update { background: #2b6cb0; color: #fff; border: none; border-radius: 25px; padding: 12px 20px; font-weight: 700; cursor: pointer; width: 100%; max-width: 340px; margin: 0 auto 10px; display: block; font-size: 14px; }
-    .btn-download { display: block; width: 100%; max-width: 340px; margin: 0 auto; padding: 12px 20px; border-radius: 25px; font-weight: 700; font-size: 14px; border: none; background: #cbd5e0; color: #fff; cursor: not-allowed; }
+    .btn-download { display: block; width: 100%; max-width: 340px; margin: 0 auto; padding: 12px 20px; border-radius: 25px; font-weight: 700; font-size: 14px; border: none; background: #cbd5e0; color: #fff; cursor: not-allowed; text-decoration: none; }
     .btn-download.unlocked { background: #2f855a; cursor: pointer; box-shadow: 0 4px 12px rgba(47,133,90,0.3); }
 
     /* แคตตาล็อก Grid */
@@ -109,7 +89,7 @@
     </div>
     <h1 id="heroHeadlineDisplay">การ์ดแต่งงานมินิมอล ดีไซน์พรีเมียม<br><span style="color: #c53030;">เพียงใบละ 3 บาท!</span></h1>
     <p class="subhead">คมชัด กระดาษหนา ไม่ต้องเสียเวลาออกแบบเอง มีแคตตาล็อกยอดนิยมให้เลือก จบงานไวพร้อมส่งถึงหน้าบ้าน</p>
-    <a href="#custom-section" class="btn-primary">💍 กดเลือกแบบและสั่งทำการ์ดที่นี่</a>
+    <a href="#custom-section" class="btn-primary">💍 กดตรวจแบบและสั่งทำการ์ดที่นี่</a>
     <a id="heroLineBtn" href="https://line.me" target="_blank" class="btn-line">💬 สอบถามเพิ่มเติมผ่าน LINE</a>
   </section>
 
@@ -138,8 +118,8 @@
   <section class="card-section">
     <h2>รายละเอียดการ์ดมาตรฐาน DUNYA Print</h2>
     <ul class="spec-list">
-      <li><strong>ขนาด:</strong> 4 x 6 นิ้ว (ขนาดมาตรฐาน จับถนัดมือ)[cite: 1]</li>
-      <li><strong id="paperSpecDisplay">เนื้อกระดาษ:</strong> อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง[cite: 1]</li>
+      <li><strong>ขนาด:</strong> 4 x 6 นิ้ว (ขนาดมาตรฐาน จับถนัดมือ)</li>
+      <li><strong id="paperSpecDisplay">เนื้อกระดาษ:</strong> อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง</li>
       <li><strong>ระบบการพิมพ์:</strong> ความละเอียดสูง สีสด คมชัด ตัวหนังสืออ่านง่ายชัดเจน</li>
       <li><strong>รูปแบบ:</strong> การ์ดหน้าเดียว (Single-Sided) คลีนตามินิมอล</li>
     </ul>
@@ -219,19 +199,18 @@
           <span class="verified-badge">✔ สั่งพิมพ์ 500 ใบ</span>
         </div>
         <div class="stars" style="font-size: 13px;">★★★★★</div>
-        <p class="review-text">"ชอบระบบที่ให้ลองพิมพ์ชื่อบ่าวสาวดูในเว็บก่อนมากค่ะ เห็นภาพชัดเจนตั้งแต่ก่อนสั่ง ไม่ต้องเสียเวลารอดีไซเนอร์สเก็ตช์ คุ้มค่าเงินที่สุด แนะนำเลยค่ะ"</p>
+        <p class="review-text">"ชอบระบบที่ให้ตรวจแบบออนไลน์มากค่ะ เห็นภาพชัดเจนตั้งแต่ก่อนสั่ง ไม่ต้องเสียเวลารอดีไซเนอร์สเก็ตช์ คุ้มค่าเงินที่สุด แนะนำเลยค่ะ"</p>
       </div>
     </div>
   </section>
 
- <!-- ส่วนแสดงผล Canva Interactive Viewer & ระบบดาวน์โหลด -->
+  <!-- 5. ส่วนแสดงผล Canva Interactive Viewer & ระบบดาวน์โหลด -->
   <section class="card-section" id="custom-section">
     <h2>💍 ตัวอย่างการ์ดแต่งงานของคุณ (Canva Preview)</h2>
     <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 14px;">
       ตรวจทานชื่อ กำหนดการ และความถูกต้องของแบบได้สดๆ บนหน้าจอ
     </p>
 
-    <!-- กรอบแสดงผล Canva iframe สัดส่วน 4x6 นิ้ว -->
     <div style="position: relative; width: 100%; max-width: 360px; aspect-ratio: 4/6; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.12); border: 1px solid #cbd5e0; background: #fff;">
       <iframe 
         id="canvaViewer" 
@@ -246,19 +225,18 @@
       </div>
     </div>
 
-    <!-- สถานะและปุ่มดาวน์โหลด -->
-    <div class="status-panel" style="border-top: 1px solid #edf2f7; margin-top: 20px; padding-top: 16px; text-align: center;">
+    <div class="status-panel">
       <div id="clientStatusTag" class="status-tag status-locked">🔒 สถานะ: กำลังขึ้นแบบ (ยังไม่เปิดให้ดาวน์โหลด)</div>
-      
-      <a id="clientDownloadBtn" href="#" target="_blank" class="btn-download" style="text-decoration: none;" onclick="return checkDownloadReady(event)">
+      <a id="clientDownloadBtn" href="#" target="_blank" class="btn-download" onclick="return checkDownloadReady(event)">
         📥 ดาวน์โหลดไฟล์การ์ดจริง (ความละเอียดสูง)
       </a>
     </div>
   </section>
+
   <!-- 6. แคตตาล็อก -->
   <section class="card-section">
     <h2>แคตตาล็อกดีไซน์สำเร็จรูป</h2>
-    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 12px;">คลิกที่ลายเพื่อนำมาใช้เป็นภาพพื้นหลัง หรือจดรหัสไปกรอกในฟอร์ม</p>
+    <p style="text-align: center; font-size: 12px; color: #718096; margin-bottom: 12px;">จดรหัสแบบที่ชอบเพื่อนำไปกรอกในฟอร์มสั่งทำ</p>
     <div id="catalog-container" class="catalog-grid">
       <p style="grid-column: span 2; text-align: center; color: #a0aec0; padding: 20px 0;">กำลังโหลดดีไซน์การ์ด...</p>
     </div>
@@ -312,7 +290,7 @@
     <p style="font-size: 15px; font-weight: 700; color: #1a202c; margin-bottom: 6px;">"เตรียมงานแต่งอย่างสบายใจ ไม่ต้องแบกรับค่าการ์ดหลักหมื่น ได้งานสวยตรงปกแน่นอน"</p>
     <p style="font-size: 13px; color: #718096; margin-bottom: 20px;">สเปกการ์ด 3 บาท คมชัด อยู่ทรง พร้อมบริการตรวจแบบอย่างใส่ใจ</p>
     
-    <a id="mainOrderBtn" href="#" target="_blank" class="btn-primary" style="margin-bottom: 12px;">📲 สั่งทำการ์ดแต่งงาน (คลิกกรอกแบบฟอร์ม)[cite: 1, 2]</a>
+    <a id="mainOrderBtn" href="#" target="_blank" class="btn-primary" style="margin-bottom: 12px;">📲 สั่งทำการ์ดแต่งงาน (คลิกกรอกแบบฟอร์ม)</a>
     <a id="mainLineBtn" href="https://line.me" target="_blank" class="btn-line">💬 สอบถามเพิ่มเติมผ่าน LINE</a>
   </section>
 
@@ -342,218 +320,18 @@
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // 2. ข้อมูลผืนผ้าใบสตูดิโอ 4x6 นิ้ว (หน้า-หลัง)
-  let currentSide = 'front';
-  let isWorkFinished = false;
+  // 2. ระบบตรวจสอบสิทธิ์ดาวน์โหลด
+  let isReadyToDownload = false;
 
-  const cardData = {
-    front: {
-      bg: '',
-      elements: [
-        { type: 'text', content: 'Wedding Invitation', top: '14%', left: '20%', fontSize: '12px', color: '#718096', bold: false },
-        { type: 'text', content: 'กิตติศักดิ์ & พิมพ์มาดา', top: '35%', left: '15%', fontSize: '18px', color: '#1a202c', bold: true },
-        { type: 'text', content: 'วันเสาร์ที่ 14 พฤศจิกายน 2026\nโรงแรมพรีเมียม กรุงเทพฯ', top: '68%', left: '16%', fontSize: '12px', color: '#4a5568', bold: false }
-      ]
-    },
-    back: {
-      bg: '',
-      elements: [
-        { type: 'text', content: 'กำหนดการพิธีมงคลสมรส', top: '12%', left: '20%', fontSize: '15px', color: '#1a202c', bold: true },
-        { type: 'text', content: '07:09 น. พิธีสงฆ์\n08:29 น. พิธีสู่ขอและหลั่งน้ำพระพุทธมนต์\n11:30 น. ร่วมรับประทานอาหาร', top: '28%', left: '12%', fontSize: '12px', color: '#4a5568', bold: false },
-        { type: 'text', content: 'สแกนเพื่อเปิดแผนที่ Google Maps', top: '70%', left: '18%', fontSize: '11px', color: '#718096', bold: false }
-      ]
-    }
-  };
-
-  const canvas = document.getElementById('cardCanvas');
-  const dropZone = document.getElementById('dropZone');
-
-  function switchSide(side) {
-    currentSide = side;
-    document.getElementById('tabFront').classList.toggle('active', side === 'front');
-    document.getElementById('tabBack').classList.toggle('active', side === 'back');
-    renderCard();
-  }
-
-  function renderCard() {
-    canvas.innerHTML = '';
-    const data = cardData[currentSide];
-    canvas.style.backgroundImage = data.bg ? `url('${data.bg}')` : 'none';
-
-    data.elements.forEach((item, index) => {
-      const elBox = document.createElement('div');
-      elBox.className = 'element-box';
-      elBox.style.top = item.top;
-      elBox.style.left = item.left;
-
-      const del = document.createElement('button');
-      del.className = 'del-btn';
-      del.innerText = '✕';
-      del.onclick = (e) => { e.stopPropagation(); removeElement(index); };
-      elBox.appendChild(del);
-
-      if (item.type === 'text') {
-        const txt = document.createElement('div');
-        txt.className = 'element-text';
-        txt.contentEditable = "true";
-        txt.innerText = item.content;
-        txt.style.fontSize = item.fontSize;
-        txt.style.color = item.color;
-        txt.style.fontWeight = item.bold ? 'bold' : 'normal';
-        txt.oninput = () => { item.content = txt.innerText; };
-        elBox.appendChild(txt);
-      } else if (item.type === 'image') {
-        const img = document.createElement('img');
-        img.className = 'element-img';
-        img.src = item.src;
-        elBox.appendChild(img);
-      }
-
-      makeDraggable(elBox, item);
-      canvas.appendChild(elBox);
-    });
-  }
-
-  function makeDraggable(element, item) {
-    let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
-
-    const startDrag = (clientX, clientY) => {
-      startX = clientX;
-      startY = clientY;
-      initialLeft = element.offsetLeft;
-      initialTop = element.offsetTop;
-    };
-
-    const doDrag = (clientX, clientY) => {
-      const dx = clientX - startX;
-      const dy = clientY - startY;
-      const newTop = initialTop + dy;
-      const newLeft = initialLeft + dx;
-      element.style.top = newTop + 'px';
-      element.style.left = newLeft + 'px';
-      item.top = newTop + 'px';
-      item.left = newLeft + 'px';
-    };
-
-    element.onmousedown = (e) => {
-      if (e.target.contentEditable === "true") return;
+  function checkDownloadReady(e) {
+    if (!isReadyToDownload) {
       e.preventDefault();
-      startDrag(e.clientX, e.clientY);
-      document.onmouseup = () => { document.onmouseup = null; document.onmousemove = null; };
-      document.onmousemove = (ev) => doDrag(ev.clientX, ev.clientY);
-    };
-
-    element.ontouchstart = (e) => {
-      if (e.target.contentEditable === "true") return;
-      const touch = e.touches[0];
-      startDrag(touch.clientX, touch.clientY);
-      document.ontouchend = () => { document.ontouchend = null; document.ontouchmove = null; };
-      document.ontouchmove = (ev) => {
-        const t = ev.touches[0];
-        doDrag(t.clientX, t.clientY);
-      };
-    };
-  }
-
-  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
-  dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
-  dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    if (e.dataTransfer.files.length > 0) handleBgSelect(e.dataTransfer.files[0]);
-  });
-
-  function handleBgSelect(file) {
-    if (!file || !file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      cardData[currentSide].bg = e.target.result;
-      renderCard();
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function addTextBox() {
-    cardData[currentSide].elements.push({
-      type: 'text',
-      content: 'พิมพ์ข้อความใหม่',
-      top: '48%',
-      left: '25%',
-      fontSize: '13px',
-      color: '#1a202c',
-      bold: false
-    });
-    renderCard();
-  }
-
-  function handleAddImage(file) {
-    if (!file || !file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      cardData[currentSide].elements.push({
-        type: 'image',
-        src: e.target.result,
-        top: '40%',
-        left: '35%'
-      });
-      renderCard();
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function removeElement(index) {
-    cardData[currentSide].elements.splice(index, 1);
-    renderCard();
-  }
-
-  function resetCurrentSide() {
-    if (confirm('คุณต้องการล้างข้อมูลด้านนี้ใช่หรือไม่?')) {
-      cardData[currentSide].bg = '';
-      cardData[currentSide].elements = [];
-      renderCard();
+      alert('⚠️ แบบการ์ดกำลังอยู่ระหว่างจัดทำ ทีมงานจะปลดล็อกให้ดาวน์โหลดทันทีเมื่อตรวจแบบเรียบร้อยครับ');
+      return false;
     }
   }
 
-  function toggleJobDone() {
-    isWorkFinished = !isWorkFinished;
-    const statusLabel = document.getElementById('statusLabel');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    if (isWorkFinished) {
-      statusLabel.className = 'status-tag status-ready';
-      statusLabel.innerText = '✅ สถานะ: อัปเดตงานเรียบร้อย (พร้อมให้ดาวน์โหลด)';
-      downloadBtn.className = 'btn-download unlocked';
-      downloadBtn.disabled = false;
-      alert('ปลดล็อกเรียบร้อย! สามารถดาวน์โหลดภาพการ์ดตัวอย่างได้แล้ว');
-    } else {
-      statusLabel.className = 'status-tag status-locked';
-      statusLabel.innerText = '🔒 สถานะ: รอทีมงานตรวจสอบและอัปเดตงาน';
-      downloadBtn.className = 'btn-download';
-      downloadBtn.disabled = true;
-    }
-  }
-
-  function downloadCurrentCard() {
-    if (!isWorkFinished) {
-      alert('ระบบยังล็อกอยู่ ไม่สามารถดาวน์โหลดได้');
-      return;
-    }
-    document.querySelectorAll('.element-box').forEach(el => el.style.borderColor = 'transparent');
-    html2canvas(canvas, { scale: 3, useCORS: true }).then(cv => {
-      const link = document.createElement('a');
-      link.download = `dunya-wedding-card-${currentSide}.png`;
-      link.href = cv.toDataURL('image/png');
-      link.click();
-    });
-  }
-
-  function applyTemplate(imgSrc) {
-    cardData[currentSide].bg = imgSrc;
-    renderCard();
-    window.location.hash = 'custom-section';
-  }
-
-  // 3. ซิงก์ข้อมูลจาก config.json พร้อมระบบป้องกันหน้าจอขาว (Fallback Defaults)
+  // 3. ซิงก์ข้อมูลจาก config.json
   async function syncStoreConfig() {
     const catalogContainer = document.getElementById('catalog-container');
     try {
@@ -602,13 +380,15 @@
         if (pSection) pSection.style.display = cfg.promo.active ? 'block' : 'none';
         if (cfg.promo.notice) document.getElementById('promoNoticeDisplay').innerText = cfg.promo.notice;
       }
-// ดึง iframe Canva มาแสดงผล
+
+      // ดึง iframe Canva มาแสดงผล
       const canvaFrame = document.getElementById('canvaViewer');
       const placeholder = document.getElementById('canvaPlaceholder');
       if (cfg.canvaEmbedUrl && canvaFrame) {
         canvaFrame.src = cfg.canvaEmbedUrl;
         if (placeholder) placeholder.style.display = 'none';
       }
+
       // ตรวจสอบสถานะการปลดล็อกดาวน์โหลด
       const statusTag = document.getElementById('clientStatusTag');
       const downloadBtn = document.getElementById('clientDownloadBtn');
@@ -627,10 +407,11 @@
           downloadBtn.removeAttribute('href');
         }
       }
-      // แคตตาล็อก
+
+      // แสดงแคตตาล็อก
       if (cfg.catalog && cfg.catalog.length > 0) {
         catalogContainer.innerHTML = cfg.catalog.map(item => `
-          <div class="catalog-item" onclick="applyTemplate('${item.imageUrl}')">
+          <div class="catalog-item" onclick="selectDesign('${item.code}')">
             <img src="${item.imageUrl}" alt="${item.code}" onerror="this.src='https://via.placeholder.com/150x225?text=Wedding+Card'">
             <div class="code">${item.code}</div>
             <div class="desc">${item.name}</div>
@@ -640,7 +421,6 @@
         fetchFromGitHubRepo();
       }
     } catch (e) {
-      // หากไฟล์ config.json ยังไม่พร้อม ให้ดึงตรงจากคลัง GitHub อัตโนมัติ
       fetchFromGitHubRepo();
     }
   }
@@ -658,7 +438,7 @@
             const code = `DN-${String(i + 1).padStart(2, '0')}`;
             const cleanName = img.name.replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
             return `
-              <div class="catalog-item" onclick="applyTemplate('${img.name}')">
+              <div class="catalog-item" onclick="selectDesign('${code}')">
                 <img src="${img.name}" alt="${code}">
                 <div class="code">${code}</div>
                 <div class="desc">${cleanName}</div>
@@ -673,17 +453,14 @@
         catalogContainer.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #a0aec0; padding: 20px 0;">พร้อมเชื่อมต่อแคตตาล็อก</p>';
       });
   }
-let isReadyToDownload = false;
 
-  function checkDownloadReady(e) {
-    if (!isReadyToDownload) {
-      e.preventDefault();
-      alert('⚠️ แบบการ์ดกำลังอยู่ระหว่างจัดทำ ทีมงานจะปลดล็อกให้ดาวน์โหลดทันทีเมื่อตรวจแบบเรียบร้อยครับ');
-      return false;
-    }
+  // กดที่การ์ดแล้วเลื่อนลงไปที่ปุ่มสั่งทำพร้อมแจ้งเตือนรหัส
+  function selectDesign(code) {
+    alert('คุณเลือกลายรหัส: ' + code + ' (นำรหัสนี้ไปกรอกในฟอร์มสั่งทำ)');
+    document.getElementById('mainOrderBtn').scrollIntoView({ behavior: 'smooth' });
   }
-  // รันระบบเริ่มต้นทันที
-  renderCard();
+
+  // รันระบบดึงข้อมูลทันทีเมื่อเปิดเว็บ
   syncStoreConfig();
 </script>
 
