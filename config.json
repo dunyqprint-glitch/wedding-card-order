@@ -1,12 +1,12 @@
 {
-  "orderFormUrl": "https://your-notion-or-tally-form-url.com",
+  "orderFormUrl": "https://your-form-url.com",
   "lineUrl": "https://line.me/ti/p/~YOUR_LINE_ID",
-  "heroHeadline": "การ์ดแต่งงานมินิมอล สวยพรีเมียม<br><span style=\"color: #c53030;\">เพียงใบละ 3 บาท!</span>",
+  "heroHeadline": "การ์ดแต่งงานมินิมอล ดีไซน์พรีเมียม<br><span style=\"color: #c53030;\">เพียงใบละ 3 บาท!</span>",
   "paperSpec": "อาร์ตการ์ดขาวพรีเมียม หนา 230–260 แกรม สัมผัสเรียบหรู อยู่ทรง ไม่บาง",
   "prices": {
     "p100": 3.5,
-    "p200": 3,
-    "p300": 3,
+    "p200": 3.0,
+    "p300": 3.0,
     "p500": 2.8,
     "note": "(หมายเหตุ: ราคายังไม่รวมค่าจัดส่งพัสดุตามจริง)"
   },
@@ -15,5 +15,7 @@
     "hours": 8,
     "notice": "⚠️ สิทธิ์โปรโมชันนี้เหลือเพียง 7 คิวสุดท้ายของวันนี้เท่านั้น"
   },
-  "catalog": []
+  "canvaEmbedUrl": "https://www.canva.com/design/DAGxxxxxxxx/view?embed",
+  "isCompleted": false,
+  "downloadUrl": ""
 }
