@@ -371,7 +371,33 @@
   function goToOrder() {
     window.open(NOTION_FORM_URL, '_blank');
   }
-</script>
+<script>
+  // ดึงข้อมูลที่แอดมินแก้ไขมาแสดงผลบนเซลล์เพจ
+  window.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('dunya_global_config');
+    if (saved) {
+      const config = JSON.parse(saved);
+      // เปลี่ยนข้อความพาดหัวและสเปก
+      const headlineEl = document.querySelector('.hero h1');
+      if (headlineEl && config.heroHeadline) headlineEl.innerHTML = config.heroHeadline;
+      
+      // อัปเดตราคาในตาราง
+      const rows = document.querySelectorAll('#priceBox tbody tr');
+      if (rows.length >= 4) {
+        rows[0].children[1].innerText = parseFloat(config.price100).toFixed(2) + " บ.";
+        rows[0].children[2].innerText = (parseFloat(config.price100) * 100).toLocaleString() + " บ.";
 
+        rows[1].children[1].innerText = parseFloat(config.price200).toFixed(2) + " บ.";
+        rows[1].children[2].innerText = (parseFloat(config.price200) * 200).toLocaleString() + " บ.";
+
+        rows[2].children[1].innerText = parseFloat(config.price300).toFixed(2) + " บ.";
+        rows[2].children[2].innerText = (parseFloat(config.price300) * 300).toLocaleString() + " บ.";
+
+        rows[3].children[1].innerText = parseFloat(config.price500).toFixed(2) + " บ.";
+        rows[3].children[2].innerText = (parseFloat(config.price500) * 500).toLocaleString() + " บ.";
+      }
+    }
+  });
+</script>
 </body>
 </html>
