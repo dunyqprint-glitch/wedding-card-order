@@ -18,15 +18,13 @@
     .btn-save { width: 100%; background: #2f855a; color: #fff; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 24px; }
     .btn-save:disabled { background: #a0aec0; cursor: not-allowed; }
 
-    /* การจัดการแคตตาล็อก */
+    /* แคตตาล็อก */
     .catalog-item-row { display: flex; align-items: center; gap: 12px; background: #f7fafc; border: 1px solid #edf2f7; border-radius: 10px; padding: 10px; margin-bottom: 10px; }
     .thumb-preview { width: 50px; height: 75px; object-fit: cover; border-radius: 6px; background: #e2e8f0; flex-shrink: 0; }
     .catalog-details { flex-grow: 1; }
     .catalog-details strong { font-size: 13px; color: #2d3748; }
     .catalog-details p { font-size: 11px; color: #718096; word-break: break-all; margin-top: 2px; }
     .btn-del { background: #fed7d7; color: #9b2c2c; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
-    
-    /* กล่องเพิ่มลายใหม่ */
     .add-box { background: #ebf8ff; border: 1px dashed #bee3f8; border-radius: 10px; padding: 14px; margin-top: 14px; }
     .preview-box-live { width: 70px; height: 105px; object-fit: cover; border-radius: 6px; background: #fff; border: 1px solid #cbd5e0; display: block; margin: 8px auto 0; }
     .btn-add { background: #3182ce; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; }
@@ -37,25 +35,25 @@
 <div class="container">
   <h1>⚙️ จัดการข้อมูลหน้าร้าน DUNYA Print</h1>
 
-  <!-- 1. ความปลอดภัย & Token -->
+  <!-- ความปลอดภัย -->
   <div class="auth-box">
     <label style="color: #744210;">🔑 GitHub Personal Access Token (PAT):</label>
     <input type="password" id="ghToken" placeholder="วาง ghp_... ของคุณที่นี่ (ระบบจะจำไว้ในเครื่องนี้)" style="background:#fff; margin-top:4px;">
-    <p style="font-size: 11px; color: #975a16; margin-top: 4px;">* ใช้สิทธิ์ส่งคำขอแก้ไข config.json เข้าคลัง GitHub โดยตรง</p>
+    <p style="font-size: 11px; color: #975a16; margin-top: 4px;">* ใช้สิทธิ์บันทึกไฟล์ config.json เข้าคลัง GitHub โดยตรง</p>
   </div>
 
-  <!-- 2. ลิงก์ปลายทางหน้าร้าน -->
+  <!-- 1. ลิงก์ฟอร์ม & LINE -->
   <div class="section-title">1. ลิงก์แบบฟอร์ม & ช่องทางติดต่อ</div>
   <div class="form-group">
-    <label>URL แบบฟอร์มสั่งทำ (Notion Form หรือ Tally Form):</label>
+    <label>URL แบบฟอร์มสั่งทำ (Notion หรือ Tally):</label>
     <input type="url" id="orderFormUrl" placeholder="https://...">
   </div>
   <div class="form-group">
-    <label>URL หรือ ลิงก์เพิ่มเพื่อน LINE:</label>
+    <label>URL ลิงก์ LINE ติดต่อ:</label>
     <input type="text" id="lineUrl" placeholder="https://line.me/ti/p/~...">
   </div>
 
-  <!-- 3. ข้อความหลัก & สเปก -->
+  <!-- 2. ข้อความหน้าแรก -->
   <div class="section-title">2. ข้อความหน้าแรก & สเปกสินค้า</div>
   <div class="form-group">
     <label>พาดหัวหลัก (Hero Headline):</label>
@@ -66,7 +64,7 @@
     <input type="text" id="paperSpec">
   </div>
 
-  <!-- 4. ตารางราคา -->
+  <!-- 3. ตารางราคา -->
   <div class="section-title">3. ตารางราคา (บาท/ใบ)</div>
   <div class="grid-2">
     <div class="form-group">
@@ -93,7 +91,7 @@
     <input type="text" id="priceNote">
   </div>
 
-  <!-- 5. โปรโมชันนับถอยหลัง -->
+  <!-- 4. โปรโมชัน -->
   <div class="section-title">4. โปรโมชันนับถอยหลัง (Urgency)</div>
   <div class="grid-2">
     <div class="form-group">
@@ -113,11 +111,10 @@
     <input type="text" id="promoNotice">
   </div>
 
-  <!-- 6. จัดการแคตตาล็อก & พรีวิวรูปสด -->
+  <!-- 5. แคตตาล็อก -->
   <div class="section-title">5. จัดการลายการ์ดในแคตตาล็อก</div>
   <div id="catalogList"></div>
 
-  <!-- กล่องเพิ่มลายการ์ดใหม่ผ่านลิงก์ -->
   <div class="add-box">
     <strong style="font-size: 13px; color: #2b6cb0;">➕ เพิ่มลายการ์ดใหม่ผ่าน URL รูปภาพ</strong>
     <div class="grid-2" style="margin-top: 8px;">
@@ -131,18 +128,39 @@
       </div>
     </div>
     <div class="form-group">
-      <label>ลิงก์ URL รูปภาพ (หรือชื่อไฟล์ใน GitHub):</label>
-      <input type="text" id="newCardImgUrl" placeholder="วางลิงก์รูปภาพ https://... หรือชื่อไฟล์ .png" oninput="previewNewImage(this.value)">
+      <label>ลิงก์ URL รูปภาพ:</label>
+      <input type="text" id="newCardImgUrl" placeholder="https://... หรือชื่อไฟล์ .png" oninput="previewNewImage(this.value)">
     </div>
     
     <div style="text-align: center;">
-      <span style="font-size: 11px; color: #718096;">ตัวอย่างภาพที่ตรวจพบ:</span>
+      <span style="font-size: 11px; color: #718096;">ตัวอย่างภาพ:</span>
       <img id="livePreviewImg" src="" alt="พรีวิว" class="preview-box-live" onerror="this.src='https://via.placeholder.com/70x105?text=No+Image'">
     </div>
 
     <button type="button" class="btn-add" onclick="addNewCardItem()">เพิ่มลายนี้เข้าแคตตาล็อก</button>
   </div>
 
+  <!-- 6. ส่วน Canva ที่เพิ่มต่อแถวตรงนี้ (เหนือปุ่มบันทึก) -->
+  <div class="section-title">6. จัดการดีไซน์ Canva & ลิงก์ส่งมอบงาน</div>
+  <div class="form-group">
+    <label>ลิงก์ Canva View-only Embed (URL ใน src):</label>
+    <input type="url" id="canvaEmbedUrl" placeholder="https://www.canva.com/design/.../view?embed">
+  </div>
+  <div class="grid-2">
+    <div class="form-group">
+      <label>สถานะงานพิมพ์ / ปลดล็อกดาวน์โหลด:</label>
+      <select id="isCompletedSelect">
+        <option value="false">🔒 กำลังขึ้นแบบ (ล็อกดาวน์โหลด)</option>
+        <option value="true">✅ ตรวจแบบเสร็จแล้ว (ปลดล็อกดาวน์โหลด)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>ลิงก์ดาวน์โหลดไฟล์จริง (Google Drive):</label>
+      <input type="url" id="downloadUrl" placeholder="https://drive.google.com/...">
+    </div>
+  </div>
+
+  <!-- ปุ่มบันทึก -->
   <button type="button" class="btn-save" id="btnSave" onclick="saveToGitHub()">💾 บันทึกการเปลี่ยนแปลงทั้งหมดขึ้น GitHub</button>
 </div>
 
@@ -187,6 +205,11 @@
 
       catalogItems = content.catalog || [];
       renderCatalogList();
+
+      // ดึงข้อมูล Canva
+      document.getElementById('canvaEmbedUrl').value = content.canvaEmbedUrl || '';
+      document.getElementById('isCompletedSelect').value = String(content.isCompleted || false);
+      document.getElementById('downloadUrl').value = content.downloadUrl || '';
     } catch (err) {
       alert('แจ้งเตือน: ' + err.message);
     }
@@ -270,7 +293,10 @@
         hours: parseInt(document.getElementById('promoHours').value) || 8,
         notice: document.getElementById('promoNotice').value
       },
-      catalog: catalogItems
+      catalog: catalogItems,
+      canvaEmbedUrl: document.getElementById('canvaEmbedUrl').value.trim(),
+      isCompleted: document.getElementById('isCompletedSelect').value === 'true',
+      downloadUrl: document.getElementById('downloadUrl').value.trim()
     };
 
     const utf8Bytes = encodeURIComponent(JSON.stringify(updatedConfig, null, 2)).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1));
@@ -284,7 +310,7 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          message: 'Admin: Update store config & catalog via admin panel',
+          message: 'Admin: Update store config, catalog & Canva embed',
           content: base64Content,
           sha: currentFileSha
         })
@@ -297,7 +323,7 @@
 
       const resData = await res.json();
       currentFileSha = resData.content.sha;
-      alert('✅ บันทึกข้อมูลและอัปเดตแคตตาล็อกขึ้น GitHub สำเร็จแล้ว!');
+      alert('✅ บันทึกข้อมูลและสถานะ Canva ขึ้น GitHub เรียบร้อยแล้ว!');
     } catch (err) {
       alert('เกิดข้อผิดพลาด: ' + err.message);
     } finally {
